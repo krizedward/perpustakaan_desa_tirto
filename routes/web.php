@@ -15,6 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/kategori','CategoryController@index');
+Route::get('/kategori/form-tambah','CategoryController@create');
+Route::post('/kategori/tambah','CategoryController@store');
+Route::get('/kategori/form-edit/{slug}','CategoryController@edit');
+Route::put('/kategori/update/{id}','CategoryController@update');
+Route::get('/kategori/hapus/{id}','CategoryController@destroy');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
