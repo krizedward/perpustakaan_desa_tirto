@@ -23,6 +23,11 @@ class CreateBooksTable extends Migration
             $table->string('status');
             $table->string('slug');
             $table->timestamps();
+
+            $table->foreign('category_id')
+            ->references('id')
+            ->on('categories')
+            ->onDelete('cascade');
         });
     }
 

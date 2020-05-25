@@ -7,7 +7,7 @@ use App\Models\Category;
 
 class Book extends Model
 {
-    protected $fillable = ['id','category_id','title','description','stock','image_cover','status'];
+    protected $fillable = ['id','category_id','title','description','stock','image_cover','status','slug'];
 
     public function category()
     {
