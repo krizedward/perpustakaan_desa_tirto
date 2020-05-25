@@ -21,6 +21,7 @@ class CreateBooksTable extends Migration
             $table->integer('stock');
             $table->string('image_cover');
             $table->string('status');
+            $table->string('slug');
             $table->timestamps();
         });
     }
