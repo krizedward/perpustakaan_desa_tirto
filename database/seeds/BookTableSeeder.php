@@ -19,7 +19,7 @@ class BookTableSeeder extends Seeder
 			'description'	=> 'buku baru',
 			'stock'			=> '3',
 			'image_cover'	=> 'cover.img',
-			'status'		=> 'dipinjam',
+			'status'		=> 'active',
 			'slug'			=> 'kancil-muncuri-mentimun',
         ]);
 
@@ -30,7 +30,7 @@ class BookTableSeeder extends Seeder
 			'description'	=> 'buku baru',
 			'stock'			=> '3',
 			'image_cover'	=> 'cover.img',
-			'status'		=> 'dipinjam',
+			'status'		=> 'active',
 			'slug'			=> 'maling-kundang',
         ]);
     }

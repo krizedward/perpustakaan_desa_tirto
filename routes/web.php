@@ -30,13 +30,12 @@ Route::get('/buku/form-edit/{slug}','BookController@edit');
 Route::put('/buku/update/{id}','BookController@update');
 Route::get('/buku/hapus/{id}','BookController@destroy');
 
-Route::get('/pinjam','BookController@index');
-Route::get('/pinjam/form-tambah','BookController@create');
-Route::post('/pinjam/tambah','BookController@store');
-Route::get('/pinjam/detail/{slug}','BookController@show');
-Route::get('/pinjam/form-edit/{slug}','BookController@edit');
-Route::put('/pinjam/update/{id}','BookController@update');
-Route::get('/pinjam/hapus/{id}','BookController@destroy');
+Route::get('/pinjam','BorrowController@index');
+Route::get('/pinjam/form-tambah','BorrowController@create');
+Route::post('/pinjam/tambah','BorrowController@store');
+Route::get('/pinjam/detail/{slug}','BorrowController@show');
+Route::get('/kembali/buku/{id}','BorrowController@update');
+Route::get('/kembali','BorrowController@return');
 
 Auth::routes();
 

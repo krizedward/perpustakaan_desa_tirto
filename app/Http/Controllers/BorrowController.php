@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Borrow;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BorrowController extends Controller
@@ -14,7 +16,19 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        //
+        $data = Borrow::where('status','borrow')->get();
+        return view('borrow.index',compact('data'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function return()
+    {
+        $data = Borrow::where('status','return')->get();
+        return view('borrow.return',compact('data'));
     }
 
     /**
@@ -24,7 +38,9 @@ class BorrowController extends Controller
      */
     public function create()
     {
-        //
+        $user = User::all();
+        $book = Book::all();
+        return view('borrow.create', compact('user','book'));
     }
 
     /**
@@ -35,7 +51,17 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'user'   => 'required',
+            'book'   => 'required',
+        ]);
+
+        Borrow::create([
+            'user_id'   => $request->user,
+            'book_id'   => $request->book,
+            'status'    => "borrow",
+        ]);
+        return redirect('/pinjam');
     }
 
     /**
@@ -46,18 +72,7 @@ class BorrowController extends Controller
      */
     public function show(Borrow $borrow)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Borrow  $borrow
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Borrow $borrow)
-    {
-        //
+        return view('borrow.show');
     }
 
     /**
@@ -67,19 +82,12 @@ class BorrowController extends Controller
      * @param  \App\Models\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Borrow $borrow)
+    public function update($id)
     {
-        //
-    }
+        Borrow::where('id',$id)->update([
+            'status' => 'return'
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Borrow  $borrow
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Borrow $borrow)
-    {
-        //
+        return redirect('/pinjam');
     }
 }
