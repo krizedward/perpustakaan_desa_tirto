@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
+use App\Models\Borrow;
+use App\Models\Member;
 
 class HomeController extends Controller
 {
@@ -24,5 +27,14 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function admin()
+    {
+        $book   = Book::orderBy('updated_at', 'desc')->paginate(4);
+        $borrow = Borrow::all();
+        $member = Member::orderBy('updated_at', 'desc')->paginate(4);
+
+        return view('layouts.dashboard', compact('book','borrow','member'));
     }
 }

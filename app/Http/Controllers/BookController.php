@@ -59,10 +59,12 @@ class BookController extends Controller
             'description'   => $request->description,
             'stock'         => $request->stock,
             'image_cover'   => $file->getClientOriginalName(),
-            'status'        => "Active",
+            'status'        => "active",
             'slug'          => \Str::slug($request->title),
         ]);
         
+        \Session::flash('sukses','Data buku berhasil di tambah');
+
         return redirect('/buku');
     }
 
@@ -139,5 +141,25 @@ class BookController extends Controller
         Book::where('id',$id)->delete();
 
         return redirect('/buku');
+    }
+
+    public function passive($id)
+    {
+        Book::where('id',$id)->update(['status'=>'passive']);
+
+        return redirect('/buku');
+    }
+
+    public function activation($id)
+    {
+        Book::where('id',$id)->update(['status'=>'active']);
+
+        return redirect('/buku');
+    }
+
+    public function landing()
+    {
+        $data = Book::all();
+        return view('home',compact('data'));
     }
 }

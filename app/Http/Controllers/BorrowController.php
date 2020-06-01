@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Models\Borrow;
 use App\Models\Book;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class BorrowController extends Controller
@@ -38,7 +38,7 @@ class BorrowController extends Controller
      */
     public function create()
     {
-        $user = User::all();
+        $user = Member::all();
         $book = Book::all();
         return view('borrow.create', compact('user','book'));
     }
@@ -56,12 +56,31 @@ class BorrowController extends Controller
             'book'   => 'required',
         ]);
 
-        Borrow::create([
-            'user_id'   => $request->user,
-            'book_id'   => $request->book,
-            'status'    => "borrow",
-        ]);
-        return redirect('/pinjam');
+        $cek = Book::where('id',$request->book)->where('stock','>',0)->where('status','active')->count();
+
+        if($cek > 0){
+            Borrow::create([
+                'member_id'   => $request->user,
+                'book_id'   => $request->book,
+                'status'    => "borrow",
+            ]);
+ 
+            $buku       = Book::where('id',$request->book)->first();
+            $qty_now    = $buku->stock;
+            $qty_new    = $qty_now - 1;
+ 
+            Book::where('id',$request->book)->update([
+                'stock'=>$qty_new,
+            ]);
+ 
+            //\Session::flash('sukses','buku berhasil di pinjam');
+ 
+            return redirect('/pinjam');
+        }else{
+            //\Session::flash('gagal','buku sudah habis atau tidak aktif');
+            
+            return redirect('/pinjam');
+        }
     }
 
     /**
@@ -70,9 +89,10 @@ class BorrowController extends Controller
      * @param  \App\Models\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function show(Borrow $borrow)
+    public function show($id)
     {
-        return view('borrow.show');
+        $data = Borrow::where('id',$id)->first();
+        return view('borrow.show',compact('data'));
     }
 
     /**
@@ -84,9 +104,23 @@ class BorrowController extends Controller
      */
     public function update($id)
     {
+        $dt       = Borrow::find($id);
+        $id_buku    = $dt->book_id;
+
+        $buku = Book::find($id_buku);
+ 
+        $now = $buku->stock;
+        $stock_pengembalian = $now + 1;
+
         Borrow::where('id',$id)->update([
             'status' => 'return'
         ]);
+
+        Book::where('id',$id_buku)->update([
+            'stock'=>$stock_pengembalian
+        ]);
+
+        //return dd($id_buku);
 
         return redirect('/pinjam');
     }

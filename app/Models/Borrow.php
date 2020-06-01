@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Book;
+use App\Models\Member;
 
 class Borrow extends Model
 {
-    protected $fillable = ['id','book_id','user_id','status'];
+    protected $fillable = ['id','book_id','member_id','status'];
 
     public function book()
     {
     	return $this->belongsTo(Book::class);
     }
 
-    public function user()
+    public function member()
     {
-    	return $this->belongsTo('App\User');
+    	return $this->belongsTo(Member::class);
     }
 }

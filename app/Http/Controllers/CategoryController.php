@@ -45,6 +45,8 @@ class CategoryController extends Controller
             'slug'  => \Str::slug($request->name),
         ]);
 
+        \Session::flash('kategori_add','Data Kategori Berhasil Disimpan');
+
         return redirect('/kategori');
     }
 
@@ -78,6 +80,8 @@ class CategoryController extends Controller
             'slug'  =>  \Str::slug($request->name),
         ]);
 
+        \Session::flash('kategori_update','Data Kategori Berhasil Diubah');
+
         return redirect('/kategori');
     }
 
@@ -91,6 +95,8 @@ class CategoryController extends Controller
     {
         Category::where('id',$id)->delete();
 
+        \Session::flash('kategori_delete','Data Kategori Berhasil Dihapus');
+        
         return redirect('/kategori');
     }
 }

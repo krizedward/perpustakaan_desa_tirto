@@ -1,23 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.member')
+
+@section('title','Halaman utama')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
+  <!-- Main content -->
+  <section class="content">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <h3 class="box-title">Selamat Datang</h3>
+          </div>
+          <div class="box-body">
+            Tampilan halaman utama sementara
+          </div>
+          <!-- /.box-body -->
         </div>
-    </div>
+        <!-- /.box -->
+
+  </section>
+  <!-- /.content -->
 </div>
+<!-- /.container -->
 @endsection

@@ -18,7 +18,7 @@ class BookTableSeeder extends Seeder
 			'title'			=> 'kancil mencuri mentimun',
 			'description'	=> 'buku baru',
 			'stock'			=> '3',
-			'image_cover'	=> 'cover.img',
+			'image_cover'	=> 'cover.jpg',
 			'status'		=> 'active',
 			'slug'			=> 'kancil-muncuri-mentimun',
         ]);
@@ -29,7 +29,7 @@ class BookTableSeeder extends Seeder
 			'title'			=> 'maling kundang',
 			'description'	=> 'buku baru',
 			'stock'			=> '3',
-			'image_cover'	=> 'cover.img',
+			'image_cover'	=> 'cover.jpg',
 			'status'		=> 'active',
 			'slug'			=> 'maling-kundang',
         ]);
