@@ -51,8 +51,16 @@ class MemberController extends Controller
         
         if ($file) {
             
+            User::create([
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => bcrypt('12345678'),
+            ]);
+
+            $user = User::all()->last();
+
             Member::create([
-                'name'      =>  $request->name,
+                'user_id'   =>  $user->id,
                 'gender'    =>  $request->gender,
                 'phone'     =>  $request->phone,
                 'birthdate' =>  $request->birthdate,
@@ -60,20 +68,22 @@ class MemberController extends Controller
                 'expire_at' =>  $request->expired,
                 ]);
 
-            User::create([
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'password'  => bcrypt('12345678'),
-            ]);
-
                 //Move Uploaded File
                 $destinationPath = 'uploads';
                 $file->move($destinationPath,$file->getClientOriginalName());
 
         } else {
 
+            User::create([
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => bcrypt('12345678'),
+            ]);
+            
+            $user = User::all()->last();
+
             Member::create([
-                'name'      =>  $request->name,
+                'user_id'   =>  $user->id,
                 'gender'    =>  $request->gender,
                 'phone'     =>  $request->phone,
                 'birthdate' =>  $request->birthdate,
@@ -81,11 +91,6 @@ class MemberController extends Controller
                 'expire_at' =>  $request->expired,
             ]);
 
-            User::create([
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'password'  => bcrypt('12345678'),
-            ]);
         }
 
         
@@ -174,7 +179,7 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        Member::where('id',$id)->delete();
+        User::where('id',$id)->delete();
 
         return redirect('/anggota');
     }

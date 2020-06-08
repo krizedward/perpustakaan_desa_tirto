@@ -3,7 +3,7 @@
 <head>
   @include('layouts.admin._head')
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition {{ (Auth::user()->level == 'member') ? 'skin-red' : 'skin-blue' }} sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">

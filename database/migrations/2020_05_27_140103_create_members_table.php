@@ -15,13 +15,18 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->unsignedBigInteger('user_id');
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('image')->nullable();
             $table->date('expire_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
         });
     }
 

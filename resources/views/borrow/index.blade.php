@@ -46,6 +46,44 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
+          @if(Auth::user()->level == 'member')
+          <div class="box box-warning">
+            <div class="box-header">
+              <a href="{{ url('/pinjam/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Pinjam</a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nama Buku</th>
+                    <th>Kode Buku</th>
+                    <th>Nama Peminjam</th>
+                    <th>Tanggal Pinjam</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($data as $e=>$dt)
+                  @if(Auth::user()->id == $dt->member->user->id)
+                    <tr>
+                       <td>{{$e+1}}</td>
+                       <td>{{$dt->codebook->book->title}}</td>
+                       <td>{{$dt->codebook->code}}</td>
+                       <td>{{$dt->member->user->name}}</td>
+                       <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
+                       <td>{{($dt->status == 'borrow' ? 'Dipinjam' : 'Error')}}</td>
+                    </tr>
+                  @endif
+                @endforeach
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+          @else
           <div class="box box-warning">
             <div class="box-header">
               <a href="{{ url('/pinjam/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Pinjam</a>
@@ -56,7 +94,8 @@
                 <thead>
                 <tr>
                   	<th>#</th>
-                  	<th>Nama Buku</th>
+                    <th>Nama Buku</th>
+                  	<th>Kode Buku</th>
           					<th>Nama Peminjam</th>
           					<th>Tanggal Pinjam</th>
           					<th>Status</th>
@@ -67,21 +106,23 @@
                 @foreach($data as $e=>$dt)
                 <tr>
                    <td>{{$e+1}}</td>
-					         <td>{{$dt->book->title}}</td>
-					         <td>{{$dt->member->name}}</td>
+                   <td>{{$dt->codebook->book->title}}</td>
+					         <td>{{$dt->codebook->code}}</td>
+					         <td>{{$dt->member->user->name}}</td>
 					         <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
 					         <td>{{($dt->status == 'borrow' ? 'Dipinjam' : 'Error')}}</td>
 					         <td>
 			               <a class="btn btn-flat btn-xs btn-danger" href="{{url('/kembali/buku/'.$dt->id)}}">Kembali</a>
 					         </td>
                 </tr>
-	        	@endforeach
+	         	    @endforeach
                 </tbody>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+          @endif
         </div>
         <!-- /.col -->
       </div>

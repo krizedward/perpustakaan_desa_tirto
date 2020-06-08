@@ -58,6 +58,7 @@
                   <th>#</th>
                   <th>Foto</th>
                   <th>Nama</th>
+                  <th>Email</th>
                   <th>Telepon</th>
                   <th>Berkahir</th>
                   <th>Aksi</th>
@@ -68,14 +69,15 @@
                 <tr>
                   <td>{{$e+1}}</td>
                     <td><img src="{{ asset('uploads/'.$dt->image) }}" style="width: 50px;"></td>
-                    <td>{{$dt->name}}</td>
+                    <td>{{$dt->user->name}}</td>
+                    <td>{{$dt->user->email}}</td>
                     <td>{{$dt->phone}}</td>
                     <td>{{date('d-M-Y', strtotime($dt->expire_at))}}</td>
 
                     <td>
                       <a class="btn btn-flat btn-xs btn-info" href="{{url('/anggota/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
                       <a class="btn btn-flat btn-xs btn-warning" href="{{url('/anggota/form-edit/'.$dt->id)}}"><i class="fa fa-pencil"></i></a>
-                      <a class="btn btn-flat btn-xs btn-danger" href="{{url('/anggota/hapus/'.$dt->id)}}"><i class="fa fa-trash"></i></a>
+                      <a class="btn btn-flat btn-xs btn-danger" href="{{url('/anggota/hapus/'.$dt->user->id)}}"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
 	        	    @endforeach

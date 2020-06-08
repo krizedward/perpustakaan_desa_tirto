@@ -45,12 +45,12 @@
 	<!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Buku
+        Pinjam
         <small>Form</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Buku</a></li>
+        <li><a href="#">Pinjam</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -70,7 +70,7 @@
                             <select class="form-control select2" name="user">
                                 <option selected="" disabled="">Pilih Anggota</option>
                                 @foreach($user as $dt)
-                								<option value="{{$dt->id}}">{{$dt->name}}</option>
+                								<option value="{{$dt->id}}">{{$dt->user->name}}</option>
                 								@endforeach
                             </select>
                         </div>
@@ -79,9 +79,9 @@
                         	<label>Pilih Buku</label>
                             <select class="form-control select2" name="book">
                                 <option selected="" disabled="">Pilih Buku</option>
-                  								@foreach($book as $dt)
-                                    @if($dt->status == 'active')
-                  								    <option value="{{$dt->id}}">{{$dt->title}}</option>
+                  								@foreach($codebook as $dt)
+                                    @if($dt->status == 'available')
+                  								    <option value="{{$dt->id}}">[ {{$dt->code}} ] {{$dt->book->title}}</option>
                                     @endif
                   								@endforeach
                             </select>

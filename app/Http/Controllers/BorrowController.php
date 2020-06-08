@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Borrow;
 use App\Models\Book;
+use App\Models\CodeBook;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -39,8 +40,8 @@ class BorrowController extends Controller
     public function create()
     {
         $user = Member::all();
-        $book = Book::all();
-        return view('borrow.create', compact('user','book'));
+        $codebook = CodeBook::all();
+        return view('borrow.create', compact('user','codebook'));
     }
 
     /**
@@ -56,31 +57,53 @@ class BorrowController extends Controller
             'book'   => 'required',
         ]);
 
-        $cek = Book::where('id',$request->book)->where('stock','>',0)->where('status','active')->count();
+        //$cek = Book::where('id',$request->book)->where('stock','>',0)->where('status','active')->count();
 
-        if($cek > 0){
+        //if($cek > 0){
             Borrow::create([
-                'member_id'   => $request->user,
-                'book_id'   => $request->book,
-                'status'    => "borrow",
+                'member_id'     => $request->user,
+                'codebook_id'   => $request->book,
+                'status'        => "borrow",
             ]);
- 
-            $buku       = Book::where('id',$request->book)->first();
-            $qty_now    = $buku->stock;
-            $qty_new    = $qty_now - 1;
- 
-            Book::where('id',$request->book)->update([
-                'stock'=>$qty_new,
+
+            CodeBook::where('id',$request->book)->update([
+                'status' => "not available",
             ]);
+
+            $dt       = Borrow::all()->last();
+            $id_buku  = $dt->codebook->book->id;
+            $buku     = Book::find($id_buku);
  
+            $now = $buku->stock;
+            $stock_pengembalian = $now - 1;
+            
+            Book::where('id',$id_buku)->update([
+                'stock'=>$stock_pengembalian
+            ]);
+            /*
+            $temp = CodeBook::where('id',$request->book);
+            $cek = Book::where('id',$temp->id)->where('stock','>',0)->where('status','active')->count();
+
+            if($cek > 0){
+                $buku       = Book::where('id',$temp->id)->first();
+                $qty_now    = $buku->stock;
+                $qty_new    = $qty_now - 1;
+     
+                Book::where('id',$request->book)->update([
+                    'stock'=>$qty_new,
+                ]);
+            }
+            */
+
             //\Session::flash('sukses','buku berhasil di pinjam');
  
             return redirect('/pinjam');
-        }else{
+
+        //}else{
             //\Session::flash('gagal','buku sudah habis atau tidak aktif');
             
-            return redirect('/pinjam');
-        }
+            //return redirect('/pinjam');
+        //}
     }
 
     /**
@@ -105,21 +128,33 @@ class BorrowController extends Controller
     public function update($id)
     {
         $dt       = Borrow::find($id);
-        $id_buku    = $dt->book_id;
+        $id_buku  = $dt->codebook->book->id;
 
         $buku = Book::find($id_buku);
  
         $now = $buku->stock;
         $stock_pengembalian = $now + 1;
+        
+        Book::where('id',$id_buku)->update([
+            'stock'=>$stock_pengembalian
+        ]);
+        
+        /*
+        Borrow::create([
+            'member_id'     => $dt->member_id,
+            'codebook_id'   => $dt->codebook_id,
+            'status'        => 'return',
+        ]);
+        */
 
         Borrow::where('id',$id)->update([
             'status' => 'return'
         ]);
 
-        Book::where('id',$id_buku)->update([
-            'stock'=>$stock_pengembalian
+        CodeBook::where('id',$dt->codebook_id)->update([
+            'status' => "available",
         ]);
-
+        
         //return dd($id_buku);
 
         return redirect('/pinjam');

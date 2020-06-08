@@ -33,12 +33,12 @@
 	<!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Buku
+        Anggota
         <small>Form</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Buku</a></li>
+        <li><a href="#">Anggota</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
@@ -53,7 +53,7 @@
                     @csrf
                     <div class="box-body">
                         
-                        @if($errors->has('name'))
+                        @if($errors->has('title'))
                         <div class="form-group has-error">
                         <label>Judul Buku</label>
                             <input type="text" name="title" class="form-control" placeholder="Nama Buku.." value="{{ old('title') }}">
@@ -66,7 +66,20 @@
                         </div>
                         @endif
 
-                        @if($errors->has('name'))
+                        @if($errors->has('code'))
+                        <div class="form-group has-error">
+                        <label>Kode Buku</label>
+                            <input type="text" name="code" class="form-control" placeholder="Kode Buku.." value="{{ old('code') }}">
+                            <span class="help-block">{{ $errors->first('code')}}</span>
+                        </div>
+                        @else
+                        <div class="form-group">
+                        <label>Kode Buku</label>
+                            <input type="text" name="code" class="form-control" placeholder="Kode Buku.." value="{{ old('code') }}">
+                        </div>
+                        @endif
+
+                        @if($errors->has('description'))
                         <div class="form-group has-error">
                         <label>Keterangan Buku</label>
                             <input type="text" name="description" class="form-control" placeholder="Keterangan Buku.." value="{{ old('description') }}">

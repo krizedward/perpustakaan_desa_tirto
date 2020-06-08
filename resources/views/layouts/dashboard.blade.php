@@ -46,6 +46,44 @@
 
       @include('layouts.admin.flash_massage')
       
+      @if( Auth::user()->level == 'member')
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-6 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>{{ \App\Models\Borrow::where('member_id','=',Auth::user()->member->id)->count() }}</h3>
+
+              <p>Peminjaman</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-list-alt"></i>
+            </div>
+            <a href="{{ url('/pinjam')}}" class="small-box-footer">Detail info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-6 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>{{ \App\Models\Borrow::where('member_id','=',Auth::user()->member->id)->where('status','return')->count() }}</h3>
+
+              <p>Pengembalian</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-th-large"></i>
+            </div>
+            <a href="{{ url('/kembali')}}" class="small-box-footer">Detail info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+      @endif
+
+      @if(Auth::user()->level == 'staff')
       <div class="row">
         
         <div class="col-md-8">
@@ -67,9 +105,9 @@
                 @foreach($member as $e=>$dt)
                 <tr>
                   <td>{{$e+1}}</td>
-                  <td>{{$dt->name}}</td>
+                  <td>{{$dt->user->name}}</td>
                   <td>{{$dt->phone}}</td>
-                  <td>edwardthemangare@gmail.com</td>
+                  <td>{{$dt->user->email}}</td>
                   <td>{{date('d-M-Y', strtotime($dt->created_at))}}</td>
                 </tr>
                 @endforeach
@@ -106,6 +144,7 @@
         </div>
         <!-- /.col -->
       </div>
+      @endif
     </section>
     <!-- /.content -->
 @endsection

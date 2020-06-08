@@ -29,36 +29,6 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
 
-@section('asd')
-<p><a href="{{ url('/buku/form-tambah') }}">Tambah</a></p>
-	<table border="1">
-		<thead>
-			<th>No</th>
-			<th>Sampul</th>
-			<th>Nama Buku</th>
-			<th>Kategori</th>
-			<th>Status</th>
-			<th>Aksi</th>
-		</thead>
-		<tbody>
-			@foreach($data as $e=>$dt)
-	        <tr>
-	        	<td>{{$e+1}}</td>
-	            <td>{{$dt->image_cover}}</td>
-	            <td>{{$dt->title}}</td>
-	            <td>{{$dt->category->name}}</td>
-	            <td>{{$dt->status}}</td>
-	            <td>
-	            	<a href="{{url('/buku/detail/'.$dt->slug)}}">detail</a>
-	            	<a href="{{url('/buku/form-edit/'.$dt->slug)}}">edit</a>
-	            	<a href="{{url('/buku/hapus/'.$dt->id)}}">hapus</a>
-	            </td>
-	        </tr>
-	        @endforeach
-        </tbody>
-    </table>
-@endsection
-
 @section('content')
 	<!-- Content Header (Page header) -->
     <section class="content-header">
@@ -87,6 +57,7 @@
                 <tr>
                   <th>#</th>
                   <th>Sampul</th>
+                  <th>Kode</th>
                   <th>Nama Buku</th>
                   <th>Kategori</th>
                   <th>Status</th>
@@ -97,21 +68,35 @@
                 @foreach($data as $e=>$dt)
                 <tr>
                   <td>{{$e+1}}</td>
-                    <td><img src="{{ asset('uploads/'.$dt->image_cover) }}" style="width: 50px;"></td>
-                    <td>{{$dt->title}}</td>
-                    <td>{{$dt->category->name}}</td>
+                    <td><img src="{{ asset('uploads/'.$dt->book->image_cover) }}" style="width: 50px;"></td>
+                    <td>{{$dt->code}}</td>
+                    <td>{{$dt->book->title}}</td>
+                    <td>{{$dt->book->category->name}}</td>
                     <td>
-                      @if($dt->status == "active")
-                      <a href="{{url('/buku/pasif/'.$dt->id)}}" class="label label-success">Aktif</a>
+                      @if(Auth::user()->level == "member")
+                        @if($dt->book->status == "active")
+                        <div class="label label-success">Aktif</div>
+                        @else
+                        <div class="label label-danger">Tidak Aktif</div>
+                        @endif
                       @else
-                      <a href="{{url('/buku/aktif/'.$dt->id)}}" class="label label-danger">Tidak Aktif</a>
+                        @if($dt->book->status == "active")
+                        <a href="{{url('/buku/pasif/'.$dt->book_id)}}" class="label label-success">Aktif</a>
+                        @else
+                        <a href="{{url('/buku/aktif/'.$dt->book_id)}}" class="label label-danger">Tidak Aktif</a>
+                        @endif
+
                       @endif
                     </td>
 
                     <td>
+                      @if(Auth::user()->level == "member")
                       <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/detail/'.$dt->slug)}}"><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-flat btn-xs btn-warning" href="{{url('/buku/form-edit/'.$dt->slug)}}"><i class="fa fa-pencil"></i></a>
-                      <a class="btn btn-flat btn-xs btn-danger" href="{{url('/buku/hapus/'.$dt->id)}}"><i class="fa fa-trash"></i></a>
+                      @else
+                      <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/detail/'.$dt->book->slug)}}"><i class="fa fa-eye"></i></a>
+                      <a class="btn btn-flat btn-xs btn-warning" href="{{url('/buku/form-edit/'.$dt->book->slug)}}"><i class="fa fa-pencil"></i></a>
+                      <a class="btn btn-flat btn-xs btn-danger" href="{{url('/buku/hapus/'.$dt->book_id)}}"><i class="fa fa-trash"></i></a>
+                      @endif
                     </td>
                 </tr>
 	        	    @endforeach

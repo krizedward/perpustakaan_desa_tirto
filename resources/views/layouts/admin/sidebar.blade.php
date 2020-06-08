@@ -10,67 +10,72 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
+      
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-
-          <li>
+        
+          <li class="{{ (Request::path() == 'dashboard') ? 'active' : '' }}">
             <a href="{{ url('/dashboard')}}">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
-              </span>
-            </a>
-          </li>
-
-          <li class="header">DATA MASTER</li>
-
-          <li>
-            <a href="{{ url('/kategori')}}">
-              <i class="fa fa-book"></i> <span>Kategori</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
-              </span>
             </a>
           </li>
           
-          <li>
+          @if(Auth::user()->level == 'staff')
+          
+          <li class="header">DATA MASTER</li>
+
+          <li class="{{ (Request::path() == 'kategori') ? 'active' : '' }}">
+            <a href="{{ url('/kategori')}}">
+              <i class="fa fa-book"></i> <span>Kategori</span>
+            </a>
+          </li>
+          
+          <li class="{{ (Request::path() == 'buku') ? 'active' : '' }}">
             <a href="{{ url('/buku')}}">
               <i class="fa fa-th-large"></i> <span>Buku</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
-              </span>
             </a>
           </li>
 
-          <li>
+          <li class="{{ (Request::path() == 'anggota') ? 'active' : '' }}">
             <a href="{{ url('/anggota')}}">
               <i class="fa fa-th-large"></i> <span>Anggota</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
-              </span>
             </a>
           </li>
 
           <li class="header">PERPUSTAKAAN</li>
           
-          <li>
+          <li class="{{ (Request::path() == 'pinjam') ? 'active' : '' }}">
             <a href="{{ url('/pinjam')}}">
               <i class="fa fa-users"></i> <span>Peminjaman</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
-              </span>
             </a>
           </li>
 
-          <li>
+          <li class="{{ (Request::path() == 'kembali') ? 'active' : '' }}">
             <a href="{{ url('/kembali')}}">
               <i class="fa fa-users"></i> <span>Pengembalian</span>
-              <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
-              </span>
             </a>
           </li>
-        
+        @else if(Auth::user()->level == 'member')
+        <li class="header">DATA MEMBER</li>
+         
+          <li class="{{ (Request::path() == 'buku') ? 'active' : '' }}">
+            <a href="{{ url('/buku')}}">
+              <i class="fa fa-book"></i> <span>Buku</span>
+            </a>
+          </li>
+
+          <li class="{{ (Request::path() == 'pinjam') ? 'active' : '' }}">
+            <a href="{{ url('/pinjam')}}">
+              <i class="fa fa-book"></i> <span>Peminjaman</span>
+            </a>
+          </li>
+
+          <li class="{{ (Request::path() == 'kembali') ? 'active' : '' }}">
+            <a href="{{ url('/kembali')}}">
+              <i class="fa fa-book"></i> <span>Pengembalian</span>
+            </a>
+          </li>
+        @endif
       </ul>
     </section>
     <!-- /.sidebar -->

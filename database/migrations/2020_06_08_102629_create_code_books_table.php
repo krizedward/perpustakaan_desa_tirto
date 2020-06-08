@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBorrowsTable extends Migration
+class CreateCodeBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,16 @@ class CreateBorrowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('borrows', function (Blueprint $table) {
+        Schema::create('code_books', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('book_id');
-            $table->unsignedBigInteger('member_id');
+            $table->string('code');
             $table->string('status');
             $table->timestamps();
 
             $table->foreign('book_id')
             ->references('id')
             ->on('books')
-            ->onDelete('cascade');
-
-            $table->foreign('member_id')
-            ->references('id')
-            ->on('members')
             ->onDelete('cascade');
         });
     }
@@ -39,6 +34,6 @@ class CreateBorrowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('borrows');
+        Schema::dropIfExists('code_books');
     }
 }

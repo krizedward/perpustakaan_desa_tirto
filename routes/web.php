@@ -15,6 +15,10 @@ Route::get('/', 'MemberController@landing');
 Route::get('/list/buku', 'MemberController@list');
 
 Route::group(['middleware'=>'auth'],function() {
+	Route::get('/home', function() {
+		return redirect('/dashboard');
+	})->name('home');
+
 	Route::get('/dashboard','HomeController@admin');
 
 	Route::get('/anggota','MemberController@index');
@@ -52,11 +56,6 @@ Route::group(['middleware'=>'auth'],function() {
 });
 
 Auth::routes();
-
-Route::get('/home', function() {
-	return redirect('/dashboard');
-})->name('home');
-
 Route::get('keluar',function(){
     \Auth::logout();
     return redirect('login');

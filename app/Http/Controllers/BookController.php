@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\CodeBook;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $data = Book::all();
+        $data = CodeBook::all();
         return view('book.index', compact('data'));
     }
 
@@ -40,28 +41,60 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'code'          => 'required',
             'title'         => 'required',
             'description'   => 'required',
             'stock'         => 'required',
             'category'      => 'required',
-            'image'         => 'required',
         ]);
 
         $file = $request->file('image');
- 
-        //Move Uploaded File
-        $destinationPath = 'uploads';
-        $file->move($destinationPath,$file->getClientOriginalName());
-        
-        Book::create([
-            'category_id'   => $request->category,
-            'title'         => $request->title,
-            'description'   => $request->description,
-            'stock'         => $request->stock,
-            'image_cover'   => $file->getClientOriginalName(),
-            'status'        => "active",
-            'slug'          => \Str::slug($request->title),
-        ]);
+
+        if ($file) {
+            Book::create([
+                'category_id'   => $request->category,
+                'title'         => $request->title,
+                'description'   => $request->description,
+                'stock'         => $request->stock,
+                'image_cover'   => $file->getClientOriginalName(),
+                'status'        => "active",
+                'slug'          => \Str::slug($request->title), 
+            ]);
+            
+            $temp = Book::all()->last();
+
+            for ($i=0; $i < $request->stock; $i++) { 
+                CodeBook::create([
+                    'book_id'   => $temp->id,
+                    'code'      => $request->code.'-'.$i,
+                    'status'    => 'available',
+                ]);
+            }
+
+            //Move Uploaded File
+            $destinationPath = 'uploads';
+            $file->move($destinationPath,$file->getClientOriginalName());
+        } else {
+            Book::create([
+                'category_id'   => $request->category,
+                'title'         => $request->title,
+                'description'   => $request->description,
+                'stock'         => $request->stock,
+                'image_cover'   => "cover.jpg",
+                'status'        => "active",
+                'slug'          => \Str::slug($request->title), 
+            ]);
+
+            $temp = Book::all()->last();
+
+            for ($i=0; $i < $request->stock; $i++) { 
+                CodeBook::create([
+                    'book_id'   => $temp->id,
+                    'code'      => $request->code.'-'.$i,
+                    'status'    => 'available',
+                ]);
+            }
+        }
         
         \Session::flash('sukses','Data buku berhasil di tambah');
 

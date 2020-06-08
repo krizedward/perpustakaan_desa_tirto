@@ -46,6 +46,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
+          @if(Auth::user()->level == 'member')
           <div class="box box-warning">
             <div class="box-header">
             </div>
@@ -54,33 +55,76 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  	<th>#</th>
-                  	<th>Nama Buku</th>
-					<th>Nama Peminjam</th>
-					<th>Tanggal Kembali</th>
-					<th>Status</th>
-					<th>Aksi</th>
+                  <th>#</th>
+                  <th>Nama Buku</th>
+                  <th>Kode Buku</th>
+        					<th>Nama Peminjam</th>
+        					<th>Tanggal Kembali</th>
+        					<th>Status</th>
+        					<th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($data as $e=>$dt)
-                <tr>
-                    <td>{{$e+1}}</td>
-					<td>{{$dt->book->title}}</td>
-					<td>{{$dt->member->name}}</td>
-					<td>{{ date('d-M-Y', strtotime($dt->updated_at))}}</td>
-					<td>{{($dt->status == 'return' ? 'Dikembalikan' : 'Error')}}</td>
-					<td>
-						<a class="btn btn-flat btn-xs btn-info" href="{{url('/pinjam/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
-					</td>
-                </tr>
-	        	@endforeach
+                  @if(Auth::user()->id == $dt->member->user->id)
+                    <tr>
+                      <td>{{$e+1}}</td>
+                      <td>{{$dt->codebook->book->title}}</td>
+                      <td>{{$dt->codebook->code}}</td>
+            					<td>{{$dt->member->user->name}}</td>
+            					<td>{{ date('d-M-Y', strtotime($dt->updated_at))}}</td>
+            					<td>{{($dt->status == 'return' ? 'Dikembalikan' : 'Error')}}</td>
+            					<td>
+            						<a class="btn btn-flat btn-xs btn-info" href="{{url('/pinjam/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
+            					</td>
+                    </tr>
+                  @endif
+        	      @endforeach
                 </tbody>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+          @else
+          <div class="box box-warning">
+            <div class="box-header">
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama Buku</th>
+                  <th>Kode Buku</th>
+                  <th>Nama Peminjam</th>
+                  <th>Tanggal Kembali</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($data as $e=>$dt)
+                <tr>
+                  <td>{{$e+1}}</td>
+                  <td>{{$dt->codebook->book->title}}</td>
+                  <td>{{$dt->codebook->code}}</td>
+                  <td>{{$dt->member->user->name}}</td>
+                  <td>{{ date('d-M-Y', strtotime($dt->updated_at))}}</td>
+                  <td>{{($dt->status == 'return' ? 'Dikembalikan' : 'Error')}}</td>
+                  <td>
+                    <a class="btn btn-flat btn-xs btn-info" href="{{url('/pinjam/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
+                  </td>
+                </tr>
+                @endforeach
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+          @endif
         </div>
         <!-- /.col -->
       </div>

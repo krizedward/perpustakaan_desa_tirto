@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Book;
+use App\Models\CodeBook;
 use App\Models\Member;
 
 class Borrow extends Model
 {
-    protected $fillable = ['id','book_id','member_id','status'];
+    protected $fillable = ['id','codebook_id','member_id','status'];
 
-    public function book()
+    public function codebook()
     {
-    	return $this->belongsTo(Book::class);
+    	return $this->belongsTo(CodeBook::class);
     }
 
     public function member()

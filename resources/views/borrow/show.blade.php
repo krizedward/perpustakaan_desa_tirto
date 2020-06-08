@@ -50,7 +50,7 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body">
-            	<img class="img-responsive pad" src="{{ asset('uploads/'.$data->book->image_cover)}}" alt="Photo">
+            	<img class="img-responsive pad" src="{{ asset('uploads/'.$data->codebook->book->image_cover)}}" alt="Photo">
             </div>
             <!-- /.box-body -->
           </div>
@@ -66,14 +66,14 @@
               <div class="active tab-pane" id="activity">
                 <strong><i class="fa fa-book margin-r-5"></i> Nama Peminjam</strong>
                 <p>
-                  {{$data->member->name}}
+                  {{$data->member->user->name}}
                 </p>
 
                 <hr>
 
                 <strong><i class="fa fa-book margin-r-5"></i> Buku Dipinajm</strong>
                 <p>
-                  {{$data->book->title}}
+                  {{$data->codebook->book->title}}
                 </p>
                 
                 <hr>

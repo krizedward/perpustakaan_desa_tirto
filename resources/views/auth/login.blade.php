@@ -38,19 +38,37 @@
 
     <form action="{{ route('login') }}" method="post">
       @csrf
-      <div class="form-group has-feedback">
-        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+
+      @if($errors->has('email'))
+      <div class="form-group has-error">
+        <label>Email</label>
+        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+        <span class="help-block">{{ $errors->first('email')}}</span>
       </div>
-      <div class="form-group has-feedback">
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      @else
+      <div class="form-group">
+        <label>Email</label>
+        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
       </div>
+      @endif
+
+      @if($errors->has('password'))
+      <div class="form-group has-error">
+        <label>Password</label>
+        <input id="password" type="password" class="form-control" name="password">
+        <span class="help-block">{{ $errors->first('password')}}</span>
+      </div>
+      @else
+      <div class="form-group">
+        <label>Password</label>
+        <input id="password" type="password" class="form-control" name="password">
+      </div>
+      @endif
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox"> Ingat Saya
             </label>
           </div>
         </div>

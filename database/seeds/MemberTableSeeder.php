@@ -15,15 +15,18 @@ class MemberTableSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         $gender = $faker->randomElement(['male', 'female']);
+        $id = 2;
 
         for($i = 1; $i <= 50; $i++){
 	        Member::create([
-	        	'name' 		=> $faker->name,
+	        	'user_id' 	=> $id,
 	        	'phone' 	=> $faker->phoneNumber,
 	        	'birthdate' => $faker->date('Y-m-d','now'),
 	        	'image' 	=> 'user.jpg',
 	        	'expire_at' => $faker->date('Y-m-d','now'),
 	        ]);
+            
+            $id++;
     	}
     }
 }
