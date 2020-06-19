@@ -186,8 +186,7 @@ class MemberController extends Controller
 
     public function landing()
     {
-        $data = Book::all();
-        return view('home',compact('data'));
+        return view('home');
     }
 
     public function list()
