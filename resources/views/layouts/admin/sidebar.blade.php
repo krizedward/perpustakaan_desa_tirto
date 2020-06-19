@@ -14,8 +14,8 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         
-          <li class="{{ (Request::path() == 'dashboard') ? 'active' : '' }}">
-            <a href="{{ url('/dashboard')}}">
+          <li class="{{ set_active('home.admin') }}">
+            <a href="{{ route('home.admin') }}">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
           </li>
@@ -36,16 +36,16 @@
             </a>
           </li>
 
-          <li class="{{ (Request::path() == 'anggota') ? 'active' : '' }}">
-            <a href="{{ url('/anggota')}}">
+          <li class="{{ set_active(['member.index','member.create']) }}">
+            <a href="{{ route('member.index')}}">
               <i class="fa fa-users"></i> <span>Anggota</span>
             </a>
           </li>
 
           <li class="header">PERPUSTAKAAN</li>
           
-          <li class="{{ (Request::path() == 'pinjam') ? 'active' : '' }}">
-            <a href="{{ url('/pinjam')}}">
+          <li class="{{ set_active('borrow.index') }}">
+            <a href="{{ route('borrow.index')}}">
               <i class="fa fa-book"></i> <span>Peminjaman</span>
             </a>
           </li>

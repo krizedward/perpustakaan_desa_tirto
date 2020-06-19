@@ -29,25 +29,18 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
 
+@section('content-header')
+  <h1>
+    Kategori
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li class="active">Kategori</li>
+  </ol>
+@endsection
+
 @section('content')
-	<!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Kategori
-        <small>tabel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li class="active">Kategori</li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      
-      @include('layouts.admin.flash_massage')
-
-      <div class="row">
+  <div class="row">
         <div class="col-xs-12">
           <div class="box box-warning">
             <div class="box-header">
@@ -82,10 +75,8 @@
           <!-- /.box -->
         </div>
         <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
+  </div>
+  <!-- /.row -->
 @endsection
 
 

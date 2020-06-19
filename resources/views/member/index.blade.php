@@ -29,31 +29,29 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
 
-@section('content')
-	<!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Anggota
-        <small>tabel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li class="active">Anggota</li>
-      </ol>
-    </section>
+@section('content-header')
+  <h1>
+    Anggota
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li class="active">Anggota</li>
+  </ol>
+@endsection
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-warning">
-            <div class="box-header">
-              <a href="{{ url('/anggota/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Anggota</a>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
+@section('content')
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-warning">
+            
+        <div class="box-header">
+          <a href="{{ url('/anggota/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Anggota</a>
+        </div>
+        <!-- /.box-header -->
+            
+        <div class="box-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
                 <tr>
                   <th>#</th>
                   <th>Foto</th>
@@ -63,8 +61,8 @@
                   <th>Berkahir</th>
                   <th>Aksi</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 @foreach($data as $e=>$dt)
                 <tr>
                   <td>{{$e+1}}</td>
@@ -81,18 +79,18 @@
                     </td>
                 </tr>
 	        	    @endforeach
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+            </tbody>
+          </table>
         </div>
-        <!-- /.col -->
+        <!-- /.box-body -->
+          
       </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
+      <!-- /.box -->
+        
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
 @endsection
 
 

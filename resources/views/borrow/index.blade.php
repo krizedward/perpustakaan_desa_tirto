@@ -29,21 +29,18 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
 
-@section('content')
-<!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Pinjam Buku
-        <small>tabel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li class="active">Pinjam Buku</li>
-      </ol>
-    </section>
+@section('content-header')
+  <h1>
+    Pinjam Buku
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li class="active">Pinjam Buku</li>
+  </ol>
+@endsection
 
-    <!-- Main content -->
-    <section class="content">
+@section('content')
+
       <div class="row">
         <div class="col-xs-12">
           @if(Auth::user()->level == 'member')
@@ -61,6 +58,7 @@
                     <th>Kode Buku</th>
                     <th>Nama Peminjam</th>
                     <th>Tanggal Pinjam</th>
+                    <th>Waktu Pinjam</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -73,6 +71,7 @@
                        <td>{{$dt->codebook->code}}</td>
                        <td>{{$dt->member->user->name}}</td>
                        <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
+                       <td>{{ $dt->created_at}}</td>
                        <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Pinjam' }}</td>
                     </tr>
                   @endif
@@ -97,7 +96,8 @@
                     <th>Nama Buku</th>
                   	<th>Kode Buku</th>
           					<th>Nama Peminjam</th>
-          					<th>Tanggal Pinjam</th>
+                    <th>Tanggal Pinjam</th>
+          					<th>Waktu Pinjam</th>
           					<th>Aksi</th>
                 </tr>
                 </thead>
@@ -108,7 +108,8 @@
                    <td>{{$dt->codebook->book->title}}</td>
 					         <td>{{$dt->codebook->code}}</td>
 					         <td>{{$dt->member->user->name}}</td>
-					         <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
+                   <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
+                   <td>{{ date('H: i s', strtotime($dt->created_at))}}</td>
 					         <td>
 			               <a class="btn btn-flat btn-xs btn-danger" href="{{url('/kembali/buku/'.$dt->id)}}">Kembali</a>
 					         </td>
@@ -139,7 +140,8 @@
                     <th>Kode Buku</th>
                     <th>Nama Peminjam</th>
                     <th>Tanggal Pinjam</th>
-                    <th>Aksi</th>
+                    <th>Waktu Pinjam</th>
+                    <th colspan="2" style="text-align: center;">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -148,10 +150,13 @@
                    <td>{{$e+1}}</td>
                    <td>{{$dt->codebook->book->title}}</td>
                    <td>{{$dt->codebook->code}}</td>
-                   <td>{{$dt->member->user->name}}</td>
+                   <td><a href="{{url('/anggota/detail/'.$dt->member->id)}}">{{$dt->member->user->name}}</a></td>
                    <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
-                   <td>
+                   <td>{{ date('H: i s', strtotime($dt->created_at))}}</td>
+                   <td style="text-align: center;">
                      <a class="btn btn-flat btn-xs btn-success" href="{{url('/pinjam/setuju/'.$dt->id)}}">Setuju</a>
+                   </td>
+                   <td style="text-align: center;">
                      <a class="btn btn-flat btn-xs btn-danger" href="{{url('/pinjam/tolak/'.$dt->id)}}">Tolak</a>
                    </td>
                 </tr>
@@ -168,8 +173,7 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-    </section>
-    <!-- /.content -->
+
 @endsection
 
 

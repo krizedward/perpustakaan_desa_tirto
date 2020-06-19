@@ -33,9 +33,9 @@ class HomeController extends Controller
     public function admin()
     {
         $book   = Book::orderBy('updated_at', 'desc')->paginate(4);
-        $borrow = Borrow::all();
+        $borrow = Borrow::where('action','borrow')->get();
         $member = Member::orderBy('updated_at', 'desc')->paginate(4);
 
-        return view('layouts.dashboard', compact('book','borrow','member'));
+        return view('home', compact('book','borrow','member'));
     }
 }

@@ -184,14 +184,9 @@ class MemberController extends Controller
         return redirect('/anggota');
     }
 
-    public function landing()
-    {
-        return view('home');
-    }
-
     public function list()
     {
         $data = Book::all();
-        return view('member.book',compact('data'));
+        return view('book.index',compact('data'));
     }
 }

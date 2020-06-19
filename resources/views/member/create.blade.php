@@ -29,141 +29,149 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 @endpush
 
+@section('content-header')
+  <h1>
+    Anggota
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{{ url('/dashboard')}}">Home</a></li>
+    <li><a href="{{ url('/anggota')}}">Anggota</a></li>
+    <li class="active">Tambah</li>
+  </ol>
+@endsection
+
 @section('content')
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Anggota
-        <small>Form</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="{{ url('/dashboard')}}">Home</a></li>
-        <li><a href="{{ url('/anggota')}}">Anggota</a></li>
-        <li class="active">Tambah</li>
-      </ol>
-    </section>
+  <div class="row">
+    <div class="col-md-12">
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-        <div class="box box-warning">
+      <div class="box box-warning">
+        <div class="box-body">
+          <form role="form" method="post" action="{{url('/anggota/tambah')}}" enctype="multipart/form-data">
+            @csrf
+            
             <div class="box-body">
-                <form role="form" method="post" action="{{url('/anggota/tambah')}}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="box-body">
-                        
-                        @if($errors->has('name'))
-                        <div class="form-group has-error">
-                        <label>Nama Anggota</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ old('name') }}">
-                            <span class="help-block">{{ $errors->first('name')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        <label>Nama Anggota</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ old('name') }}">
-                        </div>
-                        @endif
+              <div class="row">
+                <div class="col-md-6">
 
-                        @if($errors->has('email'))
-                        <div class="form-group has-error">
-                        <label>Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email Anggota.." value="{{ old('email') }}">
-                            <span class="help-block">{{ $errors->first('email')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        <label>Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email Anggota.." value="{{ old('email') }}">
-                        </div>
-                        @endif
+                  @if($errors->has('name'))
+                  <div class="form-group has-error">
+                  <label>Nama Anggota</label>
+                      <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ old('name') }}">
+                      <span class="help-block">{{ $errors->first('name')}}</span>
+                  </div>
+                  @else
+                  <div class="form-group">
+                  <label>Nama Anggota</label>
+                      <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ old('name') }}">
+                  </div>
+                  @endif
 
-                        @if($errors->has('phone'))
-                        <div class="form-group has-error">
-                        <label>Telpon</label>
-                            <input type="phone" name="phone" class="form-control" placeholder="Telpon Anggota.." value="{{ old('phone') }}">
-                            <span class="help-block">{{ $errors->first('phone')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        <label>Telpon</label>
-                            <input type="phone" name="phone" class="form-control" placeholder="Telpon Anggota.." value="{{ old('phone') }}">
-                        </div>
-                        @endif
+                  @if($errors->has('email'))
+                  <div class="form-group has-error">
+                  <label>Email</label>
+                      <input type="email" name="email" class="form-control" placeholder="Email Anggota.." value="{{ old('email') }}">
+                      <span class="help-block">{{ $errors->first('email')}}</span>
+                  </div>
+                  @else
+                  <div class="form-group">
+                  <label>Email</label>
+                      <input type="email" name="email" class="form-control" placeholder="Email Anggota.." value="{{ old('email') }}">
+                  </div>
+                  @endif
 
-                        @if($errors->has('gender'))
-                        <div class="form-group">
-                          <div class="radio">
-                            <label>
-                              <input type="radio" name="gender" value="male" checked="">Laki-Laki
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" name="gender" value="female">Perempuan
-                            </label>
-                          </div>
-                        </div>
-                        @else
-                        <div class="form-group">
-                          <div class="radio">
-                            <label>
-                              <input type="radio" name="gender" value="male" checked="">Male
-                            </label>
-                          </div>
-                          <div class="radio">
-                            <label>
-                              <input type="radio" name="gender" value="female">Female
-                            </label>
-                          </div>
-                        </div>
-                        @endif
+                  @if($errors->has('phone'))
+                  <div class="form-group has-error">
+                  <label>Telpon</label>
+                      <input type="phone" name="phone" class="form-control" placeholder="Telpon Anggota.." value="{{ old('phone') }}">
+                      <span class="help-block">{{ $errors->first('phone')}}</span>
+                  </div>
+                  @else
+                  <div class="form-group">
+                  <label>Telpon</label>
+                      <input type="phone" name="phone" class="form-control" placeholder="Telpon Anggota.." value="{{ old('phone') }}">
+                  </div>
+                  @endif
 
-                        @if($errors->has('birthdate'))
-                        <div class="form-group has-error">
-                        <label>Tanggal Lahir</label>
-                            <input type="date" class="form-control" placeholder="Birthdate.." name="birthdate" value="{{ old('birthdate')}}">
-                            <span class="help-block">{{ $errors->first('birthdate')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        <label>Tanggal Lahir</label>
-                            <input type="date" class="form-control" placeholder="Birthdate.." name="birthdate" value="{{ old('birthdate')}}">
-                        </div>
-                        @endif
+                </div>
 
-                        @if($errors->has('expired'))
-                        <div class="form-group has-error">
-                        <label>Tanggal Berkhir Anggota</label>
-                            <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ old('expired')}}">
-                            <span class="help-block">{{ $errors->first('expired')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        <label>Tanggal Berkhir Anggota</label>
-                            <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ old('expired')}}">
-                        </div>
-                        @endif
+                <div class="col-md-6">
 
-                        <div class="form-group">
-                            <label for="exampleInputFile">Foto Member</label>
-                            <input type="file" name="image" id="exampleInputFile">
-                        </div>
+                  @if($errors->has('birthdate'))
+                  <div class="form-group has-error">
+                  <label>Tanggal Lahir</label>
+                      <input type="date" class="form-control" placeholder="Birthdate.." name="birthdate" value="{{ old('birthdate')}}">
+                      <span class="help-block">{{ $errors->first('birthdate')}}</span>
+                  </div>
+                  @else
+                  <div class="form-group">
+                  <label>Tanggal Lahir</label>
+                      <input type="date" class="form-control" placeholder="Birthdate.." name="birthdate" value="{{ old('birthdate')}}">
+                  </div>
+                  @endif
+
+                  @if($errors->has('expired'))
+                  <div class="form-group has-error">
+                  <label>Tanggal Berkhir Anggota</label>
+                      <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ old('expired')}}">
+                      <span class="help-block">{{ $errors->first('expired')}}</span>
+                  </div>
+                  @else
+                  <div class="form-group">
+                  <label>Tanggal Berkhir Anggota</label>
+                      <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ old('expired')}}">
+                  </div>
+                  @endif
+
+                  @if($errors->has('gender'))
+                  <div class="form-group">
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="gender" value="male" checked="">Laki-Laki
+                      </label>
                     </div>
-                    <!-- /.box-body -->
- 
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="gender" value="female">Perempuan
+                      </label>
                     </div>
-                </form>
-            </div>
+                  </div>
+                  @else
+                  <div class="form-group">
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="gender" value="male" checked="">Male
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="gender" value="female">Female
+                      </label>
+                    </div>
+                  </div>
+                  @endif
+                  
+                </div>
+              </div>
+          
+
+              <div class="form-group">
+                  <label for="exampleInputFile">Foto Member</label>
+                  <input type="file" name="image" id="exampleInputFile">
+              </div>
+              </div>
+              <!-- /.box-body -->
+   
+              <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+
+          </form>
         </div>
-    </div>
       </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
+
+    </div>
+  </div>
+  <!-- /.row -->
 @endsection
 
 @push('script')
