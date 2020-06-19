@@ -71,7 +71,7 @@
 
                 <hr>
 
-                <strong><i class="fa fa-book margin-r-5"></i> Buku Dipinajm</strong>
+                <strong><i class="fa fa-book margin-r-5"></i> Buku Dipinjam</strong>
                 <p>
                   {{$data->codebook->book->title}}
                 </p>

@@ -33,7 +33,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Buku
+        Anggota
         <small>Form</small>
       </h1>
       <ol class="breadcrumb">
@@ -147,7 +147,7 @@
                         @endif
 
                         <div class="form-group">
-                            <label for="exampleInputFile">Cover Sampul</label>
+                            <label for="exampleInputFile">Foto Member</label>
                             <input type="file" name="image" id="exampleInputFile">
                         </div>
                     </div>

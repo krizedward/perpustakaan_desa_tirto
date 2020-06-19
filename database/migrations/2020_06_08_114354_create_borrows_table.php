@@ -17,7 +17,7 @@ class CreateBorrowsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('codebook_id');
             $table->unsignedBigInteger('member_id');
-            $table->string('status');
+            $table->string('action');
             $table->timestamps();
 
             $table->foreign('codebook_id')

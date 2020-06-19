@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\CodeBook;
 use App\Models\Member;
 
-class Borrow extends Model
+class Returns extends Model
 {
-    protected $fillable = ['id','codebook_id','member_id','action'];
+    protected $fillable = ['id','codebook_id','member_id'];
 
     public function codebook()
     {

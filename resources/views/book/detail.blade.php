@@ -1,6 +1,6 @@
 @extends('layouts.admin.default')
 
-@section('title', 'Pinjam')
+@section('title', 'Buku')
 
 @push('style')
 <!-- Bootstrap 3.3.7 -->
@@ -30,15 +30,15 @@
 @endpush
 
 @section('content')
-<!-- Content Header (Page header) -->
+	<!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Kembali Buku
+        Buku
         <small>tabel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li class="active">Kembali Buku</li>
+        <li class="active">Buku</li>
       </ol>
     </section>
 
@@ -46,7 +46,6 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          @if(Auth::user()->level == 'member')
           <div class="box box-warning">
             <div class="box-header">
             </div>
@@ -56,48 +55,11 @@
                 <thead>
                 <tr>
                   <th>#</th>
+                  <th>Sampul</th>
+                  <th>Kode</th>
                   <th>Nama Buku</th>
-                  <th>Kode Buku</th>
-        					<th>Nama Peminjam</th>
-        					<th>Tanggal Kembali</th>
-        					<th>Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($data as $e=>$dt)
-                  @if(Auth::user()->id == $dt->member->user->id)
-                    <tr>
-                      <td>{{$e+1}}</td>
-                      <td>{{$dt->codebook->book->title}}</td>
-                      <td>{{$dt->codebook->code}}</td>
-            					<td>{{$dt->member->user->name}}</td>
-            					<td>{{ date('d-M-Y', strtotime($dt->updated_at))}}</td>
-            					<td>
-            						<a class="btn btn-flat btn-xs btn-info" href="{{url('/pinjam/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
-            					</td>
-                    </tr>
-                  @endif
-        	      @endforeach
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-          @else
-          <div class="box box-warning">
-            <div class="box-header">
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nama Buku</th>
-                  <th>Kode Buku</th>
-                  <th>Nama Peminjam</th>
-                  <th>Tanggal Kembali</th>
+                  <th>Kategori</th>
+                  <th>Status</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -105,22 +67,29 @@
                 @foreach($data as $e=>$dt)
                 <tr>
                   <td>{{$e+1}}</td>
-                  <td>{{$dt->codebook->book->title}}</td>
-                  <td>{{$dt->codebook->code}}</td>
-                  <td>{{$dt->member->user->name}}</td>
-                  <td>{{ date('d-M-Y', strtotime($dt->updated_at))}}</td>
-                  <td>
-                    <a class="btn btn-flat btn-xs btn-info" href="{{url('/pinjam/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
-                  </td>
+                    <td><img src="{{ asset('uploads/'.$dt->book->image_cover) }}" style="width: 50px;"></td>
+                    <td>{{$dt->code}}</td>
+                    <td>{{$dt->book->title}}</td>
+                    <td>{{$dt->book->category->name}}</td>
+                    <td>
+                        @if($dt->status == "available")
+                        <div class="label label-success">Tersedia</a>
+                        @else
+                        <div class="label label-danger">Tidak Tersedia</a>
+                        @endif
+                    </td>
+
+                    <td>
+                      <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/detail/'.$dt->book->slug)}}"><i class="fa fa-eye"></i></a>
+                    </td>
                 </tr>
-                @endforeach
+	        	    @endforeach
                 </tbody>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-          @endif
         </div>
         <!-- /.col -->
       </div>

@@ -6,6 +6,7 @@ use App\Models\Borrow;
 use App\Models\Book;
 use App\Models\CodeBook;
 use App\Models\Member;
+use App\Models\Returns;
 use Illuminate\Http\Request;
 
 class BorrowController extends Controller
@@ -17,8 +18,10 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $data = Borrow::where('status','borrow')->get();
-        return view('borrow.index',compact('data'));
+        $data = Borrow::where('action','borrow')->get();
+        $user = Borrow::all();
+        $req  = Borrow::where('action','request')->get();
+        return view('borrow.index',compact('data','req','user'));
     }
 
     /**
@@ -28,7 +31,7 @@ class BorrowController extends Controller
      */
     public function return()
     {
-        $data = Borrow::where('status','return')->get();
+        $data = Returns::all();
         return view('borrow.return',compact('data'));
     }
 
@@ -63,7 +66,7 @@ class BorrowController extends Controller
             Borrow::create([
                 'member_id'     => $request->user,
                 'codebook_id'   => $request->book,
-                'status'        => "borrow",
+                'action'        => "borrow",
             ]);
 
             CodeBook::where('id',$request->book)->update([
@@ -106,6 +109,22 @@ class BorrowController extends Controller
         //}
     }
 
+    public function pending(Request $request)
+    {
+        $this->validate($request,[
+            'user'   => 'required',
+            'book'   => 'required',
+        ]);
+
+        Borrow::create([
+            'member_id'     => $request->user,
+            'codebook_id'   => $request->book,
+            'action'        => "request",
+        ]);
+
+        return redirect('/pinjam');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -139,23 +158,49 @@ class BorrowController extends Controller
             'stock'=>$stock_pengembalian
         ]);
         
-        /*
-        Borrow::create([
+        Returns::create([
             'member_id'     => $dt->member_id,
             'codebook_id'   => $dt->codebook_id,
-            'status'        => 'return',
         ]);
-        */
-
+        
         Borrow::where('id',$id)->update([
-            'status' => 'return'
+            'action' => 'done'
         ]);
 
         CodeBook::where('id',$dt->codebook_id)->update([
             'status' => "available",
         ]);
-        
+
         //return dd($id_buku);
+
+        return redirect('/pinjam');
+    }
+
+    public function agree($id)
+    {
+        Borrow::where('id',$id)->update(['action'=>'borrow']);
+
+        $dt       = Borrow::all()->last();
+        $id_buku  = $dt->codebook->book->id;
+        $buku     = Book::find($id_buku);
+
+        CodeBook::where('id',$dt->codebook_id)->update([
+            'status' => "not available",
+        ]);
+
+        $now = $buku->stock;
+        $stock_pengembalian = $now - 1;
+            
+        Book::where('id',$id_buku)->update([
+            'stock'=>$stock_pengembalian
+        ]);
+
+        return redirect('/pinjam');
+    }
+
+    public function reject($id)
+    {
+        Borrow::where('id',$id)->delete();
 
         return redirect('/pinjam');
     }

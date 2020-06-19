@@ -8,7 +8,7 @@ use App\Models\CodeBook;
 
 class Book extends Model
 {
-    protected $fillable = ['id','category_id','title','description','stock','status','image_cover','slug'];
+    protected $fillable = ['id','category_id','title','description','stock','image_cover','slug'];
 
     public function category()
     {

@@ -11,16 +11,20 @@
 |
 */
 
+//Halaman tampilan depan
 Route::get('/', 'MemberController@landing');
+//Halaman tampilan list buku untuk guest 
 Route::get('/list/buku', 'MemberController@list');
 
+//middleware grup
 Route::group(['middleware'=>'auth'],function() {
+	//tampilan home setelah login
 	Route::get('/home', function() {
 		return redirect('/dashboard');
 	})->name('home');
-
+	//tampilan dashboard
 	Route::get('/dashboard','HomeController@admin');
-
+	//halaman anggota
 	Route::get('/anggota','MemberController@index');
 	Route::get('/anggota/form-tambah','MemberController@create');
 	Route::post('/anggota/tambah','MemberController@store');
@@ -37,6 +41,7 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::get('/kategori/hapus/{id}','CategoryController@destroy');
 
 	Route::get('/buku','BookController@index');
+	Route::get('/buku/list/{id}','BookController@detail');
 	Route::get('/buku/form-tambah','BookController@create');
 	Route::post('/buku/tambah','BookController@store');
 	Route::get('/buku/detail/{slug}','BookController@show');
@@ -49,9 +54,12 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::get('/pinjam','BorrowController@index');
 	Route::get('/pinjam/form-tambah','BorrowController@create');
 	Route::post('/pinjam/tambah','BorrowController@store');
+	Route::post('/pinjam/pending','BorrowController@pending');
 	Route::get('/pinjam/detail/{slug}','BorrowController@show');
 	Route::get('/kembali/buku/{id}','BorrowController@update');
 	Route::get('/kembali','BorrowController@return');
+	Route::get('/pinjam/setuju/{id}','BorrowController@agree');
+	Route::get('/pinjam/tolak/{id}','BorrowController@reject');
 
 });
 

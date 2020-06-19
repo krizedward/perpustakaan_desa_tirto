@@ -16,8 +16,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        $data = CodeBook::all();
+        $data = Book::all();
         return view('book.index', compact('data'));
+    }
+
+    public function detail($id)
+    {
+        $data = CodeBook::where('book_id',$id)->get();
+        return view('book.detail', compact('data'));
     }
 
     /**
@@ -57,7 +63,6 @@ class BookController extends Controller
                 'description'   => $request->description,
                 'stock'         => $request->stock,
                 'image_cover'   => $file->getClientOriginalName(),
-                'status'        => "active",
                 'slug'          => \Str::slug($request->title), 
             ]);
             
@@ -81,7 +86,6 @@ class BookController extends Controller
                 'description'   => $request->description,
                 'stock'         => $request->stock,
                 'image_cover'   => "cover.jpg",
-                'status'        => "active",
                 'slug'          => \Str::slug($request->title), 
             ]);
 

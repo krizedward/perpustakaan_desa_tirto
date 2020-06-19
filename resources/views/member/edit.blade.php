@@ -33,7 +33,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Buku
+        Anggota
         <small>Form</small>
       </h1>
       <ol class="breadcrumb">
@@ -57,13 +57,13 @@
                         @if($errors->has('name'))
                         <div class="form-group has-error">
                         <label>Nama Anggota</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ $data->name }}">
+                            <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ $data->user->name }}">
                             <span class="help-block">{{ $errors->first('name')}}</span>
                         </div>
                         @else
                         <div class="form-group">
                         <label>Nama Anggota</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ $data->name }}">
+                            <input type="text" name="name" class="form-control" placeholder="Nama Anggota.." value="{{ $data->user->name }}">
                         </div>
                         @endif
 

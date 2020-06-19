@@ -59,6 +59,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
+        @if(Auth::user()->level == 'staff')
         <div class="box box-warning">
             <div class="box-body">
                 <form role="form" method="post" action="{{url('/pinjam/tambah')}}" enctype="multipart/form-data">
@@ -96,7 +97,37 @@
                 </form>
             </div>
         </div>
-    </div>
+        @endif
+        @if(Auth::user()->level == 'member')
+        <div class="box box-warning">
+            <div class="box-body">
+                <form role="form" method="post" action="{{url('/pinjam/pending')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="box-body">
+                      <input type="hidden" name="user" value="{{ Auth::user()->member->id }}">
+                        <div class="form-group">
+                          <label>Pilih Buku</label>
+                            <select class="form-control select2" name="book">
+                                <option selected="" disabled="">Pilih Buku</option>
+                                  @foreach($codebook as $dt)
+                                    @if($dt->status == 'available')
+                                      <option value="{{$dt->id}}">[ {{$dt->code}} ] {{$dt->book->title}}</option>
+                                    @endif
+                                  @endforeach
+                            </select>
+                        </div>
+       
+                    </div>
+                    <!-- /.box-body -->
+ 
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @endif
+        </div>
       </div>
       <!-- /.row -->
     </section>

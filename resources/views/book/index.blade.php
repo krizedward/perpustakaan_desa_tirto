@@ -48,7 +48,9 @@
         <div class="col-xs-12">
           <div class="box box-warning">
             <div class="box-header">
+              @if(Auth::user()->level == "staff")
               <a href="{{ url('/buku/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Buku</a>
+              @endif
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -57,10 +59,9 @@
                 <tr>
                   <th>#</th>
                   <th>Sampul</th>
-                  <th>Kode</th>
                   <th>Nama Buku</th>
                   <th>Kategori</th>
-                  <th>Status</th>
+                  <th>Jumlah</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -68,33 +69,15 @@
                 @foreach($data as $e=>$dt)
                 <tr>
                   <td>{{$e+1}}</td>
-                    <td><img src="{{ asset('uploads/'.$dt->book->image_cover) }}" style="width: 50px;"></td>
-                    <td>{{$dt->code}}</td>
-                    <td>{{$dt->book->title}}</td>
-                    <td>{{$dt->book->category->name}}</td>
-                    <td>
-                      @if(Auth::user()->level == "member")
-                        @if($dt->book->status == "active")
-                        <div class="label label-success">Aktif</div>
-                        @else
-                        <div class="label label-danger">Tidak Aktif</div>
-                        @endif
-                      @else
-                        @if($dt->book->status == "active")
-                        <a href="{{url('/buku/pasif/'.$dt->book_id)}}" class="label label-success">Aktif</a>
-                        @else
-                        <a href="{{url('/buku/aktif/'.$dt->book_id)}}" class="label label-danger">Tidak Aktif</a>
-                        @endif
-
-                      @endif
-                    </td>
+                    <td><img src="{{ asset('uploads/'.$dt->image_cover) }}" style="width: 50px;"></td>
+                    <td>{{$dt->title}}</td>
+                    <td>{{$dt->category->name}}</td>
+                    <td>{{$dt->stock}}</td>
 
                     <td>
-                      @if(Auth::user()->level == "member")
-                      <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/detail/'.$dt->slug)}}"><i class="fa fa-eye"></i></a>
-                      @else
-                      <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/detail/'.$dt->book->slug)}}"><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-flat btn-xs btn-warning" href="{{url('/buku/form-edit/'.$dt->book->slug)}}"><i class="fa fa-pencil"></i></a>
+                      <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/list/'.$dt->id)}}"><i class="fa fa-list"></i></a>
+                       @if(Auth::user()->level == "staff")
+                      <a class="btn btn-flat btn-xs btn-warning" href="{{url('/buku/form-edit/'.$dt->slug)}}"><i class="fa fa-pencil"></i></a>
                       <a class="btn btn-flat btn-xs btn-danger" href="{{url('/buku/hapus/'.$dt->book_id)}}"><i class="fa fa-trash"></i></a>
                       @endif
                     </td>

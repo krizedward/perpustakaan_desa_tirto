@@ -53,7 +53,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>{{ \App\Models\Borrow::where('member_id','=',Auth::user()->member->id)->count() }}</h3>
+              <h3>{{ \App\Models\Borrow::where('member_id','=',Auth::user()->member->id)->where('action','!=','request')->count() }}</h3>
 
               <p>Peminjaman</p>
             </div>
@@ -68,7 +68,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>{{ \App\Models\Borrow::where('member_id','=',Auth::user()->member->id)->where('status','return')->count() }}</h3>
+              <h3>{{ \App\Models\Returns::where('member_id','=',Auth::user()->member->id)->count() }}</h3>
 
               <p>Pengembalian</p>
             </div>

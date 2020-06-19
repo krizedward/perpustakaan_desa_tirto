@@ -33,12 +33,12 @@
 	<!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Anggota
+        Buku
         <small>Form</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Anggota</a></li>
+        <li><a href="#">Buku</a></li>
         <li class="active">Tambah</li>
       </ol>
     </section>
