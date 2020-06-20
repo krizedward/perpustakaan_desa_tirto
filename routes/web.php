@@ -18,6 +18,15 @@ Route::get('/', function() {
 //Halaman tampilan list buku untuk guest 
 Route::get('/list/buku', 'MemberController@list')->name('book.guest');
 
+Route::get('/welcome', function() {
+	return view('welcome');
+});
+
+Route::get('test', function () {
+    event(new App\Events\StatusLiked('Someone'));
+    return "Event has been sent!";
+});
+
 //middleware grup
 Route::group(['middleware'=>'auth'],function() {
 	//tampilan home setelah login
