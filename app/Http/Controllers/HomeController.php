@@ -35,7 +35,8 @@ class HomeController extends Controller
         $book   = Book::orderBy('updated_at', 'desc')->paginate(4);
         $borrow = Borrow::where('action','borrow')->get();
         $member = Member::orderBy('updated_at', 'desc')->paginate(4);
+        $members = Member::all();
 
-        return view('home', compact('book','borrow','member'));
+        return view('home', compact('book','borrow','member','members'));
     }
 }

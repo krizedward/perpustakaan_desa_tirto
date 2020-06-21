@@ -30,8 +30,8 @@
             </a>
           </li>
           
-          <li class="{{ (Request::path() == 'buku') ? 'active' : '' }}">
-            <a href="{{ url('/buku')}}">
+          <li class="{{ set_active(['book.index','book.detail','book.create','book.show','book.edit']) }}">
+            <a href="{{ route('book.index') }}">
               <i class="fa fa-book"></i> <span>Buku</span>
             </a>
           </li>
@@ -61,6 +61,12 @@
           <li class="{{ (Request::path() == 'buku') ? 'active' : '' }}">
             <a href="{{ url('/buku')}}">
               <i class="fa fa-book"></i> <span>Buku</span>
+            </a>
+          </li>
+
+          <li class="{{ set_active(['order.index']) }}">
+            <a href="{{ route('order.index')}}">
+              <i class="fa fa-book"></i> <span>Pesan</span>
             </a>
           </li>
 

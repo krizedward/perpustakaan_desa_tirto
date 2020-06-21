@@ -51,7 +51,7 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::put('/kategori/update/{id}','CategoryController@update');
 	Route::get('/kategori/hapus/{id}','CategoryController@destroy');
 	//halaman buku
-	Route::get('/buku','BookController@index')->name('book.create');
+	Route::get('/buku','BookController@index')->name('book.index');
 	Route::get('/buku/list/{id}','BookController@detail')->name('book.detail');
 	Route::get('/buku/form-tambah','BookController@create')->name('book.create');
 	Route::post('/buku/tambah','BookController@store')->name('book.store');
@@ -68,6 +68,8 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::post('/pinjam/pending','BorrowController@pending');
 	Route::get('/pinjam/detail/{slug}','BorrowController@show');
 	Route::get('/kembali/buku/{id}','BorrowController@update');
+	//halaman pesan buku anggota
+	Route::get('/pesan/buku','BorrowController@order')->name('order.index');
 	//halaman kembali
 	Route::get('/kembali','BorrowController@return')->name('borrow.retrun');
 	Route::get('/pinjam/setuju/{id}','BorrowController@agree')->name('borrow.agree');

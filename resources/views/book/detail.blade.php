@@ -29,21 +29,18 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
 
-@section('content')
-	<!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Buku
-        <small>tabel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li class="active">Buku</li>
-      </ol>
-    </section>
+@section('content-header')
+  <h1>
+    Buku
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{{ route('home.admin') }}">Home</a></li>
+    <li class="active">Detail</li>
+  </ol>
+@endsection
 
-    <!-- Main content -->
-    <section class="content">
+@section('content')
+
       <div class="row">
         <div class="col-xs-12">
           <div class="box box-warning">
@@ -94,8 +91,6 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-    </section>
-    <!-- /.content -->
 @endsection
 
 

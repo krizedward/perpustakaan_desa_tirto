@@ -161,6 +161,117 @@
   <!-- Dashboard Adminlte -->
   @if(Auth::user()->level == 'member')
     @section('title','Dashboard Member')
+    @section('content')
+        <div class="row">
+
+          <div class="col-md-12">
+            
+            <div class="box">
+              <div class="box-header with-border">
+                <h3 class="box-title">Riwayat Buku Sedang Dipinjam</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Nama Buku</th>
+                    <th>Kode Buku</th>
+                    <th>Nama Peminjam</th>
+                    <th>Tanggal Pinjam</th>
+                    <th>Waktu Pinjam</th>
+                    <th>Status</th>
+                  </tr>
+                  @foreach($borrow as $e=>$dt)
+                  @if(Auth::user()->id == $dt->member->user->id)
+                  <tr>
+                    <td>{{$e+1}}</td>
+                    <td>{{$dt->codebook->book->title}}</td>
+                    <td>{{$dt->codebook->code}}</td>
+                    <td>{{$dt->member->user->name}}</td>
+                    <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
+                    <td>{{ date('H: i s', strtotime($dt->created_at))}}</td>
+                    <td>{{ ($dt->action == 'borrow') ? 'Dipinjam' : 'Error' }}</td>
+                  </tr>
+                  @endif
+                  @endforeach
+                </table>
+              </div>
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+        </div>
+
+        <div class="row">
+          
+          <div class="col-md-8">
+            
+            <div class="box">
+              <div class="box-header with-border">
+                <h3 class="box-title">Data Member</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Nama</th>
+                    <th>Telpon</th>
+                    <th>Email</th>
+                    <th>Member Sejak</th>
+                  </tr>
+                  @foreach($members as $e=>$dt)
+                  @if(Auth::user()->id == $dt->user->id)
+                  <tr>
+                    <td>{{$e+1}}</td>
+                    <td>{{$dt->user->name}}</td>
+                    <td>{{$dt->phone}}</td>
+                    <td>{{$dt->user->email}}</td>
+                    <td>{{date('d-M-Y', strtotime($dt->created_at))}}</td>
+                  </tr>
+                  @endif
+                  @endforeach
+                </table>
+              </div>
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-4">
+            
+            <div class="box">
+              
+              <div class="box-header with-border">
+                <h3 class="box-title">Koleksi Buku</h3>
+              </div>
+              <!-- /.box-header -->
+
+              <div class="box-body">
+                <table class="table table-bordered">
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Judul</th>
+                    <th>Jumlah</th>
+                  </tr>
+                  @foreach($book as $e=>$dt)
+                  <tr>
+                    <td>{{$e+1}}</td>
+                    <td>{{$dt->title}}</td>
+                    <td>{{$dt->stock}}</td>
+                  </tr>
+                  @endforeach
+                </table>
+              </div>
+              <!-- /.box-body -->
+
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+
+        
+    @endsection
   @endif
 
   @if(Auth::user()->level == 'staff')

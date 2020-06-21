@@ -3,7 +3,7 @@
 @section('title', 'Pinjam')
 
 @push('style')
-<!-- Bootstrap 3.3.7 -->
+  <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/font-awesome/css/font-awesome.min.css')}}">
@@ -29,60 +29,121 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
 
-@section('content-header')
-  <h1>
-    Pinjam Buku
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li class="active">Pinjam Buku</li>
-  </ol>
-@endsection
+
 
 @section('content')
 
       <div class="row">
         <div class="col-xs-12">
           @if(Auth::user()->level == 'member')
-          <div class="box box-warning">
-            <div class="box-header">
-              <a href="{{ url('/pinjam/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Pinjam</a>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nama Buku</th>
-                    <th>Kode Buku</th>
-                    <th>Nama Peminjam</th>
-                    <th>Tanggal Pinjam</th>
-                    <th>Waktu Pinjam</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($user as $e=>$dt)
-                  @if(Auth::user()->id == $dt->member->user->id)
+            @if($page == 'order')
+            <!-- head page -->
+              @section('content-header')
+                <h1>
+                  Pesan Buku
+                </h1>
+                <ol class="breadcrumb">
+                  <li><a href="#">Home</a></li>
+                  <li class="active">Pesan Buku</li>
+                </ol>
+              @endsection
+            <!-- halaman order -->
+              <div class="box box-warning">
+                <div class="box-header">
+                  <a href="{{ url('/pinjam/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Pinjam</a>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
                     <tr>
-                       <td>{{$e+1}}</td>
-                       <td>{{$dt->codebook->book->title}}</td>
-                       <td>{{$dt->codebook->code}}</td>
-                       <td>{{$dt->member->user->name}}</td>
-                       <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
-                       <td>{{ $dt->created_at}}</td>
-                       <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Pinjam' }}</td>
+                        <th>#</th>
+                        <th>Nama Buku</th>
+                        <th>Kode Buku</th>
+                        <th>Nama Peminjam</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Waktu Pinjam</th>
+                        <th>Status</th>
                     </tr>
-                  @endif
-                @endforeach
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+                    </thead>
+                    <tbody>
+                    @foreach($user as $e=>$dt)
+                      @if(Auth::user()->id == $dt->member->user->id && $dt->action == 'request')
+                        <tr>
+                           <td>{{$e+1}}</td>
+                           <td>{{$dt->codebook->book->title}}</td>
+                           <td>{{$dt->codebook->code}}</td>
+                           <td>{{$dt->member->user->name}}</td>
+                           <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
+                           <td>{{ $dt->created_at}}</td>
+                           <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Pinjam' }}</td>
+                        </tr>
+                      @endif
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            @else
+            <!-- head page -->
+              @section('content-header')
+                <h1>
+                  Pinjam Buku
+                </h1>
+                <ol class="breadcrumb">
+                  <li><a href="#">Home</a></li>
+                  <li class="active">Pinjam Buku</li>
+                </ol>
+              @endsection
+            <!-- halaman pinjam -->
+              <div class="box box-warning">
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nama Buku</th>
+                        <th>Kode Buku</th>
+                        <th>Nama Peminjam</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Waktu Pinjam</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($user as $e=>$dt)
+                      @if(Auth::user()->id == $dt->member->user->id && $dt->action == 'borrow')
+                        <tr>
+                           <td>{{$e+1}}</td>
+                           <td>{{$dt->codebook->book->title}}</td>
+                           <td>{{$dt->codebook->code}}</td>
+                           <td>{{$dt->member->user->name}}</td>
+                           <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
+                           <td>{{ $dt->created_at}}</td>
+                           <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Pinjam' }}</td>
+                        </tr>
+                      @endif
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            @endif
           @else
+          <!-- head page -->
+          @section('content-header')
+            <h1>
+              Peminjaman
+            </h1>
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li class="active">Peminjaman</li>
+            </ol>
+          @endsection
           <div class="box box-warning">
             <div class="box-header">
               <a href="{{ url('/pinjam/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Pinjam</a>
@@ -124,7 +185,7 @@
 
           <div class="box box-warning box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Permintaan Pinjam</h3>
+              <h3 class="box-title">Pesan Buku</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>

@@ -18,10 +18,24 @@ class BorrowController extends Controller
      */
     public function index()
     {
+        $page = 'pinjam';
         $data = Borrow::where('action','borrow')->get();
         $user = Borrow::all();
         $req  = Borrow::where('action','request')->get();
-        return view('borrow.index',compact('data','req','user'));
+        return view('borrow.index',compact('data','req','user','page'));
+    }
+
+    /*
+     *
+     * fungsi menampilkan tabel pesan
+    */
+    public function order()
+    {
+        $page = 'order';
+        $data = Borrow::where('action','borrow')->get();
+        $user = Borrow::all();
+        $req  = Borrow::where('action','request')->get();
+        return view('borrow.index',compact('data','req','user','page'));
     }
 
     /**
