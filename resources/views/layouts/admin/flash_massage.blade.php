@@ -1,5 +1,31 @@
       <div class="row">
         <div class="col-md-12">
+        <!-- Anggota Alert-->
+        @if(Session::has('anggota_add'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('anggota_add')}}
+          </div>
+        @endif
+
+        @if(Session::has('anggota_update'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('anggota_update')}}
+          </div>
+        @endif
+
+        @if(Session::has('anggota_delete'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('anggota_delete')}}
+          </div>
+        @endif
+        <!-- End Anggota Alert -->
+
         <!-- Kategori Alert -->
         @if(Session::has('kategori_add'))
           <div class="alert alert-success alert-dismissible">

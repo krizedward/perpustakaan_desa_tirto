@@ -66,7 +66,7 @@
                 @foreach($data as $e=>$dt)
                 <tr>
                   <td>{{$e+1}}</td>
-                    <td><img src="{{ asset('uploads/'.$dt->image) }}" style="width: 50px;"></td>
+                    <td><img src="{{ asset('uploads/anggota/'.$dt->image) }}" style="width: 50px;"></td>
                     <td>{{$dt->user->name}}</td>
                     <td>{{$dt->user->email}}</td>
                     <td>{{$dt->phone}}</td>

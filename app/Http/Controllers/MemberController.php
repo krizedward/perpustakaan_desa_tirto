@@ -93,7 +93,7 @@ class MemberController extends Controller
 
         }
 
-        
+        \Session::flash('anggota_add','Berhasil menambahkan data anggota baru');
 
         return redirect('/anggota');
     }
@@ -152,7 +152,7 @@ class MemberController extends Controller
                 ]);
 
                 //Move Uploaded File
-                $destinationPath = 'uploads';
+                $destinationPath = 'uploads/anggota';
                 $file->move($destinationPath,$file->getClientOriginalName());
 
         } else {
@@ -166,6 +166,8 @@ class MemberController extends Controller
             ]);
         }
 
+        \Session::flash('anggota_update','Berhasil mengubah data anggota');
+
         return redirect('/anggota');
     }
 
@@ -178,6 +180,8 @@ class MemberController extends Controller
     public function destroy($id)
     {
         User::where('id',$id)->delete();
+        
+        \Session::flash('anggota_delete','Berhasil menghapus data anggota');
 
         return redirect('/anggota');
     }
