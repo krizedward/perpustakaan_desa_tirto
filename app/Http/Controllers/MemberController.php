@@ -144,7 +144,6 @@ class MemberController extends Controller
         if ($file) {
             
             Member::where('id',$id)->update([
-                'name'      =>  $request->name,
                 'gender'    =>  $request->gender,
                 'phone'     =>  $request->phone,
                 'birthdate' =>  $request->birthdate,
@@ -159,7 +158,6 @@ class MemberController extends Controller
         } else {
 
             Member::where('id',$id)->update([
-                'name'      =>  $request->name,
                 'gender'    =>  $request->gender,
                 'phone'     =>  $request->phone,
                 'birthdate' =>  $request->birthdate,

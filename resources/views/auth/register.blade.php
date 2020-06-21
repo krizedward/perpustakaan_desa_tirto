@@ -80,7 +80,7 @@
 
 <div class="register-box">
   <div class="register-logo">
-    <a href="{{url('/')}}"><b>Perpustakaan</b> Online</a>
+    <a href="{{url('/')}}"><b>Rumah</b> Cerdas</a>
   </div>
 
   <div class="register-box-body">

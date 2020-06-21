@@ -34,7 +34,7 @@
     Anggota
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#">Home</a></li>
+    <li><a href="{{ route('home.admin') }}">Home</a></li>
     <li class="active">Anggota</li>
   </ol>
 @endsection

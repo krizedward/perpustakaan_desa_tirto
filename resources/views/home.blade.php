@@ -59,21 +59,21 @@
               </ol>
               <div class="carousel-inner">
                 <div class="item active">
-                  <img src="adminlte/dist/img/photo2.png" alt="First slide">
+                  <img src="{{ asset('uploads/info/banner1.jpg')}}" alt="First slide">
 
                   <div class="carousel-caption">
                     First Slide
                   </div>
                 </div>
                 <div class="item">
-                  <img src="adminlte/dist/img/photo2.png" alt="Second slide">
+                  <img src="{{ asset('uploads/info/banner2.jpg')}}" alt="Second slide">
 
                   <div class="carousel-caption">
                     Second Slide
                   </div>
                 </div>
                 <div class="item">
-                  <img src="adminlte/dist/img/photo2.png" alt="Third slide">
+                  <img src="{{ asset('uploads/info/banner3.jpg')}}" alt="Third slide">
 
                     <div class="carousel-caption">
                       Third Slide

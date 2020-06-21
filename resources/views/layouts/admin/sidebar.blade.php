@@ -36,7 +36,7 @@
             </a>
           </li>
 
-          <li class="{{ set_active(['member.index','member.create']) }}">
+          <li class="{{ set_active(['member.index','member.create','member.show','member.edit']) }}">
             <a href="{{ route('member.index')}}">
               <i class="fa fa-users"></i> <span>Anggota</span>
             </a>
