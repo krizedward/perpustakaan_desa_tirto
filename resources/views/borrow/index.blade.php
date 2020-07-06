@@ -36,6 +36,7 @@
       <div class="row">
         <div class="col-xs-12">
           @if(Auth::user()->level == 'member')
+            <!-- halaman order -->
             @if($page == 'order')
             <!-- head page -->
               @section('content-header')
@@ -47,7 +48,7 @@
                   <li class="active">Pesan Buku</li>
                 </ol>
               @endsection
-            <!-- halaman order -->
+              <!-- halaman order -->
               <div class="box box-warning">
                 <div class="box-header">
                   <a href="{{ url('/pinjam/form-tambah') }}" class="btn btn-flat btn-sm btn-primary">Tambah Pinjam</a>
@@ -57,9 +58,8 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Nama Buku</th>
                         <th>Kode Buku</th>
+                        <th>Nama Buku</th>
                         <th>Nama Peminjam</th>
                         <th>Tanggal Pinjam</th>
                         <th>Waktu Pinjam</th>
@@ -67,16 +67,53 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($user as $e=>$dt)
+                    @foreach($user as $dt)
                       @if(Auth::user()->id == $dt->member->user->id && $dt->action == 'request')
                         <tr>
-                           <td>{{$e+1}}</td>
-                           <td>{{$dt->codebook->book->title}}</td>
                            <td>{{$dt->codebook->code}}</td>
+                           <td>{{$dt->codebook->book->title}}</td>
                            <td>{{$dt->member->user->name}}</td>
-                           <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
-                           <td>{{ $dt->created_at}}</td>
-                           <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Pinjam' }}</td>
+                           <td>{{ date('d-M-Y', strtotime($dt->created_at)) }}</td>
+                           <td>{{ date('H: i s', strtotime($dt->created_at)) }}</td>
+                           <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Ditolak' }}</td>
+                        </tr>
+                      @endif
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+
+              <!-- halaman order -->
+              <div class="box box-warning">
+                <div class="box-header">
+                  <h3>Buku Pesan Ditolak</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Kode Buku</th>
+                        <th>Nama Buku</th>
+                        <th>Nama Peminjam</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Waktu Pinjam</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($user as $dt)
+                      @if(Auth::user()->id == $dt->member->user->id && $dt->action == 'denied')
+                        <tr>
+                           <td>{{$dt->codebook->code}}</td>
+                           <td>{{$dt->codebook->book->title}}</td>
+                           <td>{{$dt->member->user->name}}</td>
+                           <td>{{ date('d-M-Y', strtotime($dt->created_at)) }}</td>
+                           <td>{{ date('H: i s', strtotime($dt->created_at)) }}</td>
+                           <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Ditolak' }}</td>
                         </tr>
                       @endif
                     @endforeach
@@ -87,6 +124,7 @@
               </div>
               <!-- /.box -->
             @else
+            <!-- halaman pinjam -->
             <!-- head page -->
               @section('content-header')
                 <h1>
@@ -97,15 +135,14 @@
                   <li class="active">Pinjam Buku</li>
                 </ol>
               @endsection
-            <!-- halaman pinjam -->
+              <!-- halaman pinjam -->
               <div class="box box-warning">
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Nama Buku</th>
                         <th>Kode Buku</th>
+                        <th>Nama Buku</th>
                         <th>Nama Peminjam</th>
                         <th>Tanggal Pinjam</th>
                         <th>Waktu Pinjam</th>
@@ -116,12 +153,11 @@
                     @foreach($user as $e=>$dt)
                       @if(Auth::user()->id == $dt->member->user->id && $dt->action == 'borrow')
                         <tr>
-                           <td>{{$e+1}}</td>
                            <td>{{$dt->codebook->book->title}}</td>
                            <td>{{$dt->codebook->code}}</td>
                            <td>{{$dt->member->user->name}}</td>
-                           <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
-                           <td>{{ $dt->created_at}}</td>
+                           <td>{{ date('d-M-Y', strtotime($dt->created_at)) }}</td>
+                           <td>{{ date('H:i s', strtotime($dt->created_at)) }}</td>
                            <td>{{ ($dt->action == 'request') ? 'Ditunda' : 'Pinjam' }}</td>
                         </tr>
                       @endif
@@ -133,7 +169,9 @@
               </div>
               <!-- /.box -->
             @endif
+
           @else
+          <!-- Admin Page  -->
           <!-- head page -->
           @section('content-header')
             <h1>
@@ -153,10 +191,9 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  	<th>#</th>
-                    <th>Nama Buku</th>
                   	<th>Kode Buku</th>
-          					<th>Nama Peminjam</th>
+                    <th>Nama Buku</th>
+                    <th>Nama Peminjam</th>
                     <th>Tanggal Pinjam</th>
           					<th>Waktu Pinjam</th>
           					<th>Aksi</th>
@@ -165,10 +202,9 @@
                 <tbody>
                 @foreach($data as $e=>$dt)
                 <tr>
-                   <td>{{$e+1}}</td>
+                   <td>{{$dt->codebook->code}}</td>
                    <td>{{$dt->codebook->book->title}}</td>
-					         <td>{{$dt->codebook->code}}</td>
-					         <td>{{$dt->member->user->name}}</td>
+                   <td><a href="{{url('/anggota/detail/'.$dt->member->id)}}">{{$dt->member->user->name}}</a></td>
                    <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
                    <td>{{ date('H: i s', strtotime($dt->created_at))}}</td>
 					         <td>

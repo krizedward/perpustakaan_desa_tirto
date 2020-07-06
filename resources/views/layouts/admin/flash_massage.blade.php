@@ -1,6 +1,65 @@
       <div class="row">
         <div class="col-md-12">
+        <!-- Koleksi Alert -->
+        @if(Session::has('koleksi_add'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('koleksi_add')}}
+          </div>
+        @endif
+
+        @if(Session::has('koleksi_update'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('koleksi_update')}}
+          </div>
+        @endif
+
+        @if(Session::has('koleksi_delete'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('koleksi_delete')}}
+          </div>
+        @endif
+        <!-- End Koleksi Alert -->
+        <!-- Member Alert -->
+        @if(Session::has('pesan_buku'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('pesan_buku')}}
+          </div>
+        @endif
+
+        @if(Session::has('peringatan_pesan'))
+          <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-warning"></i> {{ __('Peringatan!')}}</h4>
+              {{ Session::get('peringatan_pesan')}}
+          </div>
+        @endif
+        <!-- End Member Alert -->
+
         <!-- Anggota Alert-->
+        @if(Session::has('active'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('active')}}
+          </div>
+        @endif
+
+        @if(Session::has('unactive'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('unactive')}}
+          </div>
+        @endif
+
         @if(Session::has('anggota_add'))
           <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

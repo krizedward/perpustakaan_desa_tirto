@@ -59,6 +59,7 @@
                   <th>Email</th>
                   <th>Telepon</th>
                   <th>Berkahir</th>
+                  <th>Aktivasi</th>
                   <th>Aksi</th>
                 </tr>
             </thead>
@@ -71,11 +72,16 @@
                     <td>{{$dt->user->email}}</td>
                     <td>{{$dt->phone}}</td>
                     <td>{{date('d-M-Y', strtotime($dt->expire_at))}}</td>
-
+                    <td>
+                      @if($dt->user->status == 'active')
+                        <a href="{{ route('member.nonactive',[$dt->id]) }}" class="btn btn-sm btn-success">Aktifkan</a>
+                      @else
+                        <a href="{{ route('member.active',[$dt->id]) }}" class="btn btn-sm btn-danger">Non-Aktifkan</a>
+                      @endif
+                    </td>
                     <td>
                       <a class="btn btn-flat btn-xs btn-info" href="{{url('/anggota/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-flat btn-xs btn-warning" href="{{url('/anggota/form-edit/'.$dt->id)}}"><i class="fa fa-pencil"></i></a>
-                      <a class="btn btn-flat btn-xs btn-danger" href="{{url('/anggota/hapus/'.$dt->user->id)}}"><i class="fa fa-trash"></i></a>
+                      <a class="btn btn-flat btn-xs btn-warning" href="{{url('/anggota/form-edit/'.$dt->user_id)}}"><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
 	        	    @endforeach

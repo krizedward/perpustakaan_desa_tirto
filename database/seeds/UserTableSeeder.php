@@ -18,7 +18,8 @@ class UserTableSeeder extends Seeder
         	'name'		=>'Admin', 
         	'email'		=>'Admin@admin.com', 
             'password'  => bcrypt('12345678'),
-        	'level'	    =>'staff',
+            'level'     =>'staff',
+        	'status'	=>'active',
         ]);
 
         $faker = Faker::create('id_ID');
@@ -29,6 +30,7 @@ class UserTableSeeder extends Seeder
                 'email'     => $faker->email,
                 'password'  => bcrypt('12345678'),
                 'level'  => 'member',
+                'status'    =>'active',
             ]);
         }
     }

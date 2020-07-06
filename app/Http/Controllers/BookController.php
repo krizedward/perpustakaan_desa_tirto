@@ -100,7 +100,7 @@ class BookController extends Controller
             }
         }
         
-        \Session::flash('sukses','Data buku berhasil di tambah');
+        \Session::flash('buku_add','Data buku berhasil di tambah');
 
         return redirect('/buku');
     }
@@ -146,7 +146,6 @@ class BookController extends Controller
                'category_id'    => $request->category,
                 'title'         => $request->title,
                 'description'   => $request->description,
-                'stock'         => $request->stock,
                 'image_cover'   => $file->getClientOriginalName(),
                 'slug'          => \Str::slug($request->title), 
             ]);
@@ -159,11 +158,12 @@ class BookController extends Controller
                'category_id'    => $request->category,
                 'title'         => $request->title,
                 'description'   => $request->description,
-                'stock'         => $request->stock,
                 'slug'          => \Str::slug($request->title), 
             ]);
         }
         
+        \Session::flash('buku_update','Data buku berhasil di tambah');
+
         return redirect('/buku');
     }
 

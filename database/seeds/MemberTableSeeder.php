@@ -23,7 +23,7 @@ class MemberTableSeeder extends Seeder
 	        	'phone' 	=> $faker->phoneNumber,
 	        	'birthdate' => $faker->date('Y-m-d','now'),
 	        	'image' 	=> 'user.jpg',
-	        	'expire_at' => $faker->date('Y-m-d','now'),
+                'expire_at' => $faker->date('Y-m-d','now'),
 	        ]);
             
             $id++;

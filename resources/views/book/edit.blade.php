@@ -29,9 +29,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 @endpush
 
-@section('content')
-	<!-- Content Header (Page header) -->
-    <section class="content-header">
+@section('content-header')
       <h1>
         Buku
         <small>Form</small>
@@ -41,10 +39,10 @@
         <li><a href="#">Buku</a></li>
         <li class="active">Edit</li>
       </ol>
-    </section>
+@endsection
 
-    <!-- Main content -->
-    <section class="content">
+@section('content')
+
       <div class="row">
         <div class="col-md-12">
         <div class="box box-warning">
@@ -79,7 +77,8 @@
                             <input type="text" name="description" class="form-control" placeholder="Keterangan Buku.." value="{{$book->description}}">
                         </div>
                         @endif
-
+                        
+                        <!-- 
                         @if($errors->has('stock'))
                         <div class="form-group has-error">
                         <label>Stok Buku</label>
@@ -92,7 +91,8 @@
                             <input type="number" min="0" max="999" name="stock" class="form-control" placeholder="Stok Buku.." value="{{$book->stock}}">
                         </div>
                         @endif
-
+                        -->
+                        
                         <div class="form-group">
                         	<label>Kategori</label>
                             <select class="form-control select2" name="category">
@@ -122,8 +122,6 @@
     </div>
       </div>
       <!-- /.row -->
-    </section>
-    <!-- /.content -->
 @endsection
 
 @push('script')

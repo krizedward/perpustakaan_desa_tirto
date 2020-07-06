@@ -191,7 +191,7 @@
                     <th>Nama Buku</th>
                     <th>Kategori</th>
                     <th>Jumlah</th>
-                    <th>Aksi</th>
+                    <th colspan="2" style="text-align: center;">Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -200,16 +200,20 @@
                     <td>{{$e+1}}</td>
                       <td><img src="{{ asset('uploads/'.$dt->image_cover) }}" style="width: 50px;"></td>
                       <td>{{$dt->title}}</td>
-                      <td>{{$dt->category->name}}</td>
+                      <td>{{ (($dt->category_id != Null) ? $dt->category->name : 'Tidak Ada Kategori') }}</td>
                       <td>{{$dt->stock}}</td>
-
-                      <td>
+                      <td style="text-align: center;">
                         <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/list/'.$dt->id)}}"><i class="fa fa-list"></i></a>
-                         @if(Auth::user()->level == "staff")
+                      </td>  
+                        @if(Auth::user()->level == "staff")
+                        <td style="text-align: center;">
                         <a class="btn btn-flat btn-xs btn-warning" href="{{url('/buku/form-edit/'.$dt->slug)}}"><i class="fa fa-pencil"></i></a>
+                        </td>
+                        <!-- 
+                        <td style="text-align: center;">
                         <a class="btn btn-flat btn-xs btn-danger" href="{{url('/buku/hapus/'.$dt->book_id)}}"><i class="fa fa-trash"></i></a>
+                        </td> -->
                         @endif
-                      </td>
                   </tr>
   	        	    @endforeach
                   </tbody>

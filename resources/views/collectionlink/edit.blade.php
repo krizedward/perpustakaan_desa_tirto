@@ -1,15 +1,17 @@
 @extends('layouts.admin.default')
 
-@section('title','Edit Kategori')
+@section('title', 'Form Edit Koleksi Link')
+
 
 @push('style')
-
-  <!-- Bootstrap 3.3.7 -->
+<!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/font-awesome/css/font-awesome.min.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/AdminLTE.min.css')}}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -24,60 +26,9 @@
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
-
-@section('content-header')
-      <h1>
-        Kategori
-        <small>Form</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Kategori</a></li>
-        <li class="active">Edit</li>
-      </ol>
-@endsection
-
-@section('content')
-
-      <div class="row">
-        <div class="col-md-12">
-        <div class="box box-warning">
-            <div class="box-body">
-                <form role="form" method="post" action="{{ url('/kategori/update/'.$category->id) }}" enctype="multipart/form-data">
-                    @csrf
-                    @method('put')
-                    <div class="box-body">
-                        
-                        @if($errors->has('name'))
-                        <div class="form-group has-error">
-                        <label>Nama Kategori</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama Kategori.." value="{{ $category->name }}">
-                            <span class="help-block">{{ $errors->first('name')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        <label>Nama Kategori</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama Kategori.." value="{{ $category->name }}">
-                        </div>
-                        @endif
-       
-                    </div>
-                    <!-- /.box-body -->
- 
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-      </div>
-      <!-- /.row -->
-@endsection
 
 @push('script')
 <!-- jQuery 3 -->
@@ -133,13 +84,65 @@
 </script>
 @endpush
 
-@section('asd')
-<h1>form</h1>
-<form method="post" action="{{ url('/kategori/update/'.$category->id) }}">
-	@csrf
-	@method('put')
-	<label>Kategori :</label>
-	<input type="text" name="name" placeholder="name" value="{{ $category->name }}">
-	<button type="submit">Submit</button>
-</form>
+@section('content-header')
+      <h1>
+        Kategori
+        <small>Form</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Kategori</a></li>
+        <li class="active">Edit</li>
+      </ol>
+@endsection
+
+@section('content')
+
+      <div class="row">
+        <div class="col-md-12">
+        <div class="box box-warning">
+            <div class="box-body">
+                <form role="form" method="post" action="{{ route('collectionlink.update',[$data->id]) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('put')
+                    <div class="box-body">
+
+                        @if($errors->has('name'))
+                        <div class="form-group has-error">
+                        <label>Nama Koleksi</label>
+                            <input type="text" name="name" class="form-control" placeholder="Nama.." value="{{ $data->name }}">
+                            <span class="help-block">{{ $errors->first('name')}}</span>
+                        </div>
+                        @else
+                        <div class="form-group">
+                        <label>Nama Koleksi</label>
+                            <input type="text" name="name" class="form-control" placeholder="Nama.." value="{{ $data->name }}">
+                        </div>
+                        @endif
+
+                        @if($errors->has('link'))
+                        <div class="form-group has-error">
+                        <label>Link</label>
+                            <input type="text" name="link" class="form-control" placeholder="Nama Link.." value="{{ $data->link }}">
+                            <span class="help-block">{{ $errors->first('link')}}</span>
+                        </div>
+                        @else
+                        <div class="form-group">
+                        <label>Link</label>
+                            <input type="text" name="link" class="form-control" placeholder="Nama Link.." value="{{ $data->link }}">
+                        </div>
+                        @endif
+       
+                    </div>
+                    <!-- /.box-body -->
+ 
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      </div>
+      <!-- /.row -->
 @endsection

@@ -56,13 +56,20 @@
         <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">Data</a></li>
+              <li class="active"><a href="#activity" data-toggle="tab">Data Diri</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="activity">
                 <strong><i class="fa fa-book margin-r-5"></i> Nama Anggota</strong>
                 <p>
-                  {{$data->name}}
+                  {{ $data->user->name }}
+                </p>
+
+                <hr>
+
+                <strong><i class="fa fa-book margin-r-5"></i> Nomer Handphone</strong>
+                <p>
+                  {{ $data->phone }}
                 </p>
 
                 <hr>

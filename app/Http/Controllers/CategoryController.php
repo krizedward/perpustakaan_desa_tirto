@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -94,6 +95,15 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::where('id',$id)->delete();
+
+        $data = Book::all();
+        
+        foreach ($data as $dt) {
+            Book::where('category_id',$id)->update([
+                'category_id'  =>  Null,
+            ]);
+        }
+        
 
         \Session::flash('kategori_delete','Data Kategori Berhasil Dihapus');
         

@@ -118,7 +118,7 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        $data = Member::where('id',$id)->first();
+        $data = Member::where('user_id',$id)->first();
         return view('member.edit',compact('data'));
     }
 
@@ -133,6 +133,7 @@ class MemberController extends Controller
     {
         $this->validate($request, [
             'name'      => 'required',
+            'email'      => 'required',
             'gender'    => 'required',
             'phone'     => 'required',
             'birthdate' => 'required',
@@ -140,7 +141,8 @@ class MemberController extends Controller
         ]);
 
         $file = $request->file('image');
-        
+        $user = Member::where('id',$id)->first();
+
         if ($file) {
             
             Member::where('id',$id)->update([
@@ -149,7 +151,7 @@ class MemberController extends Controller
                 'birthdate' =>  $request->birthdate,
                 'image'     =>  $file->getClientOriginalName(),
                 'expire_at' =>  $request->expired,
-                ]);
+            ]);
 
                 //Move Uploaded File
                 $destinationPath = 'uploads/anggota';
@@ -164,11 +166,19 @@ class MemberController extends Controller
                 'image'     =>  'user.jpg',
                 'expire_at' =>  $request->expired,
             ]);
+
         }
+
+        User::where('id',$user->user_id)->update([
+            'name'      =>  $request->name,
+            'email'     =>  $request->email,
+        ]);
 
         \Session::flash('anggota_update','Berhasil mengubah data anggota');
 
-        return redirect('/anggota');
+        $member = Member::where('id',$id)->first();
+
+        return redirect('/anggota/form-edit/'.$member->user_id);
     }
 
     /**
@@ -190,5 +200,32 @@ class MemberController extends Controller
     {
         $data = Book::all();
         return view('book.index',compact('data'));
+    }
+
+    public function active($id)
+    {
+        $dt = Member::where('id',$id)->first();
+        
+        User::where('id',$dt->user_id)->update([
+            'status' => 'active',
+        ]);
+        
+        \Session::flash('active','Berhasil mengaktifkan anggota');
+
+        return redirect('/anggota');
+    }
+
+    public function nonactive($id)
+    {
+        $dt = Member::where('id',$id)->first();
+        
+        User::where('id',$dt->user_id)->update([
+            'status' => 'unactive',
+        ]);
+
+
+        \Session::flash('unactive','Berhasil mengnon-aktifkan anggota');
+
+        return redirect('/anggota');
     }
 }

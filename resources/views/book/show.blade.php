@@ -76,7 +76,9 @@
 
                 <strong><i class="fa fa-book margin-r-5"></i> Jumlah Stok : {{$book->stock}}</strong><hr>
 
-                <strong><i class="fa fa-book margin-r-5"></i> Kategori : {{$book->category->name}}</strong><hr>
+                <strong><i class="fa fa-book margin-r-5"></i> Kategori : 
+                  {{ (($book->category_id != Null) ? $book->category->name : 'Tidak Ada Kategori') }}
+                </strong><hr>
 
 
               </div>
@@ -127,5 +129,5 @@
 <p>{{$book->stock}}</p>
 <p>{{$book->image_cover}}</p>
 <p>{{$book->status}}</p>
-<p>{{$book->category->name}}</p>
+<p>{{$book->category_id}}</p>
 @endsection

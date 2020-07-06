@@ -67,7 +67,7 @@ class BorrowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $this->validate($request,[
             'user'   => 'required',
@@ -123,20 +123,30 @@ class BorrowController extends Controller
         //}
     }
 
-    public function pending(Request $request)
+    public function pending(Request $request, $id)
     {
         $this->validate($request,[
             'user'   => 'required',
             'book'   => 'required',
         ]);
-
+        $dt     = Member::where('user_id',$id)->first();
+        $count  = Borrow::where('member_id',$dt->id)->where('action','request')->count();
+        if ($count == 3) {
+            //return dd($count);
+            \Session::flash('peringatan_pesan','hanya 3 buku yang bisa dipinjam');
+            return redirect('/pesan/buku');       
+        } else {
+            
         Borrow::create([
             'member_id'     => $request->user,
             'codebook_id'   => $request->book,
             'action'        => "request",
         ]);
-
-        return redirect('/pinjam');
+        
+        \Session::flash('pesan_buku','buku dipesan, menunggu konfirmasi petugas perpus');
+           
+        return redirect('/pesan/buku');
+        }
     }
 
     /**
@@ -192,16 +202,34 @@ class BorrowController extends Controller
 
     public function agree($id)
     {
-        Borrow::where('id',$id)->update(['action'=>'borrow']);
+
+        $buku_pinjam = Borrow::where('id',$id)->first();
+        $kode_buku   = $buku_pinjam->codebook_id;
+        $buku        = Borrow::all();
+        //Borrow::where('id',$id)->update(['action'=>'borrow']);
+        //$choose = Borrow::where('codebook_id',$kode_buku)->where('id',$id)->first();
+        
+        foreach ($buku as $dt) {
+            
+            if ($dt->codebook_id == $kode_buku && $dt->id != $id) {
+                Borrow::where('codebook_id',$kode_buku)->where('id','!=',$id)->update(['action'=>'denied']);
+            }
+
+            if ($dt->id == $id) {
+                Borrow::where('id',$id)->update(['action'=>'borrow']);
+            }
+
+        }
 
         $dt       = Borrow::all()->last();
         $id_buku  = $dt->codebook->book->id;
         $buku     = Book::find($id_buku);
 
+
         CodeBook::where('id',$dt->codebook_id)->update([
             'status' => "not available",
         ]);
-
+        
         $now = $buku->stock;
         $stock_pengembalian = $now - 1;
             

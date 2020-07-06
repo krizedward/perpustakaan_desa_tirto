@@ -29,9 +29,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 @endpush
 
-@section('content')
-	<!-- Content Header (Page header) -->
-    <section class="content-header">
+@section('content-header')
       <h1>
         Buku
         <small>Form</small>
@@ -41,10 +39,10 @@
         <li><a href="#">Buku</a></li>
         <li class="active">Tambah</li>
       </ol>
-    </section>
+@endsection
 
-    <!-- Main content -->
-    <section class="content">
+@section('content')
+
       <div class="row">
         <div class="col-md-12">
         <div class="box box-warning">
@@ -134,8 +132,6 @@
     </div>
       </div>
       <!-- /.row -->
-    </section>
-    <!-- /.content -->
 @endsection
 
 @push('script')

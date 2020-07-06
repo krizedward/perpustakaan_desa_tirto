@@ -7,7 +7,7 @@ use App\User;
 
 class Member extends Model
 {
-    protected $fillable = ['user_id','gender','phone','birthdate','image','expire_at'];
+    protected $fillable = ['user_id','gender','phone','birthdate','image','expire_at','status'];
 
     public function user()
     {

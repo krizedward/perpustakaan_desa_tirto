@@ -65,9 +65,9 @@
                 <tr>
                   <td>{{$e+1}}</td>
                     <td><img src="{{ asset('uploads/'.$dt->book->image_cover) }}" style="width: 50px;"></td>
-                    <td>{{$dt->code}}</td>
-                    <td>{{$dt->book->title}}</td>
-                    <td>{{$dt->book->category->name}}</td>
+                    <td>{{ $dt->code }}</td>
+                    <td>{{ $dt->book->title }}</td>
+                    <td>{{ (($dt->book->category_id != Null) ? $dt->book->category->name : 'Tidak Ada Kategori') }}</td>
                     <td>
                         @if($dt->status == "available")
                         <div class="label label-success">Tersedia</a>
