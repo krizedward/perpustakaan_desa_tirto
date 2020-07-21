@@ -237,7 +237,7 @@
                   </tr>
                   @foreach($member as $e=>$dt)
                   <tr>
-                    <td>{{$member->count() * ($member->currentPage() - 1) + $e + 1}}</td>
+                    <td>{{$member->perPage() * ($member->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->user->name}}</td>
                     <td>{{$dt->phone}}</td>
                     <td>{{$dt->user->email}}</td>
@@ -269,7 +269,7 @@
                   </tr>
                   @foreach($book as $e=>$dt)
                   <tr>
-                    <td>{{$book->count() * ($book->currentPage() - 1) + $e + 1}}</td>
+                    <td>{{$book->perPage() * ($book->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->title}}</td>
                     <td>{{$dt->stock}}</td>
                   </tr>
@@ -306,7 +306,7 @@
                   </tr>
                   @foreach($borrow as $e=>$dt)
                   <tr>
-                    <td>{{$borrow->count() * ($borrow->currentPage() - 1) + $e + 1}}</td>
+                    <td>{{$borrow->perPage() * ($borrow->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->codebook->book->title}}</td>
                     <td>{{$dt->codebook->code}}</td>
                     <td>{{$dt->member->user->name}}</td>
@@ -351,7 +351,7 @@
                   </tr>
                   @foreach($done as $e=>$dt)
                   <tr>
-                    <td>{{$done->count() * ($done->currentPage() - 1) + $e + 1}}</td>
+                    <td>{{$done->perPage() * ($done->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->codebook->code}}</td>
                     <td>{{$dt->codebook->book->title}}</td>
                     <td>{{$dt->member->user->name}}</td>

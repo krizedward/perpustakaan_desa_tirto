@@ -69,7 +69,7 @@ class BookController extends Controller
             
             $temp = Book::all()->last();
 
-            for ($i=0; $i < $request->stock; $i++) { 
+            for ($i=1; $i <= $request->stock; $i++) { 
                 CodeBook::create([
                     'book_id'   => $temp->id,
                     'code'      => $request->code.'-'.$i,
@@ -92,7 +92,7 @@ class BookController extends Controller
 
             $temp = Book::all()->last();
 
-            for ($i=0; $i < $request->stock; $i++) { 
+            for ($i=1; $i <= $request->stock; $i++) { 
                 CodeBook::create([
                     'book_id'   => $temp->id,
                     'code'      => $request->code.'-'.$i,

@@ -16,13 +16,21 @@
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              @if(Auth::check() && Auth::user()->level == 'member')
+              <img src="{{ asset('uploads/anggota/'.Auth::user()->member->image) }}" class="user-image" alt="User Image">
+              @else
               <img src="{{ asset('adminlte/dist/img/user.jpg')}}" class="user-image" alt="User Image">
+              @endif
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
+                @if(Auth::check() && Auth::user()->level == 'member')
+                <img src="{{ asset('uploads/anggota/'.Auth::user()->member->image) }}" class="img-circle" alt="User Image">
+                @else
                 <img src="{{ asset('adminlte/dist/img/user.jpg')}}" class="img-circle" alt="User Image">
+                @endif
 
                 <p>
                   {{ Auth::user()->name }}
