@@ -75,6 +75,7 @@
               <div class="box-body">
                 <table class="table table-bordered">
                   <tr>
+                    <th style="width: 10px">#</th>
                     <th>Nama Buku</th>
                     <th>Kode Buku</th>
                     <th>Tanggal Pinjam</th>
@@ -83,6 +84,7 @@
                   @foreach($borrow as $e=>$dt)
                   @if(Auth::user()->id == $dt->member->user->id)
                   <tr>
+                    <td>{{$e+1}}</td>
                     <td>{{ $dt->codebook->book->title }}</td>
                     <td>{{ $dt->codebook->code }}</td>
                     <td>{{ date('d-M-Y', strtotime($dt->created_at))}}</td>
@@ -114,6 +116,7 @@
               <div class="box-body">
                 <table class="table table-bordered">
                   <tr>
+                    <th style="width: 10px">#</th>
                     <th>Kode Buku</th>
                     <th>Nama Member</th>
                     <th>Tanggal Kembali</th>
@@ -123,6 +126,7 @@
                   @foreach($done as $e=>$dt)
                     @if(Auth::user()->id == $dt->member->user->id)
                     <tr>
+                      <td>{{$e+1}}</td>
                       <td>{{$dt->codebook->code}}</td>
                       <td>{{$dt->codebook->book->title}}</td>
                       <td>{{ date('d-M-Y', strtotime($dt->updated_at))}}</td>
@@ -151,7 +155,6 @@
               <div class="box-body">
                 <table class="table table-bordered">
                   <tr>
-                    <th style="width: 10px">#</th>
                     <th>Nama</th>
                     <th>Telpon</th>
                     <th>Email</th>
@@ -160,7 +163,6 @@
                   @foreach($members as $e=>$dt)
                   @if(Auth::user()->id == $dt->user->id)
                   <tr>
-                    <td>{{$e+1}}</td>
                     <td>{{$dt->user->name}}</td>
                     <td>{{$dt->phone}}</td>
                     <td>{{$dt->user->email}}</td>
@@ -186,11 +188,13 @@
               <div class="box-body">
                 <table class="table table-bordered">
                   <tr>
+                    <th style="width: 10px">#</th>
                     <th>Judul</th>
                     <th>Jumlah</th>
                   </tr>
                   @foreach($book as $e=>$dt)
                   <tr>
+                    <td>{{$e+1}}</td>
                     <td>{{$dt->title}}</td>
                     <td>{{$dt->stock}}</td>
                   </tr>
@@ -219,7 +223,7 @@
             
             <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">Anggota Member</h3>
+                <h3 class="box-title">Daftar Anggota</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -233,7 +237,7 @@
                   </tr>
                   @foreach($member as $e=>$dt)
                   <tr>
-                    <td>{{$e+1}}</td>
+                    <td>{{$member->count() * ($member->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->user->name}}</td>
                     <td>{{$dt->phone}}</td>
                     <td>{{$dt->user->email}}</td>
@@ -241,6 +245,7 @@
                   </tr>
                   @endforeach
                 </table>
+                {{ $member->appends(array_except(Request::query(), 'member'))->onEachSide(2)->links() }}
               </div>
             </div>
             <!-- /.box -->
@@ -264,12 +269,13 @@
                   </tr>
                   @foreach($book as $e=>$dt)
                   <tr>
-                    <td>{{$e+1}}</td>
+                    <td>{{$book->count() * ($book->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->title}}</td>
                     <td>{{$dt->stock}}</td>
                   </tr>
                   @endforeach
                 </table>
+                {{ $book->appends(array_except(Request::query(), 'book'))->onEachSide(2)->links() }}
               </div>
               <!-- /.box-body -->
 
@@ -284,7 +290,7 @@
             
             <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">Riwayat Buku Sedang Dipinjam</h3>
+                <h3 class="box-title">Riwayat Peminjaman Buku</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -300,7 +306,7 @@
                   </tr>
                   @foreach($borrow as $e=>$dt)
                   <tr>
-                    <td>{{$e+1}}</td>
+                    <td>{{$borrow->count() * ($borrow->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->codebook->book->title}}</td>
                     <td>{{$dt->codebook->code}}</td>
                     <td>{{$dt->member->user->name}}</td>
@@ -315,6 +321,7 @@
                   </tr>
                   @endforeach
                 </table>
+                {{ $borrow->appends(array_except(Request::query(), 'borrow'))->onEachSide(2)->links() }}
               </div>
             </div>
             <!-- /.box -->
@@ -328,12 +335,13 @@
             
             <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">Riwayat Buku Pengembalian</h3>
+                <h3 class="box-title">Riwayat Pengembalian Buku</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
                 <table class="table table-bordered">
                   <tr>
+                    <th style="width: 10px">#</th>
                     <th>Kode Buku</th>
                     <th>Nama Buku</th>
                     <th>Nama Member</th>
@@ -343,6 +351,7 @@
                   </tr>
                   @foreach($done as $e=>$dt)
                   <tr>
+                    <td>{{$done->count() * ($done->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->codebook->code}}</td>
                     <td>{{$dt->codebook->book->title}}</td>
                     <td>{{$dt->member->user->name}}</td>
@@ -352,6 +361,7 @@
                   </tr>
                   @endforeach
                 </table>
+                {{ $done->appends(array_except(Request::query(), 'done'))->onEachSide(2)->links() }}
               </div>
             </div>
             <!-- /.box -->

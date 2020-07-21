@@ -52,6 +52,7 @@ class BookController extends Controller
             'description'   => 'required',
             'stock'         => 'required',
             'category'      => 'required',
+            'image_cover'   => 'sometimes|max:8000',
         ]);
 
         $file = $request->file('image');

@@ -33,10 +33,10 @@ class HomeController extends Controller
 
     public function admin()
     {
-        $book       = Book::orderBy('updated_at', 'desc')->paginate(4);
-        $borrow     = Borrow::where('action','borrow')->get();
-        $done       = Borrow::where('action','done')->orderBy('updated_at', 'desc')->get();
-        $member     = Member::orderBy('updated_at', 'desc')->paginate(4);
+        $book       = Book::orderBy('updated_at', 'desc')->paginate(4, ['*'], 'book');
+        $borrow     = Borrow::where('action','borrow')->paginate(10, ['*'], 'borrow');
+        $done       = Borrow::where('action','done')->orderBy('updated_at', 'desc')->paginate(10, ['*'], 'done');
+        $member     = Member::orderBy('updated_at', 'desc')->paginate(4, ['*'], 'member');
         $members    = Member::all();
         $carbon     = new Carbon();
         

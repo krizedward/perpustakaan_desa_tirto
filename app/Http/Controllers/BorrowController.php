@@ -242,7 +242,8 @@ class BorrowController extends Controller
 
     public function reject($id)
     {
-        Borrow::where('id',$id)->delete();
+        //Borrow::where('id',$id)->delete();
+        Borrow::where('id',$id)->update(['action'=>'denied']);
 
         return redirect('/pinjam');
     }
