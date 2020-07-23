@@ -52,7 +52,7 @@
                     @method('put')
                     <div class="box-body">
                         
-                        @if($errors->has('name'))
+                        @if($errors->has('title'))
                         <div class="form-group has-error">
                         <label>Judul Buku</label>
                             <input type="text" name="title" class="form-control" placeholder="Nama Buku.." value="{{$book->title}}">
@@ -65,7 +65,7 @@
                         </div>
                         @endif
 
-                        @if($errors->has('name'))
+                        @if($errors->has('description'))
                         <div class="form-group has-error">
                         <label>Keterangan Buku</label>
                             <input type="text" name="description" class="form-control" placeholder="Keterangan Buku.." value="{{$book->description}}">
@@ -93,6 +93,18 @@
                         @endif
                         -->
                         
+                        @if($errors->has('category'))
+                        <div class="form-group has-error">
+                        	<label>Kategori</label>
+                            <select class="form-control select2" name="category">
+                                <option selected="" disabled="">Pilih Kategori</option>
+                                @foreach($category as $dt)
+                                <option value="{{$dt->id}}" {{ ($book->category_id == $dt->id) ? 'selected' : '' }}>{{$dt->name}}</option>
+                                @endforeach
+                            </select>
+                            <span class="help-block">{{ $errors->first('category')}}</span>
+                        </div>
+                        @else
                         <div class="form-group">
                         	<label>Kategori</label>
                             <select class="form-control select2" name="category">
@@ -102,11 +114,20 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
  
+                        @if($errors->has('image_cover')) 
+                        <div class="form-group has-error">
+                            <label for="exampleInputFile">Cover Sampul</label>
+                            <input type="file" name="image_cover" id="exampleInputFile">
+                            <span class="help-block">{{ $errors->first('image_cover')}}</span>
+                        </div>
+                        @else
                         <div class="form-group">
                             <label for="exampleInputFile">Cover Sampul</label>
-                            <input type="file" name="image" id="exampleInputFile">
+                            <input type="file" name="image_cover" id="exampleInputFile">
                         </div>
+                        @endif
 
 
        

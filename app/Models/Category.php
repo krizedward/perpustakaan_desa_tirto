@@ -8,7 +8,7 @@ use App\Models\Book;
 
 class Category extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes;
 	
     protected $fillable = ['id','name','slug'];
 

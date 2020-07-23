@@ -63,7 +63,7 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::get('/buku/detail/{slug}','BookController@show')->name('book.show');
 	Route::get('/buku/form-edit/{slug}','BookController@edit')->name('book.edit');
 	Route::put('/buku/update/{id}','BookController@update')->name('book.update');
-	Route::get('/buku/hapus/{id}','BookController@destroy')->name('book.destroy');
+	Route::delete('/buku/hapus/{id}','BookController@destroy')->name('book.destroy');
 	Route::get('/buku/pasif/{id}','BookController@passive')->name('book.passive');
 	Route::get('/buku/aktif/{id}','BookController@activation')->name('book.activation');
 	//halaman pinjam buku

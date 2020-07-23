@@ -191,7 +191,7 @@
                     <th>Nama Buku</th>
                     <th>Kategori</th>
                     <th>Jumlah</th>
-                    <th colspan="2" style="text-align: center;">Aksi</th>
+                    <th colspan="3" style="text-align: center;">Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -209,10 +209,13 @@
                         <td style="text-align: center;">
                         <a class="btn btn-flat btn-xs btn-warning" href="{{url('/buku/form-edit/'.$dt->slug)}}"><i class="fa fa-pencil"></i></a>
                         </td>
-                        <!-- 
                         <td style="text-align: center;">
-                        <a class="btn btn-flat btn-xs btn-danger" href="{{url('/buku/hapus/'.$dt->book_id)}}"><i class="fa fa-trash"></i></a>
-                        </td> -->
+                        <form role="form" method="POST" action="{{url('/buku/hapus/'.$dt->id)}}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-flat btn-xs btn-danger" type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini: {{ $dt->title }} ?')"><i class="fa fa-trash"></i></button>
+                        </form>
+                        </td>
                         @endif
                   </tr>
   	        	    @endforeach

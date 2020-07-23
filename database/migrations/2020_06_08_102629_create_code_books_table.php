@@ -19,6 +19,7 @@ class CreateCodeBooksTable extends Migration
             $table->string('code');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes()->nullable();
 
             $table->foreign('book_id')
             ->references('id')

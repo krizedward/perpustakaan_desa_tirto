@@ -22,6 +22,7 @@ class CreateMembersTable extends Migration
             $table->string('image')->nullable();
             $table->date('expire_at')->nullable();
             $table->timestamps();
+            $table->softDeletes()->nullable();
 
             $table->foreign('user_id')
             ->references('id')

@@ -18,6 +18,7 @@ class CreateReturnsTable extends Migration
             $table->unsignedBigInteger('codebook_id');
             $table->unsignedBigInteger('member_id');
             $table->timestamps();
+            $table->softDeletes()->nullable();
 
             $table->foreign('codebook_id')
             ->references('id')

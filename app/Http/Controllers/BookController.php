@@ -140,6 +140,13 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title'         => 'required',
+            'description'   => 'required',
+            'category'      => 'required',
+            'image_cover'   => 'sometimes|max:8000',
+        ]);
+
         $file = $request->file('image');
 
         if ($file) {
@@ -163,7 +170,7 @@ class BookController extends Controller
             ]);
         }
         
-        \Session::flash('buku_update','Data buku berhasil di tambah');
+        \Session::flash('buku_update','Data buku berhasil di ubah');
 
         return redirect('/buku');
     }
@@ -177,6 +184,8 @@ class BookController extends Controller
     public function destroy($id)
     {
         Book::where('id',$id)->delete();
+
+        \Session::flash('buku_delete','Data buku berhasil di hapus');
 
         return redirect('/buku');
     }

@@ -19,6 +19,7 @@ class CreateBorrowsTable extends Migration
             $table->unsignedBigInteger('member_id');
             $table->string('action');
             $table->timestamps();
+            $table->softDeletes()->nullable();
 
             $table->foreign('codebook_id')
             ->references('id')
