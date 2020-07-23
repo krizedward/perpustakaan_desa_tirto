@@ -56,6 +56,8 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::get('/buku','BookController@index')->name('book.index');
 	//halaman untuk menampilkan detail
 	Route::get('/buku/list/{id}','BookController@detail')->name('book.detail');
+	Route::put('/buku/list/{id}/tambah','BookController@stockadd')->name('book.detail.add');
+	Route::delete('/buku/list/{id}/kurang','BookController@stockremove')->name('book.detail.remove');
 	//halaman form
 	Route::get('/buku/form-tambah','BookController@create')->name('book.create');
 	Route::post('/buku/tambah','BookController@store')->name('book.store');

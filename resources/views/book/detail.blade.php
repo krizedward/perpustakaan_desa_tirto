@@ -45,6 +45,17 @@
         <div class="col-xs-12">
           <div class="box box-warning">
             <div class="box-header">
+                @if(Auth::user()->level == "staff")
+                <form method="POST" action="{{ url('buku/list/'.$id.'/tambah') }}" id="stockaddform">
+                  @csrf
+                  @method('PUT')
+                  <input type="text" style="display:none;" name="stockadd" id="stockadd">
+                  @if($errors->has('stockadd'))
+                    <span class="help-block" style="color:red;">{{ $errors->first('stockadd')}}</span>
+                  @endif
+                  <button onclick="var i = prompt('Jumlah stok buku yang ditambahkan:'); if(i) { $('#stockadd').val( i ); $('#stockaddform').submit(); } else return false;" class="btn btn-flat btn-sm btn-primary" type="submit">Tambah Stok Buku</button>
+                </form>
+                @endif
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -57,7 +68,7 @@
                   <th>Nama Buku</th>
                   <th>Kategori</th>
                   <th>Status</th>
-                  <th>Aksi</th>
+                  <th colspan="2" style="text-align: center;">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -76,8 +87,19 @@
                         @endif
                     </td>
 
-                    <td>
+                    <td style="text-align: center;">
                       <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/detail/'.$dt->book->slug)}}"><i class="fa fa-eye"></i></a>
+                    </td>
+                    <td style="text-align: center;">
+                    <form role="form" method="POST" action="{{url('/buku/list/'.$id.'/kurang')}}" id="stockremoveform">
+                      @csrf
+                      @method('DELETE')
+                      <input type="text" style="display:none;" name="stockremove" id="stockremove">
+                      @if($errors->has('stockremove'))
+                        <span class="help-block" style="color:red;">{{ $errors->first('stockremove')}}</span>
+                      @endif
+                      <button onclick="if(confirm('Apakah Anda yakin ingin menghapus buku dengan kode ini: {{ $dt->code }} ?')) { $('#stockremove').val( {{ $dt->code }} ); $('#stockremoveform').submit(); } else return false;" class="btn btn-flat btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                    </form>
                     </td>
                 </tr>
 	        	    @endforeach

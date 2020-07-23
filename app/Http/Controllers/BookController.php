@@ -23,7 +23,7 @@ class BookController extends Controller
     public function detail($id)
     {
         $data = CodeBook::where('book_id',$id)->get();
-        return view('book.detail', compact('data'));
+        return view('book.detail', compact('data', 'id'));
     }
 
     /**
@@ -208,5 +208,53 @@ class BookController extends Controller
     {
         $data = Book::all();
         return view('home',compact('data'));
+    }
+
+    public function stockadd(Request $request, $id)
+    {
+        $this->validate($request, [
+            'stockadd'      => 'required|integer',
+        ]);
+
+        $book = Book::where('id',$id)->first();
+        $code = CodeBook::where('book_id', $id)->first()->code;
+
+
+        for ($i=$book->stock + 1; $i <= ($book->stock + $request->stockadd); $i++) { 
+            CodeBook::create([
+                'book_id'   => $id,
+                'code'      => substr($code, 0, strrpos($code, '-')).'-'.$i,
+                'status'    => 'available',
+            ]);
+        }
+
+        $book->update([
+            'stock'    => $book->stock + $request->stockadd,
+        ]);
+        
+        \Session::flash('buku_update','Data buku berhasil di ubah');
+
+        return redirect('/buku/list/'.$id);
+    }
+
+    public function stockremove($id)
+    {
+        $this->validate($request, [
+            'stockremove'      => 'required',
+        ]);
+
+        $book = Book::where('id',$id)->first();
+        $codebook = CodeBook::where('code', $request->stockremove)->first();
+
+        if($codebook->status == 'available') {
+            $codebook->delete();
+            $book->update([
+                'stock'    => $book->stock, // need to be repaired
+            ]);
+        }
+
+        \Session::flash('buku_delete','Data buku berhasil di hapus');
+
+        return redirect('/buku/list/'.$id);
     }
 }
