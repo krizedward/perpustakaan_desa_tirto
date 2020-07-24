@@ -201,7 +201,11 @@
                       <td><img src="{{ asset('uploads/'.$dt->image_cover) }}" style="width: 50px;"></td>
                       <td>{{$dt->title}}</td>
                       <td>{{ (($dt->category_id != Null) ? $dt->category->name : 'Tidak Ada Kategori') }}</td>
-                      <td>{{$dt->stock}}</td>
+                      @if(Auth::user()->level == 'staff')
+                        <td>{{$dt->stock}}</td>
+                      @else
+                        <td>{{$dt->stock - $code_book->where('book_id', $dt->id)->where('status', 'lost')->count()}}</td>
+                      @endif
                       <td style="text-align: center;">
                         <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/list/'.$dt->id)}}"><i class="fa fa-list"></i></a>
                       </td>  

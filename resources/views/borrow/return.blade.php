@@ -52,7 +52,6 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>#</th>
                   <th>Nama Buku</th>
                   <th>Kode Buku</th>
         					<th>Nama Peminjam</th>
@@ -64,7 +63,6 @@
                 @foreach($data as $e=>$dt)
                   @if(Auth::user()->id == $dt->member->user->id)
                     <tr>
-                      <td>{{$e+1}}</td>
                       <td>{{$dt->codebook->book->title}}</td>
                       <td>{{$dt->codebook->code}}</td>
             					<td>{{$dt->member->user->name}}</td>

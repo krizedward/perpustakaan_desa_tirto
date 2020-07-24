@@ -56,7 +56,7 @@ class BorrowController extends Controller
      */
     public function create()
     {
-        $user = Member::all();
+        $user = Member::join('users', 'users.id', 'user_id')->orderBy('name')->get();
         $codebook = CodeBook::all();
         return view('borrow.create', compact('user','codebook'));
     }

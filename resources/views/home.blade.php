@@ -196,7 +196,7 @@
                   <tr>
                     <td>{{$e+1}}</td>
                     <td>{{$dt->title}}</td>
-                    <td>{{$dt->stock}}</td>
+                    <td>{{$dt->stock - $code_book->where('book_id', $dt->id)->where('status', 'lost')->count()}}</td>
                   </tr>
                   @endforeach
                 </table>
@@ -271,7 +271,7 @@
                   <tr>
                     <td>{{$book->perPage() * ($book->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->title}}</td>
-                    <td>{{$dt->stock}}</td>
+                    <td>{{$dt->stock - $code_book->where('book_id', $dt->id)->where('status', 'lost')->count()}}</td>
                   </tr>
                   @endforeach
                 </table>

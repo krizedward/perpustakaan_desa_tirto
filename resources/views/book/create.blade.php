@@ -93,13 +93,13 @@
                         @if($errors->has('stock'))
                         <div class="form-group has-error">
                         <label>Stok Buku</label>
-                            <input type="number" min="0" max="999" name="stock" class="form-control" placeholder="Stok Buku.." value="{{ old('stock') }}">
+                            <input type="number" min="1" max="999" name="stock" class="form-control" placeholder="Stok Buku.." value="{{ old('stock') }}">
                             <span class="help-block">{{ $errors->first('stock')}}</span>
                         </div>
                         @else
                         <div class="form-group">
                         <label>Stok Buku</label>
-                            <input type="number" min="0" max="999" name="stock" class="form-control" placeholder="Stok Buku.." value="{{ old('stock') }}">
+                            <input type="number" min="1" max="999" name="stock" class="form-control" placeholder="Stok Buku.." value="{{ old('stock') }}">
                         </div>
                         @endif
 

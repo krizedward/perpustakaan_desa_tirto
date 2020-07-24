@@ -124,11 +124,25 @@
               {{ Session::get('buku_update')}}
           </div>
         @endif
+        @if(Session::has('buku_update_error'))
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-times"></i> {{ __('Tidak Berhasil!')}}</h4>
+              {{ Session::get('buku_update_error')}}
+          </div>
+        @endif
         @if(Session::has('buku_delete'))
           <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
               {{ Session::get('buku_delete')}}
+          </div>
+        @endif
+        @if(Session::has('buku_delete_error'))
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-times"></i> {{ __('Tidak Berhasil!')}}</h4>
+              {{ Session::get('buku_delete_error')}}
           </div>
         @endif
         <!-- Buku Alert End -->

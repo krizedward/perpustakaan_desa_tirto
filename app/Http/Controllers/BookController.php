@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\CodeBook;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -17,12 +18,17 @@ class BookController extends Controller
     public function index()
     {
         $data = Book::all();
-        return view('book.index', compact('data'));
+        $code_book = CodeBook::all();
+        return view('book.index', compact('data', 'code_book'));
     }
 
     public function detail($id)
     {
-        $data = CodeBook::where('book_id',$id)->get();
+        if(Auth::check() && \Auth::user()->level == 'staff') {
+            $data = CodeBook::where('book_id',$id)->get();
+        } else {
+            $data = CodeBook::where('book_id',$id)->where('status', '<>', 'lost')->get();
+        }
         return view('book.detail', compact('data', 'id'));
     }
 
@@ -50,7 +56,7 @@ class BookController extends Controller
             'code'          => 'required',
             'title'         => 'required',
             'description'   => 'required',
-            'stock'         => 'required',
+            'stock'         => 'required|min:1',
             'category'      => 'required',
             'image_cover'   => 'sometimes|max:8000',
         ]);
@@ -163,7 +169,7 @@ class BookController extends Controller
             $file->move($destinationPath,$file->getClientOriginalName());
         } else {
             Book::where('id',$id)->update([
-               'category_id'    => $request->category,
+                'category_id'   => $request->category,
                 'title'         => $request->title,
                 'description'   => $request->description,
                 'slug'          => \Str::slug($request->title), 
@@ -178,14 +184,22 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Book  $book
+     * @param  \App\Models\Book     $book
+     * @param  \App\Models\CodeBook $code_book
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Book::where('id',$id)->delete();
+        if(CodeBook::where('book_id',$id)->where('status', 'not available')->count() == 0) {
+            CodeBook::where('book_id',$id)->each(function($item, $key) {
+                $item->delete();
+            });
+            Book::where('id',$id)->delete();
 
-        \Session::flash('buku_delete','Data buku berhasil di hapus');
+            \Session::flash('buku_delete','Data buku berhasil di hapus');
+        } else {
+            \Session::flash('buku_delete_error','Setidaknya satu buku masih di pinjam');
+        }
 
         return redirect('/buku');
     }
@@ -213,12 +227,11 @@ class BookController extends Controller
     public function stockadd(Request $request, $id)
     {
         $this->validate($request, [
-            'stockadd'      => 'required|integer',
+            'stockadd'      => 'required|integer|min:1',
         ]);
 
         $book = Book::where('id',$id)->first();
         $code = CodeBook::where('book_id', $id)->first()->code;
-
 
         for ($i=$book->stock + 1; $i <= ($book->stock + $request->stockadd); $i++) { 
             CodeBook::create([
@@ -237,23 +250,44 @@ class BookController extends Controller
         return redirect('/buku/list/'.$id);
     }
 
-    public function stockremove($id)
+    public function stockremove(Request $request, $id)
     {
         $this->validate($request, [
             'stockremove'      => 'required',
         ]);
 
-        $book = Book::where('id',$id)->first();
-        $codebook = CodeBook::where('code', $request->stockremove)->first();
+        $codebook = CodeBook::where('book_id', $id)->where('code', $request->stockremove)->first();
 
         if($codebook->status == 'available') {
-            $codebook->delete();
-            $book->update([
-                'stock'    => $book->stock, // need to be repaired
+            $codebook->update([
+                'status'   => 'lost',
             ]);
+
+            \Session::flash('buku_update','Data buku berhasil di ubah');
+        } else {
+            \Session::flash('buku_update_error','Data buku tidak berhasil di ubah');
         }
 
-        \Session::flash('buku_delete','Data buku berhasil di hapus');
+        return redirect('/buku/list/'.$id);
+    }
+
+    public function stockrestore(Request $request, $id)
+    {
+        $this->validate($request, [
+            'stockrestore'      => 'required',
+        ]);
+
+        $codebook = CodeBook::where('book_id', $id)->where('code', $request->stockrestore)->first();
+
+        if($codebook->status == 'lost') {
+            $codebook->update([
+                'status'   => 'available',
+            ]);
+
+            \Session::flash('buku_update','Data buku berhasil di ubah');
+        } else {
+            \Session::flash('buku_update_error','Data buku tidak berhasil di ubah');
+        }
 
         return redirect('/buku/list/'.$id);
     }

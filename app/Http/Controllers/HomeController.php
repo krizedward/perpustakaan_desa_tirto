@@ -39,7 +39,8 @@ class HomeController extends Controller
         $member     = Member::orderBy('updated_at', 'desc')->paginate(4, ['*'], 'member');
         $members    = Member::all();
         $carbon     = new Carbon();
+        $code_book  = CodeBook::all();
         
-        return view('home', compact('book','borrow','member','members','done','carbon'));
+        return view('home', compact('book','borrow','member','members','done','carbon','code_book'));
     }
 }

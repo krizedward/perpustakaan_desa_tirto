@@ -68,11 +68,16 @@
                   <th>Nama Buku</th>
                   <th>Kategori</th>
                   <th>Status</th>
-                  <th colspan="2" style="text-align: center;">Aksi</th>
+                  @if(Auth::user()->level == "staff")
+                    <th colspan="2" style="text-align: center;">Aksi</th>
+                  @else
+                    <th colspan="1" style="text-align: center;">Aksi</th>
+                  @endif
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($data as $e=>$dt)
+                @if( Auth::check() && ( (Auth::user()->level == 'member' && $dt->status != "lost") || Auth::user()->level == 'staff' ) )
                 <tr>
                   <td>{{$e+1}}</td>
                     <td><img src="{{ asset('uploads/'.$dt->book->image_cover) }}" style="width: 50px;"></td>
@@ -82,26 +87,37 @@
                     <td>
                         @if($dt->status == "available")
                         <div class="label label-success">Tersedia</a>
+                        @elseif($dt->status == "not available")
+                        <div class="label label-warning">Tidak Tersedia</a>
                         @else
-                        <div class="label label-danger">Tidak Tersedia</a>
+                        <div class="label label-danger">Hilang</a>
                         @endif
                     </td>
 
                     <td style="text-align: center;">
                       <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/detail/'.$dt->book->slug)}}"><i class="fa fa-eye"></i></a>
                     </td>
-                    <td style="text-align: center;">
-                    <form role="form" method="POST" action="{{url('/buku/list/'.$id.'/kurang')}}" id="stockremoveform">
-                      @csrf
-                      @method('DELETE')
-                      <input type="text" style="display:none;" name="stockremove" id="stockremove">
-                      @if($errors->has('stockremove'))
-                        <span class="help-block" style="color:red;">{{ $errors->first('stockremove')}}</span>
+                    @if(Auth::user()->level == 'staff')
+                      <td style="text-align: center;">
+                      @if($dt->status != "lost")
+                        <form role="form" method="POST" action="{{url('/buku/list/'.$id.'/kurang')}}" id="stockremoveform{{ $dt->id }}">
+                          @csrf
+                          @method('PUT')
+                          <input type="text" style="display:none;" name="stockremove" id="stockremove{{ $dt->id }}">
+                          <button onclick="if(confirm('Apakah Anda yakin bahwa buku dengan kode ini, telah hilang: {{ $dt->code }} ?')) { $('#stockremove{{ $dt->id }}').val( '{{ $dt->code }}' ); $('#stockremoveform{{ $dt->id }}').submit(); } else return false;" class="btn btn-flat btn-xs btn-danger" type="submit"><i class="fa fa-minus"></i></button>
+                        </form>
+                      @else
+                        <form role="form" method="POST" action="{{url('/buku/list/'.$id.'/pulih')}}" id="stockrestoreform{{ $dt->id }}">
+                          @csrf
+                          @method('PUT')
+                          <input type="text" style="display:none;" name="stockrestore" id="stockrestore{{ $dt->id }}">
+                          <button onclick="if(confirm('Apakah Anda yakin bahwa buku dengan kode ini, telah ditemukan kembali: {{ $dt->code }} ?')) { $('#stockrestore{{ $dt->id }}').val( '{{ $dt->code }}' ); $('#stockrestoreform{{ $dt->id }}').submit(); } else return false;" class="btn btn-flat btn-xs btn-default" type="submit"><i class="fa fa-plus"></i></button>
+                        </form>
                       @endif
-                      <button onclick="if(confirm('Apakah Anda yakin ingin menghapus buku dengan kode ini: {{ $dt->code }} ?')) { $('#stockremove').val( {{ $dt->code }} ); $('#stockremoveform').submit(); } else return false;" class="btn btn-flat btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                    </form>
-                    </td>
+                      </td>
+                    @endif
                 </tr>
+                @endif
 	        	    @endforeach
                 </tbody>
               </table>
