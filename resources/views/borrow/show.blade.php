@@ -27,23 +27,20 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 @endpush
 
+@section('content-header')
+  <h1>
+    Buku
+    <small>Detail</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="{{ url('/kembali') }}">Kembali</a></li>
+    <li class="active">Detail</li>
+  </ol>
+@endsection
+
 @section('content')
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Buku
-        <small>Detail</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="{{ url('/kembali') }}">Kembali</a></li>
-        <li class="active">Detail</li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-
+  
       <div class="row">
         <div class="col-md-3">
 
@@ -104,8 +101,6 @@
       </div>
       <!-- /.row -->
 
-    </section>
-    <!-- /.content -->
 @endsection
 
 @push('script')

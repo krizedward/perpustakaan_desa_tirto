@@ -88,7 +88,8 @@
                     <th>#</th>
                     <th>Nama Koleksi</th>
                     <th>Link</th>
-                    <th colspan="2" style="text-align: center;">Aksi</th>
+                    <th>Edit</th>
+                    <th>Hapus</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -97,10 +98,10 @@
   	        		<td>{{$e+1}}</td>
   	            	<td>{{$dt->name}}</td>
   	            	<td><a target="_blank" rel="noopener noreferrer" href="{{$dt->link}}">klik link ini</a></td>
-  	            	<td style="text-align: center;">
+  	            	<td>
   	            		<a class="btn btn-flat btn-xs btn-warning" href="{{ route('collectionlink.edit',[$dt->id])}}"><i class="fa fa-pencil"></i></a>
   	            	</td>
-                  	<td style="text-align: center;">
+                  	<td>
                    		 <a class="btn btn-flat btn-xs btn-danger btn-hapus" href="{{ route('collectionlink.destroy',[$dt->id])}}"><i class="fa fa-trash"></i></a>
                   	</td>
   	        	</tr>

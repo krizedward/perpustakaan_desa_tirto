@@ -191,7 +191,9 @@
                     <th>Nama Buku</th>
                     <th>Kategori</th>
                     <th>Jumlah</th>
-                    <th colspan="3" style="text-align: center;">Aksi</th>
+                    <th>Detail</th>
+                    <th>Edit</th>
+                    <th>Hapus</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -206,14 +208,14 @@
                       @else
                         <td>{{$dt->stock - $code_book->where('book_id', $dt->id)->where('status', 'lost')->count()}}</td>
                       @endif
-                      <td style="text-align: center;">
+                      <td>
                         <a class="btn btn-flat btn-xs btn-info" href="{{url('/buku/list/'.$dt->id)}}"><i class="fa fa-list"></i></a>
-                      </td>  
+                      </td>
                         @if(Auth::user()->level == "staff")
-                        <td style="text-align: center;">
+                        <td>
                         <a class="btn btn-flat btn-xs btn-warning" href="{{url('/buku/form-edit/'.$dt->slug)}}"><i class="fa fa-pencil"></i></a>
                         </td>
-                        <td style="text-align: center;">
+                        <td>
                         <form role="form" method="POST" action="{{url('/buku/hapus/'.$dt->id)}}">
                           @csrf
                           @method('DELETE')

@@ -53,7 +53,8 @@
                 <tr>
                   <th>#</th>
                   <th>Nama Kategori</th>
-                  <th colspan="2" style="text-align: center;">Aksi</th>
+                  <th>Edit</th>
+                  <th>Hapus</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,12 +62,12 @@
                 <tr>
 	        		<td>{{$e+1}}</td>
 	            	<td>{{$dt->name}}</td>
-	            	<td style="text-align: center;">
-	            		<a class="btn btn-flat btn-xs btn-warning" href="{{url('/kategori/form-edit/'.$dt->slug)}}"><i class="fa fa-pencil"></i></a>
-	            	</td>
-                <td style="text-align: center;">
-                  <a class="btn btn-flat btn-xs btn-danger btn-hapus" href="{{url('/kategori/hapus/'.$dt->id)}}"><i class="fa fa-trash"></i></a>
-                </td>
+	            	<td>
+                      <a class="btn btn-flat btn-xs btn-warning" href="{{url('/kategori/form-edit/'.$dt->slug)}}"><i class="fa fa-pencil"></i></a>
+                    </td>
+                    <td>
+                      <a class="btn btn-flat btn-xs btn-danger btn-hapus" href="{{url('/kategori/hapus/'.$dt->id)}}"><i class="fa fa-trash"></i></a>
+                    </td>
 	        	</tr>
 	        	@endforeach
                 </tbody>

@@ -60,7 +60,8 @@
                   <th>Telepon</th>
                   <th>Berakhir</th>
                   <th>Aktivasi</th>
-                  <th colspan="2">Aksi</th>
+                  <th>Detail</th>
+                  <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,10 +80,10 @@
                         <a href="{{ route('member.active',[$dt->id]) }}" class="btn btn-sm btn-danger">Non-Aktifkan</a>
                       @endif
                     </td>
-                    <td align="center">
+                    <td>
                       <a class="btn btn-flat btn-xs btn-info" href="{{url('/anggota/detail/'.$dt->id)}}"><i class="fa fa-eye"></i></a>
                     </td>
-                    <td align="center">
+                    <td>
                       <a class="btn btn-flat btn-xs btn-warning" href="{{url('/anggota/form-edit/'.$dt->user_id)}}"><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
