@@ -6,6 +6,7 @@ use App\Models\Borrow;
 use App\Models\Book;
 use App\Models\CodeBook;
 use App\Models\Member;
+use App\User;
 use App\Models\Returns;
 use Illuminate\Http\Request;
 
@@ -57,8 +58,10 @@ class BorrowController extends Controller
     public function create()
     {
         $user = Member::join('users', 'users.id', 'user_id')->orderBy('name')->get();
+        //$user = User::all();
+        $member = Member::all();
         $codebook = CodeBook::all();
-        return view('borrow.create', compact('user','codebook'));
+        return view('borrow.create', compact('user','member','codebook'));
     }
 
     /**
@@ -70,20 +73,20 @@ class BorrowController extends Controller
     public function store(Request $request, $id)
     {
         $this->validate($request,[
-            'user'   => 'required',
-            'book'   => 'required',
+            'member_id'   => 'required',
+            'codebook_id' => 'required',
         ]);
 
-        //$cek = Book::where('id',$request->book)->where('stock','>',0)->where('status','active')->count();
+        //$cek = CodeBook::where('id',$request->codebook_id)->where('status','available')->first();
 
-        //if($cek > 0){
+        //if($cek != null){
             Borrow::create([
-                'member_id'     => $request->user,
-                'codebook_id'   => $request->book,
+                'codebook_id'   => $request->codebook_id,
+                'member_id'     => $request->member_id,
                 'action'        => "borrow",
             ]);
 
-            CodeBook::where('id',$request->book)->update([
+            CodeBook::where('id',$request->codebook_id)->update([
                 'status' => "not available",
             ]);
 
@@ -98,7 +101,7 @@ class BorrowController extends Controller
                 'stock'=>$stock_pengembalian
             ]);
             /*
-            $temp = CodeBook::where('id',$request->book);
+            $temp = CodeBook::where('id',$request->codebook_id);
             $cek = Book::where('id',$temp->id)->where('stock','>',0)->where('status','active')->count();
 
             if($cek > 0){
@@ -117,7 +120,7 @@ class BorrowController extends Controller
             return redirect('/pinjam');
 
         //}else{
-            //\Session::flash('gagal','buku sudah habis atau tidak aktif');
+            //\Session::flash('gagal','Kode buku ini tidak dapat di pinjam');
             
             //return redirect('/pinjam');
         //}

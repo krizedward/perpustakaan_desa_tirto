@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'terms_agreement' => ['required'],
         ]);
     }
 
@@ -74,6 +75,7 @@ class RegisterController extends Controller
 
         Member::create([
             'user_id' => $dt->id,
+            'image' => 'user.jpg',
         ]);
 
         return $user;

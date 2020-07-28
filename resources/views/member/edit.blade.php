@@ -112,13 +112,13 @@
 
                   @if($errors->has('expired'))
                   <div class="form-group has-error">
-                  <label>Tanggal Berkhir Anggota</label>
+                  <label>Tanggal Berakhir Anggota</label>
                       <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ $data->expire_at }}">
                       <span class="help-block">{{ $errors->first('expired')}}</span>
                   </div>
                   @else
                   <div class="form-group">
-                  <label>Tanggal Berkhir Anggota</label>
+                  <label>Tanggal Berakhir Anggota</label>
                       <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ $data->expire_at }}">
                   </div>
                   @endif
@@ -308,13 +308,13 @@
 
                         @if($errors->has('expired'))
                         <div class="form-group has-error">
-                        <label>Tanggal Berkhir Anggota</label>
+                        <label>Tanggal Berakhir Anggota</label>
                             <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ $data->expire_at }}">
                             <span class="help-block">{{ $errors->first('expired')}}</span>
                         </div>
                         @else
                         <div class="form-group">
-                        <label>Tanggal Berkhir Anggota</label>
+                        <label>Tanggal Berakhir Anggota</label>
                             <input type="date" class="form-control" placeholder="Berakhir.." name="expired" value="{{ $data->expire_at }}">
                         </div>
                         @endif
