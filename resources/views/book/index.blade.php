@@ -192,8 +192,10 @@
                     <th>Kategori</th>
                     <th>Jumlah</th>
                     <th>Detail</th>
-                    <th>Edit</th>
-                    <th>Hapus</th>
+                    @if(Auth::user()->level == 'staff')
+                      <th>Edit</th>
+                      <th>Hapus</th>
+                    @endif
                   </tr>
                   </thead>
                   <tbody>
