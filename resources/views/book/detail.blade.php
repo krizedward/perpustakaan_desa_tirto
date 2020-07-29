@@ -69,9 +69,10 @@
                   <th>Kategori</th>
                   <th>Status</th>
                   @if(Auth::user()->level == "staff")
-                    <th colspan="2" style="text-align: center;">Aksi</th>
+                    <th>Detail</th>
+                    <th>Tandai Hilang/Ditemukan</th>
                   @else
-                    <th colspan="1" style="text-align: center;">Aksi</th>
+                    <th>Detail</th>
                   @endif
                 </tr>
                 </thead>
