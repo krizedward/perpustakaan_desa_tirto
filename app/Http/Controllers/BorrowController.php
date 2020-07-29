@@ -73,7 +73,7 @@ class BorrowController extends Controller
     public function store(Request $request, $id)
     {
         $this->validate($request,[
-            'member_id'   => 'required',
+            'member_id'   => 'sometimes',
             'codebook_id' => 'required',
         ]);
 
@@ -129,8 +129,8 @@ class BorrowController extends Controller
     public function pending(Request $request, $id)
     {
         $this->validate($request,[
-            'user'   => 'required',
-            'book'   => 'required',
+            'member_id'   => 'sometimes',
+            'codebook_id' => 'required',
         ]);
         $dt     = Member::where('user_id',$id)->first();
         $count  = Borrow::where('member_id',$dt->id)->where('action','request')->count();
@@ -141,8 +141,8 @@ class BorrowController extends Controller
         } else {
             
         Borrow::create([
-            'member_id'     => $request->user,
-            'codebook_id'   => $request->book,
+            'member_id'     => $request->member_id,
+            'codebook_id'   => $request->codebook_id,
             'action'        => "request",
         ]);
         
