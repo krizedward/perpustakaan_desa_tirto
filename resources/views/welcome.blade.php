@@ -93,7 +93,7 @@
         <!-- /.box -->
         <form action="{{ url('/search') }}" method="get">
           <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <input type="text" name="q" class="form-control" placeholder="Cari Buku Disini...">
             <span class="input-group-btn">
                 <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>

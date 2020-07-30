@@ -11,6 +11,10 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
+              <div class="logo">
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><img src="{{ asset('adminlte/dist/img/logo.png') }}"></span>
+              </div>
               <a href="{{ url('/') }}" class="navbar-brand"><b>Rumah Cerdas </b>Tirta Cendikia</a>
             </div>
 
