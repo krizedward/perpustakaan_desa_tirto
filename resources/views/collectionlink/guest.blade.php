@@ -46,31 +46,20 @@
 @section('content')
     <section class="content">
         <div class="row">
+            @foreach($data as $dt)
             <div class="col-md-6 col-xs-6">
                 <!-- Box Comment -->
                 <div class="box box-widget">
                     <div class="box-body">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe class="embed-responsive-item" src="{{ $dt->link }}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
             </div>
-            <!-- /.col -->
-            <div class="col-md-6 col-xs-6">
-                <!-- Box Comment -->
-                <div class="box box-widget">
-                    <div class="box-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" frameborder="0" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
-            </div>
+            @endforeach
             <!-- /.col -->
         </div>
     </section>

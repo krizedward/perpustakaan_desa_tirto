@@ -11,7 +11,7 @@ class CollectionLinkController extends Controller
     public function guest()
     {
         $data = CollectionLink::all();
-        return view('welcome',compact('data'));
+        return view('collectionlink.guest',compact('data'));
     }
 
     /**
@@ -48,6 +48,8 @@ class CollectionLinkController extends Controller
             'name' => 'required',
             'link' => 'required',
         ]);
+
+        $request->link = implode( 'embed/', explode('watch?v=', $request->link) );
 
         CollectionLink::create([
             'name'  => $request->name,
@@ -86,6 +88,8 @@ class CollectionLinkController extends Controller
             'name' => 'required',
             'link' => 'required',
         ]);
+
+        $request->link = implode( 'embed/', explode('watch?v=', $request->link) );
 
         CollectionLink::where('id',$id)->update([
             'name'  =>  $request->name,

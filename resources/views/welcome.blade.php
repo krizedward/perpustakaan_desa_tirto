@@ -91,11 +91,11 @@
           <!-- /.box-body -->
         </div>
         <!-- /.box -->
-        <form action="#" method="get">
+        <form action="{{ url('/search') }}" method="get">
           <div class="input-group">
             <input type="text" name="q" class="form-control" placeholder="Search...">
             <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
           </div>
@@ -112,7 +112,8 @@
               <div class="box box-widget">
                 <div class="box-body">
                   <a href="#" data-toggle="modal" data-target="#{{$dt->id}}">
-                    <img class="img-responsive pad" src="{{ url('uploads/'.$dt->image_cover)}}" alt="Photo">
+                    <img class="img-responsive pad" src="{{ url('uploads/'.$dt->image_cover)}}" alt="Photo of {{ $dt->title }}">
+                    <p class="text-muted text-center">{{ $dt->title }}</p>
                   </a>
                 </div>
                 <!-- /.box-body -->

@@ -13,13 +13,16 @@
 
 //Halaman tampilan depan
 Route::get('/', 'MemberController@guest')->name('home.guest');
+Route::get('/search', 'MemberController@search')->name('home.search');
 //Halaman tampilan list buku untuk guest 
-Route::get('/list/koleksi-video',function (){
-    return view('collectionlink.guest');
-})->name('video.guest');
+Route::get('/list/koleksi-video','CollectionLinkController@guest')->name('video.guest');
 
 //middleware grup
 Route::group(['middleware'=>'auth'],function() {
+        //daftar redirection
+        /*Route::redirect('/', '/dashboard');
+        Route::redirect('/search', '/dashboard');
+        Route::redirect('/list/koleksi-video', '/koleksi-link');*/
 	//tampilan home setelah login
 	Route::get('/home', function() {
 		return redirect('/dashboard');

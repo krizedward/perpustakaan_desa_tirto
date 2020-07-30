@@ -16,6 +16,12 @@ class MemberController extends Controller
         return view('welcome',compact('data'));
     }
 
+    public function search(Request $request)
+    {
+        $data = Book::where('title', 'LIKE', '%'.$request->q.'%')->get();
+        return view('welcome',compact('data'));
+    }
+
     /**
      * Display a listing of the resource.
      *

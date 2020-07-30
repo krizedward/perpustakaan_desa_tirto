@@ -3,7 +3,7 @@
 @section('content')
   <div class="login-box">
     <div class="login-logo">
-      <a href="{{url('/')}}"><b>Rumah</b> Cerdas</a>
+      <a href="{{url('/')}}"><b>Rumah Cerdas</b><br>Tirta Cendikia</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

@@ -80,7 +80,7 @@
 
 <div class="register-box">
   <div class="register-logo">
-    <a href="{{url('/')}}"><b>Rumah</b> Cerdas</a>
+    <a href="{{url('/')}}"><b>Rumah Cerdas</b><br>Tirta Cendikia</a>
   </div>
 
   <div class="register-box-body">
