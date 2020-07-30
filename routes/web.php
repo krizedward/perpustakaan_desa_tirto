@@ -12,11 +12,11 @@
 */
 
 //Halaman tampilan depan
-Route::get('/', function() {
-	return view('welcome');
-})->name('home.guest');
+Route::get('/', 'MemberController@guest')->name('home.guest');
 //Halaman tampilan list buku untuk guest 
-Route::get('/list/buku', 'MemberController@list')->name('book.guest');
+Route::get('/list/koleksi-video',function (){
+    return view('collectionlink.guest');
+})->name('video.guest');
 
 //middleware grup
 Route::group(['middleware'=>'auth'],function() {

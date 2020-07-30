@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class CollectionLinkController extends Controller
 {
+
+    public function guest()
+    {
+        $data = CollectionLink::all();
+        return view('welcome',compact('data'));
+    }
+
     /**
      * Display a listing of the resource.
      *

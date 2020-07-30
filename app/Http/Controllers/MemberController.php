@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CollectionLink;
 use App\Models\Member;
 use App\Models\Book;
 use App\User;
@@ -9,6 +10,12 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    public function guest()
+    {
+        $data = Book::all();
+        return view('welcome',compact('data'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -194,12 +201,6 @@ class MemberController extends Controller
         \Session::flash('anggota_delete','Berhasil menghapus data anggota');
 
         return redirect('/anggota');
-    }
-
-    public function list()
-    {
-        $data = Book::all();
-        return view('book.index',compact('data'));
     }
 
     public function active($id)

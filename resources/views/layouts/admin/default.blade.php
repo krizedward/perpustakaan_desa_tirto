@@ -11,7 +11,7 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="{{ url('/') }}" class="navbar-brand"><b>Rumah </b>Cerdas</a>
+              <a href="{{ url('/') }}" class="navbar-brand"><b>Rumah Cerdas </b>Tirta Cendikia</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,7 +24,8 @@
             <div class="navbar-custom-menu">
               <ul class="nav navbar-nav">
                 <li class="{{ set_active('home.guest') }}"><a href="{{ route('home.guest') }}">Halaman Utama</a></li>
-                <li class="{{ set_active('book.guest') }}"><a href="{{ route('book.guest') }}">Buku</a></li>
+                <li class="{{ set_active('video.guest') }}"><a href="{{ route('video.guest') }}">Video</a></li>
+                <li><a href="https://www.tirtomoyo.desa.id/">Desa TirtoMoyo</a></li>
                 <li><a href="{{ route('login') }}">Login</a></li>
               </ul>
             </div>
