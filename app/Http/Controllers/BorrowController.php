@@ -72,7 +72,7 @@ class BorrowController extends Controller
      */
     public function store(Request $request, $id)
     {
-        if(Auth::check) {
+        if(Auth::check()) {
             if(Auth::user()->level == 'staff') {
                 $this->validate($request,[
                     'member'   => 'required',
