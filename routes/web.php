@@ -30,12 +30,12 @@ Route::group(['middleware'=>'auth'],function() {
 	//tampilan dashboard
 	Route::get('/dashboard','HomeController@admin')->name('home.admin');
 	//koleksi
-	Route::get('/koleksi-link','CollectionLinkCOntroller@index')->name('collectionlink.index');
-	Route::get('/koleksi-link/form-tambah','CollectionLinkCOntroller@create')->name('collectionlink.create');
-	Route::post('/koleksi-link/tambah','CollectionLinkCOntroller@store')->name('collectionlink.store');
-	Route::get('/koleksi-link/form-edit/{slug}','CollectionLinkCOntroller@edit')->name('collectionlink.edit');
-	Route::put('/koleksi-link/update/{id}','CollectionLinkCOntroller@update')->name('collectionlink.update');
-	Route::get('/koleksi-link/hapus/{id}','CollectionLinkCOntroller@destroy')->name('collectionlink.destroy');
+	Route::get('/koleksi-link','CollectionLinkController@index')->name('collectionlink.index');
+	Route::get('/koleksi-link/form-tambah','CollectionLinkController@create')->name('collectionlink.create');
+	Route::post('/koleksi-link/tambah','CollectionLinkController@store')->name('collectionlink.store');
+	Route::get('/koleksi-link/form-edit/{slug}','CollectionLinkController@edit')->name('collectionlink.edit');
+	Route::put('/koleksi-link/update/{id}','CollectionLinkController@update')->name('collectionlink.update');
+	Route::get('/koleksi-link/hapus/{id}','CollectionLinkController@destroy')->name('collectionlink.destroy');
 
 	//halaman anggota
 	Route::get('/anggota','MemberController@index')->name('member.index');
@@ -88,6 +88,13 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::get('/pinjam/setuju/{id}','BorrowController@agree')->name('borrow.agree');
 	Route::get('/pinjam/tolak/{id}','BorrowController@reject')->name('borrow.reject');
 
+        //halaman edit banner
+	Route::get('/banner','BannerController@index')->name('banner.index');
+	Route::get('/banner/create','BannerController@create')->name('banner.create');
+	Route::post('/banner/create','BannerController@store')->name('banner.store');
+	Route::get('/banner/{id}/edit','BannerController@edit')->name('banner.edit');
+	Route::put('/banner/{id}/edit','BannerController@update')->name('banner.update');
+	Route::delete('/banner','BannerController@destroy')->name('banner.destroy');
 });
 
 Auth::routes();

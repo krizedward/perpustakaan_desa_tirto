@@ -153,7 +153,7 @@ class BookController extends Controller
             'image_cover'   => 'sometimes|max:8000',
         ]);
 
-        $file = $request->file('image');
+        $file = $request->file('image_cover');
 
         if ($file) {
             Book::where('id',$id)->update([

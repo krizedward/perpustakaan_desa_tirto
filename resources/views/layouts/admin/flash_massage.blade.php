@@ -174,6 +174,30 @@
         @endif
         <!-- Pinjam Alert End -->
 
+        <!-- Banner Alert -->
+        @if(Session::has('banner_add'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('banner_add')}}
+          </div>
+        @endif
+        @if(Session::has('banner_update'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('banner_update')}}
+          </div>
+        @endif
+        @if(Session::has('banner_delete'))
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> {{ __('Berhasil!')}}</h4>
+              {{ Session::get('banner_delete')}}
+          </div>
+        @endif
+        <!-- Banner Alert End -->
+
         </div>
         <!-- /.col -->
       </div>

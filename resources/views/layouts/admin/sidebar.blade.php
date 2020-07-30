@@ -68,6 +68,12 @@
             </a>
           </li>
 
+          <li class="{{ set_active(['banner.index','banner.create','banner.edit']) }}">
+            <a href="{{ route('banner.index')}}">
+              <i class="fa fa-book"></i> <span>Banner</span>
+            </a>
+          </li>
+
         @elseif(Auth::user()->level == 'member' && Auth::user()->status == 'active' )
         <li class="header">DATA MEMBER</li>
          
