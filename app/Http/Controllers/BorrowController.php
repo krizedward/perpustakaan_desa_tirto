@@ -60,7 +60,7 @@ class BorrowController extends Controller
         $user = Member::join('users', 'users.id', 'user_id')->orderBy('name')->get();
         //$user = User::all();
         $member = Member::all();
-        $codebook = CodeBook::all();
+        $codebook = CodeBook::orderBy('code')->get();
         return view('borrow.create', compact('user','member','codebook'));
     }
 
@@ -72,21 +72,29 @@ class BorrowController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $this->validate($request,[
-            'member_id'   => 'sometimes',
-            'codebook_id' => 'required',
-        ]);
+        if(Auth::check) {
+            if(Auth::user()->level == 'staff') {
+                $this->validate($request,[
+                    'member'   => 'required',
+                    'codebook' => 'required',
+                ]);
+            } else {
+                $this->validate($request,[
+                    'codebook' => 'required',
+                ]);
+            }
+        }
 
-        //$cek = CodeBook::where('id',$request->codebook_id)->where('status','available')->first();
+        //$cek = CodeBook::where('id',$request->codebook)->where('status','available')->first();
 
         //if($cek != null){
             Borrow::create([
-                'codebook_id'   => $request->codebook_id,
-                'member_id'     => $request->member_id,
+                'codebook_id'   => $request->codebook,
+                'member_id'     => $request->member,
                 'action'        => "borrow",
             ]);
 
-            CodeBook::where('id',$request->codebook_id)->update([
+            CodeBook::where('id',$request->codebook)->update([
                 'status' => "not available",
             ]);
 
@@ -101,7 +109,7 @@ class BorrowController extends Controller
                 'stock'=>$stock_pengembalian
             ]);
             /*
-            $temp = CodeBook::where('id',$request->codebook_id);
+            $temp = CodeBook::where('id',$request->codebook);
             $cek = Book::where('id',$temp->id)->where('stock','>',0)->where('status','active')->count();
 
             if($cek > 0){
@@ -109,7 +117,7 @@ class BorrowController extends Controller
                 $qty_now    = $buku->stock;
                 $qty_new    = $qty_now - 1;
      
-                Book::where('id',$request->book)->update([
+                CodeBook::where('id',$request->codebook)->book->update([
                     'stock'=>$qty_new,
                 ]);
             }
@@ -129,8 +137,8 @@ class BorrowController extends Controller
     public function pending(Request $request, $id)
     {
         $this->validate($request,[
-            'member_id'   => 'sometimes',
-            'codebook_id' => 'required',
+            'member'   => 'sometimes',
+            'codebook' => 'required',
         ]);
         $dt     = Member::where('user_id',$id)->first();
         $count  = Borrow::where('member_id',$dt->id)->where('action','request')->count();
@@ -141,8 +149,8 @@ class BorrowController extends Controller
         } else {
             
         Borrow::create([
-            'member_id'     => $request->member_id,
-            'codebook_id'   => $request->codebook_id,
+            'member_id'     => $request->member,
+            'codebook_id'   => $request->codebook,
             'action'        => "request",
         ]);
         

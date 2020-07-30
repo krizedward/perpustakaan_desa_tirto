@@ -1,6 +1,6 @@
 @extends('layouts.admin.default')
 
-@section('title','Tambah Buku')
+@section('title','Form Tambah Data Peminjaman Buku')
 
 @push('style')
 
@@ -61,18 +61,27 @@
             <form role="form" method="post" action="{{url(Auth::user()->id.'/pinjam/tambah')}}" enctype="multipart/form-data">
               @csrf
               <div class="box-body">
+                @if($errors->has('member'))
+                <div class="form-group has-error">
+                @else
                 <div class="form-group">
+                @endif
                   <label>Pilih Anggota</label>
-                  <select class="form-control select2" name="member_id">
+                  <select class="form-control select2" name="member">
                     <option selected="" disabled="">Pilih Anggota</option>
                     @foreach($user as $dt)
                       <option value="{{$member->where('user_id', $dt->id)->first()->id}}">{{$dt->name}}</option>
                     @endforeach
                   </select>
+                  <span class="help-block">{{ $errors->first('member')}}</span>
                 </div>
+                @if($errors->has('codebook'))
+                <div class="form-group has-error">
+                @else
                 <div class="form-group">
+                @endif
                   <label>Pilih Buku</label>
-                  <select class="form-control select2" name="codebook_id">
+                  <select class="form-control select2" name="codebook">
                     <option selected="" disabled="">Pilih Buku</option>
                     @foreach($codebook as $dt)
                       @if($dt->status == 'available')
@@ -80,6 +89,7 @@
                       @endif
                     @endforeach
                   </select>
+                  <span class="help-block">{{ $errors->first('codebook')}}</span>
                 </div>
               </div>
               <!-- /.box-body -->
@@ -97,10 +107,14 @@
                 <form role="form" method="post" action="{{url(Auth::user()->id.'/pinjam/pending')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="box-body">
-                      <input type="hidden" name="member_id" value="{{ Auth::user()->member->id }}">
+                      <input type="hidden" name="member" value="{{ Auth::user()->member->id }}">
+                        @if($errors->has('codebook'))
+                        <div class="form-group has-error">
+                        @else
                         <div class="form-group">
+                        @endif
                           <label>Pilih Buku</label>
-                            <select class="form-control select2" name="codebook_id">
+                            <select class="form-control select2" name="codebook">
                                 <option selected="" disabled="">Pilih Buku</option>
                                   @foreach($codebook as $dt)
                                     @if($dt->status == 'available')
@@ -108,6 +122,7 @@
                                     @endif
                                   @endforeach
                             </select>
+                           <span class="help-block">{{ $errors->first('codebook')}}</span>
                         </div>
        
                     </div>

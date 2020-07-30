@@ -1,6 +1,6 @@
 @extends('layouts.admin.default')
 
-@section('title','Tambah Buku')
+@section('title','Form Tambah Buku')
 
 @push('style')
 

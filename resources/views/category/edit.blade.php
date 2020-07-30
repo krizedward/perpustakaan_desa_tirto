@@ -1,6 +1,6 @@
 @extends('layouts.admin.default')
 
-@section('title','Edit Kategori')
+@section('title','Form Edit Kategori')
 
 @push('style')
 

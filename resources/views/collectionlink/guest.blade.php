@@ -52,6 +52,12 @@
                 <div class="box box-widget">
                     <div class="box-body">
                         <div class="embed-responsive embed-responsive-16by9">
+                            <?php
+                              $dt->link = implode( 'embed/', explode('watch?v=', $dt->link) );
+                              if(strrpos($dt->link, '&', -1)) {
+                                $dt->link = substr($dt->link, 0, strrpos($dt->link, '&', -1));
+                              }
+                            ?>
                             <iframe class="embed-responsive-item" src="{{ $dt->link }}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>

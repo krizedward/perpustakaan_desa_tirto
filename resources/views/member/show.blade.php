@@ -1,6 +1,6 @@
 @extends('layouts.admin.default')
 
-@section('title', 'Buku Detail')
+@section('title', 'Detail Anggota')
 
 @push('style')
 <!-- Bootstrap 3.3.7 -->

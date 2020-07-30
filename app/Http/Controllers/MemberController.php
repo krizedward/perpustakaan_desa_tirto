@@ -12,13 +12,13 @@ class MemberController extends Controller
 {
     public function guest()
     {
-        $data = Book::all();
+        $data = Book::paginate(12);
         return view('welcome',compact('data'));
     }
 
     public function search(Request $request)
     {
-        $data = Book::where('title', 'LIKE', '%'.$request->q.'%')->get();
+        $data = Book::where('title', 'LIKE', '%'.$request->q.'%')->paginate(12);
         return view('welcome',compact('data'));
     }
 

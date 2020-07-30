@@ -1,6 +1,6 @@
 @extends('layouts.admin.default')
 
-@section('title', 'Pinjam')
+@section('title', 'Peminjaman Buku')
 
 @push('style')
   <!-- Bootstrap 3.3.7 -->

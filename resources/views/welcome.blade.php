@@ -112,8 +112,7 @@
               <div class="box box-widget">
                 <div class="box-body">
                   <a href="#" data-toggle="modal" data-target="#{{$dt->id}}">
-                    <img class="img-responsive pad" src="{{ url('uploads/'.$dt->image_cover)}}" alt="Photo of {{ $dt->title }}">
-                    <p class="text-muted text-center">{{ $dt->title }}</p>
+                    <img class="img-responsive pad" style="height:350px;" src="{{ url('uploads/'.$dt->image_cover)}}" alt="Ini adalah buku {{ $dt->title }}">
                   </a>
                 </div>
                 <!-- /.box-body -->
@@ -164,9 +163,51 @@
                     <p class="text-muted text-center">{{ $dt->category->name}}</p>
                   </div>
                   <div class="modal-footer">
-                    <p class="pull-left">
-                      <b>Deskripsi : </b>{{ $dt->description}}
-                    </p>
+                    <div class="pull-left text-left">
+                      <?php
+                        $temp = explode(' ', $dt->description);
+                        $penulis = '';
+                        $penerbit = '';
+                        $tahun_terbit = '';
+                        for($i = 0; $i < count($temp); $i++) {
+                          $temp[$i] = trim($temp[$i]);
+                          if($temp[$i] == 'Penulis') {
+                            $i+=2;
+                            while($temp[$i] != 'Penerbit' && $temp[$i] != 'Tahun') {
+                              $penulis = $penulis . $temp[$i] . ' ';
+                              $i++;
+                              if($i == count($temp)) break;
+                            }
+                          }
+                          if($temp[$i] == 'Penerbit') {
+                            $i+=2;
+                            while($temp[$i] != 'Penulis' && $temp[$i] != 'Tahun') {
+                              $penerbit = $penerbit . $temp[$i] . ' ';
+                              $i++;
+                              if($i == count($temp)) break;
+                            }
+                            $penerbit = substr($penerbit, 0, strrpos($penerbit, '.', -1));
+                          }
+                          if($temp[$i] == 'Terbit') {
+                            $i+=2;
+                            while($temp[$i] != 'Penulis' && $temp[$i] != 'Penerbit') {
+                              $tahun_terbit = $tahun_terbit . $temp[$i] . ' ';
+                              $i++;
+                              if($i == count($temp)) break;
+                            }
+                          }
+                        }
+                      ?>
+                      @if($penulis)
+                        <p><b>Penulis : </b>{{ $penulis }}</p>
+                      @endif
+                      @if($penerbit)
+                        <p><b>Penerbit : </b>{{ $penerbit }}</p>
+                      @endif
+                      @if($tahun_terbit)
+                        <p><b>Tahun Terbit : </b>{{ $tahun_terbit }}</p>
+                      @endif
+                    </div>
                   </div>
                 </div>
                 <!-- /.modal-content -->
@@ -175,6 +216,9 @@
             </div>
             <!-- /.modal -->
           @endforeach
+        </div>
+        <div class="col-md-12 text-center">
+          {{ $data->links() }}
         </div>
       </section>
     </div>

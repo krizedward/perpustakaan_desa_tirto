@@ -50,6 +50,9 @@ class CollectionLinkController extends Controller
         ]);
 
         $request->link = implode( 'embed/', explode('watch?v=', $request->link) );
+        if(substr($request->link, 0, strrpos($request->link, '&', -1))) {
+            $request->link = substr($request->link, 0, strrpos($request->link, '&', -1));
+        }
 
         CollectionLink::create([
             'name'  => $request->name,
@@ -90,6 +93,9 @@ class CollectionLinkController extends Controller
         ]);
 
         $request->link = implode( 'embed/', explode('watch?v=', $request->link) );
+        if(substr($request->link, 0, strrpos($request->link, '&', -1))) {
+            $request->link = substr($request->link, 0, strrpos($request->link, '&', -1));
+        }
 
         CollectionLink::where('id',$id)->update([
             'name'  =>  $request->name,
