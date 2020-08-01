@@ -53,33 +53,27 @@
           <div class="box-body">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                @foreach($banners as $e=>$banner)
+                  @if($e == 0)
+                    <li data-target="#carousel-example-generic" data-slide-to="{{$e}}" class="active"></li>
+                  @else
+                    <li data-target="#carousel-example-generic" data-slide-to="{{$e}}" class=""></li>
+                  @endif
+                @endforeach
               </ol>
               <div class="carousel-inner">
-                <div class="item active">
-                  <img src="{{ asset('uploads/info/banner1.jpg')}}" alt="First slide">
-
-                  <div class="carousel-caption">
-                    First Slide
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="{{ asset('uploads/info/banner2.jpg')}}" alt="Second slide">
-
-                  <div class="carousel-caption">
-                    Second Slide
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="{{ asset('uploads/info/banner3.jpg')}}" alt="Third slide">
-
-                    <div class="carousel-caption">
-                      Third Slide
+                @foreach($banners as $e=>$banner)
+                  @if($e == 0)
+                    <div class="item active">
+                  @else
+                    <div class="item">
+                  @endif
+                      <img src="{{ asset('uploads/info/'.$banner->image) }}" alt="{{ $banner->caption }}" style="height:350px; margin: 0 auto;">
+                      <div class="carousel-caption">
+                        {{ $banner->caption }}
+                      </div>
                     </div>
-                  </div>
-                </div>
+                @endforeach
                 <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                   <span class="fa fa-angle-left"></span>
                 </a>
@@ -91,6 +85,8 @@
           <!-- /.box-body -->
         </div>
         <!-- /.box -->
+        </div>
+        <div class="box box-default">
         <form action="{{ url('/search') }}" method="get">
           <div class="input-group">
             <input type="text" name="q" class="form-control" placeholder="Cari Buku Disini...">
@@ -106,13 +102,13 @@
       <!-- /.content -->
       <section>
         <div class="row">
-          @foreach($data as $dt)
+          @foreach($books as $book)
             <div class="col-md-3 col-xs-6">
               <!-- Box Comment -->
               <div class="box box-widget">
                 <div class="box-body">
-                  <a href="#" data-toggle="modal" data-target="#{{$dt->id}}">
-                    <img class="img-responsive pad" style="height:350px;" src="{{ url('uploads/'.$dt->image_cover)}}" alt="Ini adalah buku {{ $dt->title }}">
+                  <a href="#" data-toggle="modal" data-target="#{{$book->id}}">
+                    <img class="img-responsive pad" style="height:350px;" src="{{ url('uploads/'.$book->image_cover)}}" alt="Ini adalah buku {{ $book->title }}">
                   </a>
                 </div>
                 <!-- /.box-body -->
@@ -127,11 +123,11 @@
                   <!-- Profile Image -->
                   <div class="box box-danger">
                     <div class="box-body box-profile">
-                      <img class="profile-user-img img-responsive" src="{{ url('uploads/'.$dt->image_cover)}}" alt="User profile picture">
+                      <img class="profile-user-img img-responsive" src="{{ url('uploads/'.$book->image_cover)}}" alt="User profile picture">
 
-                      <h3 class="profile-username text-center">{{$dt->title}}</h3>
+                      <h3 class="profile-username text-center">{{$book->title}}</h3>
 
-                      <p class="text-muted text-center">{{ $dt->category->name}}</p>
+                      <p class="text-muted text-center">{{ $book->category->name}}</p>
                     </div>
                     <!-- /.box-body -->
                   </div>
@@ -147,7 +143,7 @@
             </div>
             <!-- /.modal -->
 
-            <div class="modal fade" id="{{$dt->id}}">
+            <div class="modal fade" id="{{$book->id}}">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -156,16 +152,16 @@
                     <h4 class="modal-title">Detail Buku</h4>
                   </div>
                   <div class="modal-body">
-                    <img class="profile-user-img img-responsive" src="{{ url('uploads/'.$dt->image_cover)}}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive" src="{{ url('uploads/'.$book->image_cover)}}" alt="User profile picture">
 
-                    <h3 class="profile-username text-center">{{$dt->title}}</h3>
+                    <h3 class="profile-username text-center">{{$book->title}}</h3>
 
-                    <p class="text-muted text-center">{{ $dt->category->name}}</p>
+                    <p class="text-muted text-center">{{ $book->category->name}}</p>
                   </div>
                   <div class="modal-footer">
                     <div class="pull-left text-left">
                       <?php
-                        $temp = explode(' ', $dt->description);
+                        $temp = explode(' ', $book->description);
                         $penulis = '';
                         $penerbit = '';
                         $tahun_terbit = '';
@@ -218,7 +214,7 @@
           @endforeach
         </div>
         <div class="col-md-12 text-center">
-          {{ $data->links() }}
+          {{ $books->links() }}
         </div>
       </section>
     </div>

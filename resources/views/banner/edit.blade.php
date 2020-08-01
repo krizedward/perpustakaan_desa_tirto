@@ -31,12 +31,12 @@
 
 @section('content-header')
       <h1>
-        Buku
+        Banner
         <small>Form</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Buku</a></li>
+        <li><a href="{{ url('/dashboard') }}">Home</a></li>
+        <li><a href="{{ url('/banner') }}">Banner</a></li>
         <li class="active">Edit</li>
       </ol>
 @endsection
@@ -47,90 +47,35 @@
         <div class="col-md-12">
         <div class="box box-warning">
             <div class="box-body">
-                <form role="form" method="post" action="{{url('/buku/update/'.$book->id)}}" enctype="multipart/form-data">
+                <form role="form" method="post" action="{{url('/banner/edit/'.$data->id)}}" enctype="multipart/form-data">
                     @csrf
-                    @method('put')
+                    @method('PUT')
                     <div class="box-body">
-                        
-                        @if($errors->has('title'))
+                        @if($errors->has('caption'))
                         <div class="form-group has-error">
-                        <label>Judul Buku</label>
-                            <input type="text" name="title" class="form-control" placeholder="Nama Buku.." value="{{$book->title}}">
-                            <span class="help-block">{{ $errors->first('title')}}</span>
+                        <label>Deskripsi Banner</label>
+                            <input type="text" name="caption" class="form-control" placeholder="Deskripsi Banner.." value="{{ old('caption') }}">
+                            <span class="help-block">{{ $errors->first('caption')}}</span>
                         </div>
                         @else
                         <div class="form-group">
-                        <label>Judul Buku</label>
-                            <input type="text" name="title" class="form-control" placeholder="Nama Buku.." value="{{$book->title}}">
+                        <label>Deskripsi Banner</label>
+                            <input type="text" name="caption" class="form-control" placeholder="Deskripsi Banner.." value="{{ $data->caption }}">
                         </div>
                         @endif
 
-                        @if($errors->has('description'))
+                        @if($errors->has('image')) 
                         <div class="form-group has-error">
-                        <label>Keterangan Buku</label>
-                            <input type="text" name="description" class="form-control" placeholder="Keterangan Buku.." value="{{$book->description}}">
-                            <span class="help-block">{{ $errors->first('description')}}</span>
+                            <label for="exampleInputFile">Upload Banner</label>
+                            <input type="file" name="image" id="exampleInputFile">
+                            <span class="help-block">{{ $errors->first('image')}}</span>
                         </div>
                         @else
                         <div class="form-group">
-                        <label>Keterangan Buku</label>
-                            <input type="text" name="description" class="form-control" placeholder="Keterangan Buku.." value="{{$book->description}}">
+                            <label for="exampleInputFile">Upload Banner</label>
+                            <input type="file" name="image" id="exampleInputFile">
                         </div>
                         @endif
-                        
-                        <!-- 
-                        @if($errors->has('stock'))
-                        <div class="form-group has-error">
-                        <label>Stok Buku</label>
-                            <input type="number" min="0" max="999" name="stock" class="form-control" placeholder="Stok Buku.." value="{{$book->stock}}">
-                            <span class="help-block">{{ $errors->first('stock')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        <label>Stok Buku</label>
-                            <input type="number" min="0" max="999" name="stock" class="form-control" placeholder="Stok Buku.." value="{{$book->stock}}">
-                        </div>
-                        @endif
-                        -->
-                        
-                        @if($errors->has('category'))
-                        <div class="form-group has-error">
-                        	<label>Kategori</label>
-                            <select class="form-control select2" name="category">
-                                <option selected="" disabled="">Pilih Kategori</option>
-                                @foreach($category as $dt)
-                                <option value="{{$dt->id}}" {{ ($book->category_id == $dt->id) ? 'selected' : '' }}>{{$dt->name}}</option>
-                                @endforeach
-                            </select>
-                            <span class="help-block">{{ $errors->first('category')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                        	<label>Kategori</label>
-                            <select class="form-control select2" name="category">
-                                <option selected="" disabled="">Pilih Kategori</option>
-                                @foreach($category as $dt)
-                                <option value="{{$dt->id}}" {{ ($book->category_id == $dt->id) ? 'selected' : '' }}>{{$dt->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        @endif
- 
-                        @if($errors->has('image_cover')) 
-                        <div class="form-group has-error">
-                            <label for="exampleInputFile">Cover Sampul</label>
-                            <input type="file" name="image_cover" id="exampleInputFile">
-                            <span class="help-block">{{ $errors->first('image_cover')}}</span>
-                        </div>
-                        @else
-                        <div class="form-group">
-                            <label for="exampleInputFile">Cover Sampul</label>
-                            <input type="file" name="image_cover" id="exampleInputFile">
-                        </div>
-                        @endif
-
-
-       
                     </div>
                     <!-- /.box-body -->
  
@@ -198,27 +143,3 @@
   })
 </script>
 @endpush
-
-@section('asd')
-<h1>Edit</h1>
-<form action="{{url('/buku/update/'.$book->id)}}" method="post" enctype="multipart/form-data">
-	@csrf
-	@method('put')
-	<label>Judul Buku</label>
-	<input type="text" name="title" value="{{$book->title}}"><br>
-	<label>Keterangan Buku</label>
-	<textarea name="description">{{$book->description}}</textarea><br>
-	<label>Stok Buku</label>
-	<input type="number" min="0" max="999" name="stock" value="{{$book->stock}}"><br>
-	<label>Pilih Kategori</label>
-	<select name="category">
-		<option selected="" disabled="">Pilih Kategori</option>
-		@foreach($category as $dt)
-		<option value="{{$dt->id}}" {{ ($book->category_id == $dt->id) ? 'selected' : '' }}>{{$dt->name}}</option>
-		@endforeach
-	</select><br>
-	<label>Cover Sampul</label>
-	<input type="file" name="image"><br>
-	<button type="submit">Submit</button>
-</form>
-@endsection

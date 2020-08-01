@@ -92,9 +92,9 @@ Route::group(['middleware'=>'auth'],function() {
 	Route::get('/banner','BannerController@index')->name('banner.index');
 	Route::get('/banner/create','BannerController@create')->name('banner.create');
 	Route::post('/banner/create','BannerController@store')->name('banner.store');
-	Route::get('/banner/{id}/edit','BannerController@edit')->name('banner.edit');
-	Route::put('/banner/{id}/edit','BannerController@update')->name('banner.update');
-	Route::delete('/banner','BannerController@destroy')->name('banner.destroy');
+	Route::get('/banner/edit/{id}','BannerController@edit')->name('banner.edit');
+	Route::put('/banner/edit/{id}','BannerController@update')->name('banner.update');
+	Route::delete('/banner/destroy/{id}','BannerController@destroy')->name('banner.destroy');
 });
 
 Auth::routes();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class BannerController extends Controller
 {
@@ -114,7 +115,6 @@ class BannerController extends Controller
             } else {
                 Banner::where('id',$id)->update([
                     'caption' => $request->caption,
-                    'image'   => "banner1.jpg",
                 ]);
             }
 
@@ -133,7 +133,9 @@ class BannerController extends Controller
     public function destroy($id)
     {
         if(Auth::check() && Auth::user()->level == 'staff') {
-            Banner::where('id',$id)->delete();
+            $banner = Banner::where('id',$id)->first();
+            //File::delete('uploads/info/'.$banner->image); // menghapus gambar dari public_path().
+            $banner->delete();
 
             \Session::flash('banner_delete','Data banner berhasil di hapus');
 

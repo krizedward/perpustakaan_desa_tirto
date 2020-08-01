@@ -5,21 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\CollectionLink;
 use App\Models\Member;
 use App\Models\Book;
+use App\Models\Banner;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class MemberController extends Controller
 {
     public function guest()
     {
-        $data = Book::paginate(12);
-        return view('welcome',compact('data'));
+        $books = Book::paginate(12);
+        $banners = Banner::all();
+        return view('welcome',compact('books','banners'));
     }
 
     public function search(Request $request)
     {
-        $data = Book::where('title', 'LIKE', '%'.$request->q.'%')->paginate(12);
-        return view('welcome',compact('data'));
+        $books = Book::where('title', 'LIKE', '%'.$request->q.'%')->paginate(12);
+        $banners = Banner::all();
+        return view('welcome',compact('books','banners'));
     }
 
     /**
@@ -202,7 +206,9 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        User::where('id',$id)->delete();
+        $user = User::where('id',$id)->first();
+        //File::delete('uploads/anggota/'.$user->member->image); // menghapus gambar dari public_path().
+        $user->delete();
         
         \Session::flash('anggota_delete','Berhasil menghapus data anggota');
 

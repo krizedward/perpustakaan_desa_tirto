@@ -7,6 +7,7 @@ use App\Models\CodeBook;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -194,7 +195,10 @@ class BookController extends Controller
             CodeBook::where('book_id',$id)->each(function($item, $key) {
                 $item->delete();
             });
-            Book::where('id',$id)->delete();
+
+            $book = Book::where('id',$id)->first();
+            //File::delete('uploads/'.$book->image_cover); // menghapus gambar dari public_path().
+            $book->delete();
 
             \Session::flash('buku_delete','Data buku berhasil di hapus');
         } else {
