@@ -28,7 +28,7 @@
               <ul class="nav navbar-nav">
                 <li class="{{ set_active('home.guest') }}"><a href="{{ route('home.guest') }}">Halaman Utama</a></li>
                 <li class="{{ set_active('video.guest') }}"><a href="{{ route('video.guest') }}">Video</a></li>
-                <li><a href="https://www.tirtomoyo.desa.id/">Desa TirtoMoyo</a></li>
+                <li><a href="https://www.tirtomoyo.desa.id/" target="_blank">Desa TirtoMoyo</a></li>
                 <li><a href="{{ route('login') }}">Login</a></li>
               </ul>
             </div>
