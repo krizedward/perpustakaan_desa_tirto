@@ -11,7 +11,10 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="{{ url('/') }}" class="navbar-brand"><b>Rumah Cerdas </b>Tirta Cendikia</a>
+              <div class="logo">
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><img src="{{ asset('adminlte/dist/img/logo.png') }}"></span>
+              </div>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -44,7 +47,33 @@
       <!-- /.content-wrapper -->
       <footer class="main-footer">
         <div class="container">
-          <strong>Copyright &copy; 2020 <a href="https://hehe.co.id">Community Service Binus@Malang</a>.</strong> All rights
+          <div class="row">
+            <div class="col-md-3">
+              <p>Mari bersama mewujudkan Desa Tirtomoyo yang maju dan sejahtera didukung dengan pengelolaan pemerintahan desa yang good governance.
+
+                #TirtomoyoPunya #TirtomoyoBisa</p>
+            </div>
+            <div class="col-md-3">
+              <p>Berita Terbaru
+                DIRGAHAYU BHAYANGKARA KE-74 01/07/2020
+                JELANG NEW NORMAL, CAMAT PAKIS PANTAU KESIAPAN KAMPUNG TANGGUH DESA TIRTOMOYO!? 23/06/2020
+                APA YANG BOLEH DAN TIDAK BOLEH DILAKUKAN SAAT PANDEMI COVID-19?! – Oleh KKN UM 2020 13/06/2020</p>
+            </div>
+            <div class="col-md-3">
+              <p>Telepon Penting
+                Puskesmas Kec. Pakis
+                Jl. Raya Pakis No. 69
+                Telp.(0341) 791549
+
+                POLSEK Pakis
+                Jl. Raya Pakis No.3
+                Telp.(0341) 791550.</p>
+            </div>
+            <div class="col-md-3">
+              <p>Subscribe</p>
+            </div>
+          </div>
+          <strong>Copyright © 2020 Pemerintah Desa Tirtomoyo | Supported by <a href="#">@Community Service Binus@Malang</a>.</strong> All rights
       reserved.
         </div>
         <!-- /.container -->
