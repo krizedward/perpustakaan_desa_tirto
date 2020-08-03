@@ -9,6 +9,13 @@ use App\Models\Member;
 use App\User;
 use App\Models\Returns;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BorrowStore;
+use App\Mail\BorrowPending;
+use App\Mail\BorrowPendingAgreed;
+use App\Mail\BorrowPendingDenied;
+use App\Mail\BorrowReturn;
 
 class BorrowController extends Controller
 {
@@ -123,6 +130,19 @@ class BorrowController extends Controller
             }
             */
 
+            // Sample mail.
+            /*Mail::send('borrow.mailborrow',
+                array(
+                    'isi_pesan' => 'Hai.'
+                ), function($pesan) {
+                    $pesan->from(env('MAIL_USERNAME', '<username>@gmail.com'), 'Ini adalah isi pesan.');
+                    $pesan->to(Auth::user()->email)->subject('Subjek Pesan Email');
+                }
+            );*/
+
+            Mail::to(Auth::user()->email)->send(new BorrowStore($dt));
+            Mail::to(User::where('level', 'staff')->first()->email)->send(new BorrowStore($dt));
+
             //\Session::flash('sukses','buku berhasil di pinjam');
  
             return redirect('/pinjam');
@@ -153,7 +173,10 @@ class BorrowController extends Controller
             'codebook_id'   => $request->codebook,
             'action'        => "request",
         ]);
-        
+
+        Mail::to(Auth::user()->email)->send(new BorrowPending(Borrow::all()->last()));
+        Mail::to(User::where('level', 'staff')->first()->email)->send(new BorrowPending(Borrow::all()->last()));
+
         \Session::flash('pesan_buku','buku dipesan, menunggu konfirmasi petugas perpus');
            
         return redirect('/pesan/buku');
@@ -197,14 +220,17 @@ class BorrowController extends Controller
             'member_id'     => $dt->member_id,
             'codebook_id'   => $dt->codebook_id,
         ]);
-        
-        Borrow::where('id',$id)->update([
+
+        $dt->update([
             'action' => 'done'
         ]);
 
         CodeBook::where('id',$dt->codebook_id)->update([
             'status' => "available",
         ]);
+
+        Mail::to(Auth::user()->email)->send(new BorrowReturn($dt, Returns::all()->last()));
+        Mail::to(User::where('level', 'staff')->first()->email)->send(new BorrowReturn($dt, Returns::all()->last()));
 
         //return dd($id_buku);
 
@@ -213,7 +239,6 @@ class BorrowController extends Controller
 
     public function agree($id)
     {
-
         $buku_pinjam = Borrow::where('id',$id)->first();
         $kode_buku   = $buku_pinjam->codebook_id;
         $buku        = Borrow::all();
@@ -227,7 +252,7 @@ class BorrowController extends Controller
             }
 
             if ($dt->id == $id) {
-                Borrow::where('id',$id)->update(['action'=>'borrow']);
+                $buku_pinjam->update(['action'=>'borrow']);
             }
 
         }
@@ -235,7 +260,6 @@ class BorrowController extends Controller
         $dt       = Borrow::all()->last();
         $id_buku  = $dt->codebook->book->id;
         $buku     = Book::find($id_buku);
-
 
         CodeBook::where('id',$dt->codebook_id)->update([
             'status' => "not available",
@@ -248,13 +272,22 @@ class BorrowController extends Controller
             'stock'=>$stock_pengembalian
         ]);
 
+        Mail::to(Auth::user()->email)->send(new BorrowPendingAgreed($buku_pinjam));
+        Mail::to(User::where('level', 'staff')->first()->email)->send(new BorrowPendingAgreed($buku_pinjam));
+
         return redirect('/pinjam');
     }
 
     public function reject($id)
     {
         //Borrow::where('id',$id)->delete();
-        Borrow::where('id',$id)->update(['action'=>'denied']);
+
+        $dt = Borrow::where('id',$id)->first();
+
+        $dt->update(['action'=>'denied']);
+
+        Mail::to(Auth::user()->email)->send(new BorrowPendingDenied($dt));
+        Mail::to(User::where('level', 'staff')->first()->email)->send(new BorrowPendingDenied($dt));
 
         return redirect('/pinjam');
     }
