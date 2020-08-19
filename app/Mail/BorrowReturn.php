@@ -42,10 +42,10 @@ class BorrowReturn extends Mailable
                 $message
                     ->getHeaders()
                     ->addTextHeader('Rumah Cerdas Tirta Cendikia', 'Rumah Cerdas Tirta Cendikia');
-            })
-            ->attach('/uploads/'.$this->borrow->codebook->book->image_cover, [
+            });
+            /*->attach('/uploads/'.$this->borrow->codebook->book->image_cover, [
                 'as' => 'book_image.jpg',
                 'mime' => 'image/jpeg',
-            ]);
+            ]);*/
     }
 }
