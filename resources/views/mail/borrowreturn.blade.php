@@ -8,6 +8,7 @@
 </head>
 <body>
   <h3>Buku Berhasil Dikembalikan</h3>
+  <p><img src="book_image.jpg" style="height:350px"></img></p>
   <p>Nama peminjam: {{ $borrow->member->user->name }}</p>
   <p>Buku dikembalikan: [{{ $borrow->codebook->code }}] {{ $borrow->codebook->book->title }}</p>
   <p>Tanggal peminjaman buku: {{ $borrow->updated_at }}</p>

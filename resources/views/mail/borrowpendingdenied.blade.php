@@ -8,6 +8,7 @@
 </head>
 <body>
   <h3>Peminjaman Buku Ditolak</h3>
+  <p><img src="book_image.jpg" style="height:350px"></img></p>
   <p>Nama peminjam: {{ $data->member->user->name }}</p>
   <p>Buku dipinjam (ditolak): [{{ $data->codebook->code }}] {{ $data->codebook->book->title }}</p>
 </body>
