@@ -34,7 +34,7 @@ class BorrowPending extends Mailable
     public function build()
     {
         return $this
-            ->from(env('MAIL_USERNAME', '<username>@gmail.com')) // ganti <username> dengan username akun Gmail Anda.
+            ->from(env('MAIL_USERNAME', 'edwardthemangare@gmail.com')) // ganti <username> dengan username akun Gmail Anda.
             ->view('mail.borrowpending')
             ->withSwiftMessage(function($message) {
                 $message
