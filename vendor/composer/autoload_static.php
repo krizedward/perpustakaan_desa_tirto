@@ -429,6 +429,7 @@ class ComposerStaticInitf07f2364cae6271d925e9850cdb99ca8
         'App\\Mail\\BorrowPendingDenied' => __DIR__ . '/../..' . '/app/Mail/BorrowPendingDenied.php',
         'App\\Mail\\BorrowReturn' => __DIR__ . '/../..' . '/app/Mail/BorrowReturn.php',
         'App\\Mail\\BorrowStore' => __DIR__ . '/../..' . '/app/Mail/BorrowStore.php',
+        'App\\Mail\\NewMember' => __DIR__ . '/../..' . '/app/Mail/NewMember.php',
         'App\\Models\\Banner' => __DIR__ . '/../..' . '/app/Models/Banner.php',
         'App\\Models\\Book' => __DIR__ . '/../..' . '/app/Models/Book.php',
         'App\\Models\\Borrow' => __DIR__ . '/../..' . '/app/Models/Borrow.php',

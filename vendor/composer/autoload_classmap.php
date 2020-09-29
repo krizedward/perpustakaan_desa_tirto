@@ -36,6 +36,7 @@ return array(
     'App\\Mail\\BorrowPendingDenied' => $baseDir . '/app/Mail/BorrowPendingDenied.php',
     'App\\Mail\\BorrowReturn' => $baseDir . '/app/Mail/BorrowReturn.php',
     'App\\Mail\\BorrowStore' => $baseDir . '/app/Mail/BorrowStore.php',
+    'App\\Mail\\NewMember' => $baseDir . '/app/Mail/NewMember.php',
     'App\\Models\\Banner' => $baseDir . '/app/Models/Banner.php',
     'App\\Models\\Book' => $baseDir . '/app/Models/Book.php',
     'App\\Models\\Borrow' => $baseDir . '/app/Models/Borrow.php',
