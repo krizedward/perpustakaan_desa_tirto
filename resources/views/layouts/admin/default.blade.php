@@ -11,20 +11,16 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <div class="logo">
-                <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><img src="{{ asset('adminlte/dist/img/logo.png') }}"></span>
-              </div>
+              <a href="./.../index2.html" class="logo-lg">
+                <img src="{{ asset('adminlte/dist/img/logo.png') }}">
+              </a>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                <i class="fa fa-bars"></i>
+              </button>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-              <ul class="nav navbar-nav">
-              </ul>
-            </div>
-            <!-- /.navbar-collapse -->
             <!-- Navbar Right Menu -->
-            <div class="navbar-custom-menu">
+            <div class="collapse navbar-collapse" id="navbar-collapse">
               <ul class="nav navbar-nav">
                 <li class="{{ set_active('home.guest') }}"><a href="{{ route('home.guest') }}">Halaman Utama</a></li>
                 <li class="{{ set_active('video.guest') }}"><a href="{{ route('video.guest') }}">Video</a></li>
