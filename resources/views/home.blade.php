@@ -317,7 +317,7 @@
                           'toStringFormat' => 'd-M-Y']) 
                         }}
                     </td>
-                    <td>{{ ($dt->action == 'borrow') ? 'Dipinjam' : 'Error' }}</td>
+                    <td>{{ ($dt->action == 'done') ? 'Selesai' : 'Pinjam' }}</td>
                   </tr>
                   @endforeach
                 </table>
@@ -330,9 +330,7 @@
         </div>
 
         <div class="row">
-
           <div class="col-md-12">
-            
             <div class="box">
               <div class="box-header with-border">
                 <h3 class="box-title">Riwayat Pengembalian Buku</h3>
@@ -347,26 +345,23 @@
                     <th>Nama Member</th>
                     <th>Tanggal Kembali</th>
                     <th>Waktu Kembali</th>
-                    <th>Status</th>
                   </tr>
-                  @foreach($done as $e=>$dt)
+                  @foreach($return as $e=>$dt)
                   <tr>
-                    <td>{{$done->perPage() * ($done->currentPage() - 1) + $e + 1}}</td>
+                    <td>{{$return->perPage() * ($return->currentPage() - 1) + $e + 1}}</td>
                     <td>{{$dt->codebook->code}}</td>
                     <td>{{$dt->codebook->book->title}}</td>
                     <td>{{$dt->member->user->name}}</td>
                     <td>{{ date('d-M-Y', strtotime($dt->updated_at))}}</td>
                     <td>{{ date('H: i s', strtotime($dt->updated_at))}}</td>
-                    <td>{{ ($dt->action == 'done') ? 'Dikembalikan' : 'Error' }}</td>
                   </tr>
                   @endforeach
                 </table>
-                {{ $done->appends(array_except(Request::query(), 'done'))->onEachSide(2)->links() }}
+                {{ $borrow->appends(array_except(Request::query(), 'return'))->onEachSide(2)->links() }}
               </div>
             </div>
             <!-- /.box -->
           </div>
-          <!-- /.col -->
         </div>
     @endsection
   @endif
