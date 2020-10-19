@@ -9,6 +9,7 @@ use App\Models\Banner;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MemberController extends Controller
 {
@@ -110,8 +111,8 @@ class MemberController extends Controller
 
         }
 
-        \Session::flash('anggota_add','Berhasil menambahkan data anggota baru');
-
+        //\Session::flash('anggota_add','Berhasil menambahkan data anggota baru');
+        Alert::success('Success Title', 'Success Message');
         return redirect('/anggota');
     }
 
