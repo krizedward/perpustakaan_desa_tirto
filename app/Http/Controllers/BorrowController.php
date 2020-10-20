@@ -16,6 +16,7 @@ use App\Mail\BorrowPending;
 use App\Mail\BorrowPendingAgreed;
 use App\Mail\BorrowPendingDenied;
 use App\Mail\BorrowReturn;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BorrowController extends Controller
 {
@@ -144,7 +145,7 @@ class BorrowController extends Controller
             Mail::to(User::where('level', 'staff')->first()->email)->send(new BorrowStore($dt));
 
             //\Session::flash('sukses','buku berhasil di pinjam');
- 
+            Alert::success('Success', 'Tambah Data Berhasil');
             return redirect('/pinjam');
 
         //}else{
@@ -233,7 +234,7 @@ class BorrowController extends Controller
         Mail::to(User::where('level', 'staff')->first()->email)->send(new BorrowReturn($dt, Returns::all()->last()));
 
         //return dd($id_buku);
-
+        Alert::success('Success', 'Berhasil Buku Dikembalikan');
         return redirect('/pinjam');
     }
 

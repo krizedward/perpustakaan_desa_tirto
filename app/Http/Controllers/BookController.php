@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BookController extends Controller
 {
@@ -108,8 +109,8 @@ class BookController extends Controller
             }
         }
         
-        \Session::flash('buku_add','Data buku berhasil di tambah');
-
+        //\Session::flash('buku_add','Data buku berhasil di tambah');
+        Alert::success('Success', 'Tambah Buku Berhasil');
         return redirect('/buku');
     }
 
@@ -177,8 +178,8 @@ class BookController extends Controller
             ]);
         }
         
-        \Session::flash('buku_update','Data buku berhasil di ubah');
-
+        //\Session::flash('buku_update','Data buku berhasil di ubah');
+        Alert::success('Success', 'Edit Buku Berhasil');
         return redirect('/buku');
     }
 
@@ -200,11 +201,12 @@ class BookController extends Controller
             //File::delete('uploads/'.$book->image_cover); // menghapus gambar dari public_path().
             $book->delete();
 
-            \Session::flash('buku_delete','Data buku berhasil di hapus');
+            //\Session::flash('buku_delete','Data buku berhasil di hapus');
+            Alert::success('Success', 'Hapus Buku Berhasil');
         } else {
             \Session::flash('buku_delete_error','Setidaknya satu buku masih di pinjam');
         }
-
+        
         return redirect('/buku');
     }
 

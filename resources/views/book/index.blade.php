@@ -221,7 +221,9 @@
                         <form role="form" method="POST" action="{{url('/buku/hapus/'.$dt->id)}}">
                           @csrf
                           @method('DELETE')
-                          <button class="btn btn-flat btn-xs btn-danger" type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini: {{ $dt->title }} ?')"><i class="fa fa-trash"></i></button>
+                          <button class="btn btn-flat btn-xs btn-danger" type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini: {{ $dt->title }} ?')">
+                            <i class="fa fa-trash"></i>
+                          </button>
                         </form>
                         </td>
                         @endif
