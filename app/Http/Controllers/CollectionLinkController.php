@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\CollectionLink;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class CollectionLinkController extends Controller
 {
@@ -60,8 +59,8 @@ class CollectionLinkController extends Controller
             'link'  => $request->link,
         ]);
 
-        //\Session::flash('koleksi_add','Data Koleksi Link Berhasil Disimpan');
-        Alert::success('Success', 'Tambah Link Berhasil');
+        \Session::flash('koleksi_add','Data Koleksi Link Berhasil Disimpan');
+
         return redirect('/koleksi-link');
     }
 
@@ -103,8 +102,8 @@ class CollectionLinkController extends Controller
             'link'  => $request->link,
         ]);
 
-        //\Session::flash('koleksi_update','Data Koleksi Berhasil Diubah');
-        Alert::success('Success', 'Edit Link Berhasil');
+        \Session::flash('koleksi_update','Data Koleksi Berhasil Diubah');
+
         return redirect('/koleksi-link');
     }
 
@@ -118,8 +117,8 @@ class CollectionLinkController extends Controller
     {
         CollectionLink::where('id',$id)->delete();
         
-        //\Session::flash('koleksi_delete','Data Koleksi Berhasil Dihapus');
-        Alert::success('Success', 'Hapus Link Berhasil');
+        \Session::flash('koleksi_delete','Data Koleksi Berhasil Dihapus');
+        
         return redirect('/koleksi-link');
     }
 }

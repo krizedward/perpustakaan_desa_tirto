@@ -7,7 +7,6 @@ use App\Models\Book;
 use App\Models\CodeBook;
 use App\Models\Borrow;
 use App\Models\Member;
-use App\Models\Returns;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -35,15 +34,13 @@ class HomeController extends Controller
     public function admin()
     {
         $book       = Book::orderBy('updated_at', 'desc')->paginate(4, ['*'], 'book');
-        //$borrow     = Borrow::where('action','borrow')->paginate(10, ['*'], 'borrow');
-        $borrow     = Borrow::where('action','done')->orWhere('action','borrow')->orderBy('updated_at', 'desc')->paginate(10, ['*']);
+        $borrow     = Borrow::where('action','borrow')->paginate(10, ['*'], 'borrow');
         $done       = Borrow::where('action','done')->orderBy('updated_at', 'desc')->paginate(10, ['*'], 'done');
-        $return     = Returns::paginate(10);
         $member     = Member::orderBy('updated_at', 'desc')->paginate(4, ['*'], 'member');
         $members    = Member::all();
         $carbon     = new Carbon();
         $code_book  = CodeBook::all();
         
-        return view('home', compact('book','borrow','member','members','done','carbon','code_book','return'));
+        return view('home', compact('book','borrow','member','members','done','carbon','code_book'));
     }
 }

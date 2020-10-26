@@ -118,7 +118,6 @@
     <div class="control-sidebar-bg"></div>
   </div>
   <!-- ./wrapper -->
-  @include('sweetalert::alert')
 
   @stack('script')
   </body>

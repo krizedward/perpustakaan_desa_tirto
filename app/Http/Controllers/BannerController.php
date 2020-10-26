@@ -6,7 +6,6 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class BannerController extends Controller
 {
@@ -67,8 +66,8 @@ class BannerController extends Controller
                 ]);
             }
 
-            //\Session::flash('banner_add','Data banner berhasil di tambah');
-            Alert::success('Success', 'Tambah Banner Berhasil');
+            \Session::flash('banner_add','Data banner berhasil di tambah');
+
             return redirect('/banner');
         } else return redirect('/');
     }
@@ -119,8 +118,8 @@ class BannerController extends Controller
                 ]);
             }
 
-            //\Session::flash('banner_update','Data banner berhasil di ubah');
-            Alert::success('Success', 'Edit Banner Berhasil');
+            \Session::flash('banner_update','Data banner berhasil di ubah');
+
             return redirect('/banner');
         } else return redirect('/');
     }
@@ -138,8 +137,8 @@ class BannerController extends Controller
             //File::delete('uploads/info/'.$banner->image); // menghapus gambar dari public_path().
             $banner->delete();
 
-            //\Session::flash('banner_delete','Data banner berhasil di hapus');
-            Alert::success('Success', 'Hapus Anggota Berhasil');
+            \Session::flash('banner_delete','Data banner berhasil di hapus');
+
             return redirect('/banner');
         } else return redirect('/');
     }

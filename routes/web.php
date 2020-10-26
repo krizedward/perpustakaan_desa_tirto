@@ -12,10 +12,7 @@
 */
 
 //Halaman tampilan depan
-Route::get('/', function(){
-	return "Hello World";
-});
-Route::get('/homes', 'MemberController@guest')->name('home.guest');
+Route::get('/', 'MemberController@guest')->name('home.guest');
 Route::get('/search', 'MemberController@search')->name('home.search');
 //Halaman tampilan list buku untuk guest 
 Route::get('/list/koleksi-video','CollectionLinkController@guest')->name('video.guest');

@@ -9,7 +9,6 @@ use App\Models\Banner;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class MemberController extends Controller
 {
@@ -111,8 +110,8 @@ class MemberController extends Controller
 
         }
 
-        //\Session::flash('anggota_add','Berhasil menambahkan data anggota baru');
-        Alert::success('Success', 'Tambah Anggota Berhasil');
+        \Session::flash('anggota_add','Berhasil menambahkan data anggota baru');
+
         return redirect('/anggota');
     }
 
@@ -192,11 +191,10 @@ class MemberController extends Controller
             'email'     =>  $request->email,
         ]);
 
-        //\Session::flash('anggota_update','Berhasil mengubah data anggota');
+        \Session::flash('anggota_update','Berhasil mengubah data anggota');
 
         $member = Member::where('id',$id)->first();
 
-        Alert::success('Success', 'Edit Anggota Berhasil');
         return redirect('/anggota/form-edit/'.$member->user_id);
     }
 
@@ -212,8 +210,8 @@ class MemberController extends Controller
         //File::delete('uploads/anggota/'.$user->member->image); // menghapus gambar dari public_path().
         $user->delete();
         
-        //\Session::flash('anggota_delete','Berhasil menghapus data anggota');
-        Alert::success('Success', 'Menghapus Anggota Berhasil');
+        \Session::flash('anggota_delete','Berhasil menghapus data anggota');
+
         return redirect('/anggota');
     }
 
