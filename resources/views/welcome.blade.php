@@ -103,7 +103,7 @@
       <section>
         <div class="row">
           @foreach($books as $book)
-            <div class="col-md-3 col-xs-6">
+            <div class="col-md-3 col-xs-12">
               <!-- Box Comment -->
               <div class="box box-widget">
                 <div class="box-body">
