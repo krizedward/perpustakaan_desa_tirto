@@ -1,222 +1,170 @@
-@extends('layouts.admin.default')
+<!doctype html>
+<html lang="en">
 
-<!-- Seleksi Guest -->
-  @push('style')
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="halaman-utama">
+    <meta name="author" content="rumah_cerdas">
+    <title>Rumah Cerdas | Halaman Utama</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700|Playfair+Display:400,700,900" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+    <link rel="stylesheet" href="{{ asset('rumah_cerdas/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('rumah_cerdas/css/main.css') }}">
 
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{ asset('adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('adminlte/bower_components/font-awesome/css/font-awesome.min.css')}}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/AdminLTE.min.css')}}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/skins/_all-skins.min.css')}}">
+</head>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  @endpush
-
-  @push('script')
-    <!-- jQuery 3 -->
-    <script src="{{ asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="{{ asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- SlimScroll -->
-    <script src="{{ asset('adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('adminlte/bower_components/fastclick/lib/fastclick.js')}}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js')}}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('adminlte/dist/js/demo.js')}}"></script>
-  @endpush
-
-  @section('title','Halaman utama')
-
-  @section('content')
-    <div class="container">
-
-      <!-- Main content -->
-      <section class="content">
-        <div class="row">
-        <div class="box box-default">
-          <div class="box-body">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                @foreach($banners as $e=>$banner)
-                  @if($e == 0)
-                    <li data-target="#carousel-example-generic" data-slide-to="{{$e}}" class="active"></li>
-                  @else
-                    <li data-target="#carousel-example-generic" data-slide-to="{{$e}}" class=""></li>
-                  @endif
-                @endforeach
-              </ol>
-              <div class="carousel-inner">
-                @foreach($banners as $e=>$banner)
-                  @if($e == 0)
-                    <div class="item active">
-                  @else
-                    <div class="item">
-                  @endif
-                      <img src="{{ asset('uploads/info/'.$banner->image) }}" alt="{{ $banner->caption }}" style="height:350px; margin: 0 auto;">
-                      <div class="carousel-caption">
-                        {{ $banner->caption }}
-                      </div>
-                    </div>
-                @endforeach
-                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                  <span class="fa fa-angle-left"></span>
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                  <span class="fa fa-angle-right"></span>
-                </a>
-              </div>
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-        </div>
-        <div class="box box-default">
-        <form action="{{ url('/search') }}" method="get">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Cari Buku Disini...">
-            <span class="input-group-btn">
-                <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-          </div>
-        </form>
-        <!-- /.search form -->
-        </div>
-      </section>
-      <!-- /.content -->
-      <section>
-        <div class="row">
-          @foreach($books as $book)
-            <div class="col-md-3 col-xs-12">
-              <!-- Box Comment -->
-              <div class="box box-widget">
-                <div class="box-body">
-                  <a href="#" data-toggle="modal" data-target="#{{$book->id}}">
-                    <img class="img-responsive pad" style="height:350px;" src="{{ url('uploads/'.$book->image_cover)}}" alt="Ini adalah buku {{ $book->title }}">
-                  </a>
-                </div>
-                <!-- /.box-body -->
-              </div>
-              <!-- /.box -->
+<body>
+    <!--Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark cyan fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{url('/')}}">
+            <img src="{{ asset('rumah_cerdas/images/logo.png') }}" alt="nav-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('video.guest') }}">Video</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="https://www.tirtomoyo.desa.id/" target="_blank">
+                        Desa Tirtomuyo
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login </a>
+                    </li>
+                </ul>
             </div>
-            <!-- /.col -->
-
-            <div class="modal modal-primary fade" id="">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <!-- Profile Image -->
-                  <div class="box box-danger">
-                    <div class="box-body box-profile">
-                      <img class="profile-user-img img-responsive" src="{{ url('uploads/'.$book->image_cover)}}" alt="User profile picture">
-
-                      <h3 class="profile-username text-center">{{$book->title}}</h3>
-
-                      <p class="text-muted text-center">{{ $book->category->name}}</p>
-                    </div>
-                    <!-- /.box-body -->
-                  </div>
-                  <!-- /.box -->
-                </div>
-                <!-- /.modal-content -->
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-outline">Save changes</button>
-                </div>
-              </div>
-              <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal -->
-
-            <div class="modal fade" id="{{$book->id}}">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Detail Buku</h4>
-                  </div>
-                  <div class="modal-body">
-                    <img class="profile-user-img img-responsive" src="{{ url('uploads/'.$book->image_cover)}}" alt="User profile picture">
-
-                    <h3 class="profile-username text-center">{{$book->title}}</h3>
-
-                    <p class="text-muted text-center">{{ $book->category->name}}</p>
-                  </div>
-                  <div class="modal-footer">
-                    <div class="pull-left text-left">
-                      <?php
-                        $temp = explode(' ', $book->description);
-                        $penulis = '';
-                        $penerbit = '';
-                        $tahun_terbit = '';
-                        for($i = 0; $i < count($temp); $i++) {
-                          $temp[$i] = trim($temp[$i]);
-                          if($temp[$i] == 'Penulis') {
-                            $i+=2;
-                            while($temp[$i] != 'Penerbit' && $temp[$i] != 'Tahun') {
-                              $penulis = $penulis . $temp[$i] . ' ';
-                              $i++;
-                              if($i == count($temp)) break;
-                            }
-                          }
-                          if($temp[$i] == 'Penerbit') {
-                            $i+=2;
-                            while($temp[$i] != 'Penulis' && $temp[$i] != 'Tahun') {
-                              $penerbit = $penerbit . $temp[$i] . ' ';
-                              $i++;
-                              if($i == count($temp)) break;
-                            }
-                            $penerbit = substr($penerbit, 0, strrpos($penerbit, '.', -1));
-                          }
-                          if($temp[$i] == 'Terbit') {
-                            $i+=2;
-                            while($temp[$i] != 'Penulis' && $temp[$i] != 'Penerbit') {
-                              $tahun_terbit = $tahun_terbit . $temp[$i] . ' ';
-                              $i++;
-                              if($i == count($temp)) break;
-                            }
-                          }
-                        }
-                      ?>
-                      @if($penulis)
-                        <p><b>Penulis : </b>{{ $penulis }}</p>
-                      @endif
-                      @if($penerbit)
-                        <p><b>Penerbit : </b>{{ $penerbit }}</p>
-                      @endif
-                      @if($tahun_terbit)
-                        <p><b>Tahun Terbit : </b>{{ $tahun_terbit }}</p>
-                      @endif
-                    </div>
-                  </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal -->
-          @endforeach
         </div>
-        <div class="col-md-12 text-center">
-          {{ $books->links() }}
+    </nav>
+
+    <!--/.Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <!-- banner -->
+            @foreach($banners as $e=>$banner)
+              @if($e == 0)
+                <div class="carousel-item active">
+              @else
+                <div class="carousel-item">
+              @endif
+              <img class="d-block w-100" src="{{ asset('uploads/info/'.$banner->image) }}" alt="{{ $banner->caption }}">
+              <div class="gradient"></div>
+              <!-- 
+              <div class="carousel-caption">
+                <h1>Woman walking in the green fields.</h1>
+                <p class="lead">Woman walking in the green fields...</p>
+                <a class="btn btn-primary" href="about.html"><span>Learn more</span></a>
+              </div> -->  
+            </div>
+            @endforeach
+            <!-- end-banner -->
         </div>
-      </section>
+        <!--/.Slides-->
+        <!--/.Controls-->
+        <!-- <ol class="carousel-indicators">
+            <li data-target="#carousel-thumb" data-slide-to="0" class="active"> <img class="d-block w-100" src="images/banner-image-4.jpg" class="img-fluid">
+                <span>Woman walking in the green fields</span>
+            </li>
+            <li data-target="#carousel-thumb" data-slide-to="1"><img class="d-block w-100" src="images/banner-image-3.jpg" class="img-fluid">
+                <span>Remainings of old boat in the beach of bali.</span>
+            </li>
+            <li data-target="#carousel-thumb" data-slide-to="2"><img class="d-block w-100" src="images/banner-image-2.jpg" class="img-fluid">
+                <span>Beautiful sunsetting in the mountains.</span>
+            </li>
+            <li data-target="#carousel-thumb" data-slide-to="3"><img class="d-block w-100" src="images/banner-image-1.jpg" class="img-fluid">
+                <span>Snow white mountain of east china.</span>
+            </li>
+        </ol> -->
     </div>
-    <!-- /.container -->
-  @endsection
+    <!--/.Carousel Wrapper-->
+
+    <!-- Page Content -->
+
+    <section id="portfolio">
+        <div class="container">
+            <h2>Koleksi Buku Rumah Cerdas</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-12">
+                    <div class="row">
+                      @foreach($books as $book)
+                        <!-- box -->
+                        <a href="{{ url('uploads/'.$book->image_cover)}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-3 col-md-4 box-2">
+                         <img src="{{ url('uploads/'.$book->image_cover)}}" class="img-fluid">
+                           <div class="overlay">
+                             <div class="text">{{ $book->title }}</span></div>
+                           </div>
+                        </a>
+                        <!-- end-box -->
+                        @endforeach
+                    </div>  
+                </div>
+                <!-- Link Untuk Paginate -->
+                <!-- <div class="col-md-12 text-center">
+                  {{ $books->links() }}
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <section class="footer-top">
+            <!--Container-->
+            <div class="container">
+                <h2>Footer</h2>
+                <div class="row text-center">
+                    <div class="col-lg-12 col-md-4 col-xs-6">
+                        <a href="#" class="d-block h-100"><img class="img-fluid img-thumbnail" src="images/banner-image-1.jpg" alt=""></a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container -->
+        </section>
+        <section class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Copyright © 2020 Pemerintah Desa Tirtomoyo | Supported by @Community Service Binus@Malang. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </section>
+    </footer>
+
+    <!-- Return to Top -->
+    <a href="javascript:" id="return-to-top"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/animate.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    </script>
+</body>
+
+</html>
